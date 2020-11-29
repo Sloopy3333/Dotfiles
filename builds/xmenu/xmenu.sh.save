@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cat <<EOF | xmenu | sh &
+Applications
+	IMG:./icons/web.png	Web brave	brave-browser
+	IMG:./icons/web.pnpcmanfm
+	IMG:./icons/gimp.png	scanwifi	nmtui
+	IMG:./icons/gimp.png	Steam	__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam
+Terminal (st)		st
+
+Shutdown		poweroff
+Reboot			reboot
+Suspend			systemctl suspend
+EOF
