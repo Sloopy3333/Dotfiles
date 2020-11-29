@@ -2,8 +2,9 @@
 
 cat <<EOF | xmenu | sh &
 Applications
-	brave		brave-browser
-	pcmanfm		pcmanfm
+	Firefox		firefox -p
+	Pcmanfm		pcmanfm
+	nitrogen	nitrogen
 	Steam		__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam
 	Virt-manager	virt-manager
 Configs
