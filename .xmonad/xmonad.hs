@@ -49,6 +49,9 @@ import qualified XMonad.Actions.Search as S
 myTerminal :: String
 myTerminal = "st"
 
+myBrowser :: String
+myBrowser = "firefox"
+
 myModMask :: KeyMask
 myModMask = mod4Mask
 
@@ -98,7 +101,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                  ,  xK_x                    ), spawn "~/.config/xmobar/xmenu.sh")
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
     , ((modm .|. controlMask  ,  xK_s                    ), spawn "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam")    --to launch steam with dedicated nvidia gpu on pop os
-    , ((modm                  ,  xK_b                    ), spawn "brave")
+    , ((modm                  ,  xK_b                    ), spawn "firefox")
     , ((modm                  ,  xK_f                    ), spawn "pcmanfm")
     , ((modm                  ,  xK_Print                ), spawn "maim ~/hdd/screenshots/$(date +%s).png")
     , ((modm .|. controlMask  ,  xK_Print                ), spawn "maim -s ~/hdd/screenshots/$(date +%s).png")
@@ -190,15 +193,15 @@ searchEngineMap method = M.fromList $
 
 promptconfig :: XPConfig
 promptconfig = def
-      { font                = "xft:Hack Bold:size=10:bold:antialias=true" 
+      { font                = "xft:Hack Bold:size=11:bold:antialias=true" 
       , bgColor             = "#282a36"
       , fgColor             = "#f8f8f2"
       , bgHLight            = "#c792ea"
       , fgHLight            = "#000000"
       , borderColor         = "#bd93f9"
       , promptBorderWidth   = 3
-      , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 } 
-      , height              = 25
+      , position            = Top--CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 } 
+      , height              = 20
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
@@ -264,10 +267,10 @@ _topXmobarPP h = xmobarPP {
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom &"
---          spawnOnce "stalonetray"
---          spawnOnce "trayer --edge bottom --align right --widthtype request --padding 3 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 256 --height 12 --iconspacing 4 &"
---          spawnOnce "nm-applet"
---          spawnOnce "pasystray"
+          spawnOnce "stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &"
+	  spawnOnce "udiskie --no-automount --no-notify --tray &"
+          spawnOnce "pasystray &"
+          spawnOnce "nm-applet &"
           spawnOnce "xsetroot -cursor_name left_ptr &"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

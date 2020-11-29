@@ -1,15 +1,15 @@
 
-xmonad.hs:113:54: warning: [-Wdeprecations]
+xmonad.hs:116:54: warning: [-Wdeprecations]
     In the use of ‘defaultGSConfig’
     (imported from XMonad.Actions.GridSelect):
     Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Actions.GridSelect) instead."
     |
-113 |     , ((modm                  ,  xK_a), goToSelected defaultGSConfig)
+116 |     , ((modm                  ,  xK_a), goToSelected defaultGSConfig)
     |                                                      ^^^^^^^^^^^^^^^
 
-xmonad.hs:131:11: warning: [-Wtabs]
-    Tab character found here, and in 19 further locations.
+xmonad.hs:134:11: warning: [-Wtabs]
+    Tab character found here, and in 20 further locations.
     Please use spaces instead.
     |
-131 |        ])]      
+134 |        ])]      
     |           ^^^^^^
