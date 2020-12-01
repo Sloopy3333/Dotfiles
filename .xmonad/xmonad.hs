@@ -13,11 +13,10 @@ import XMonad.Actions.WindowMenu
 import XMonad.Hooks.DynamicLog
 import XMonad.Actions.Submap
 import Graphics.X11.ExtraTypes.XF86
-import qualified XMonad.Util.Brightness as Bright
 import XMonad.Actions.Volume
 import XMonad.Prompt
 import XMonad.Actions.GridSelect
-import XMonad.Prompt.Pass
+import XMonad.Prompt.Shell
 import XMonad.Prompt.Man
 import XMonad.Actions.WindowBringer
 import XMonad.Prompt.Shell
@@ -98,6 +97,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask    ,  xK_c                    ), io (exitWith ExitSuccess))
     , ((modm .|. controlMask  ,  xK_g                    ), sendMessage $ ToggleGaps)               -- toggle all gaps
     , ((modm .|. controlMask  ,  xK_f                    ), sendMessage ToggleStruts)
+    , ((modm                  ,  xK_r                    ), shellPrompt promptconfig)
     , ((modm                  ,  xK_x                    ), spawn "~/.config/xmobar/xmenu.sh")
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
     , ((modm .|. controlMask  ,  xK_s                    ), spawn "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam")    --to launch steam with dedicated nvidia gpu on pop os
@@ -264,14 +264,8 @@ _topXmobarPP h = xmobarPP {
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Startup hook
 
-myStartupHook = do
-          spawnOnce "nitrogen --restore &"
-          spawnOnce "picom &"
-          spawnOnce "stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &"
-	  spawnOnce "udiskie --no-automount --no-notify --tray &"
-          spawnOnce "pasystray &"
-          spawnOnce "nm-applet &"
-          spawnOnce "xsetroot -cursor_name left_ptr &"
+myStartupHook = return ()
+	  --spawnOnce "udiskie --no-automount --no-notify --tray &"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 main :: IO ()
