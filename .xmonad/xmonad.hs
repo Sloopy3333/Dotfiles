@@ -109,8 +109,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0                     ,  xF86XK_AudioRaiseVolume ), raiseVolume 4 >> return())                                                    --increase volume
     , ((0                     ,  xF86XK_AudioLowerVolume ), lowerVolume 4 >> return ())                                                   --decrease volume
     , ((0                     ,  xF86XK_AudioMute        ), spawn "pactl set-sink-mute 0 toggle")                                         --toggle mute
-    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "lux -a 10%")                                                           --increase brightness
-    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "lux -s 10%")                                                          --decrease brighrness  
+    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbrightness -inc +5")                                                           --increase brightness
+    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbrightness -dec +5")                                                          --decrease brighrness  
     , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                    --search engine submap
     , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                                 --search from clipboard keymap
     , ((modm                  ,  xK_a), goToSelected defaultGSConfig)
