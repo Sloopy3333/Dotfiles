@@ -2,9 +2,10 @@
 
 cat <<EOF | xmenu | sh &
 Applications
-	brave		brave-browser
+	Brave		brave
+	Firefox		firefox
 	pcmanfm		pcmanfm
-	Steam		__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam
+	Steam		prime-run steam
 	Nitrogen	nitrogen
 Configs
 	Qtile		st -e nvim ~/.config/qtile/config.py

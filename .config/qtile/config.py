@@ -1,55 +1,34 @@
 from typing import List
+from datetime import datetime
 from libqtile import bar, widget
-from libqtile.layout import MonadTall, Matrix, MonadWide, Max, Floating
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.layout import MonadTall, MonadWide, Max, Floating, bsp
+from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.extension import DmenuRun, WindowList
 
 mod = "mod4"
 terminal = "st"
-browser = "brave"
+browser = "firefox"
+filemanager = "pcmanfm"
 keys = [
     Key([mod], "n", lazy.layout.next()),
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
     Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "c", lazy.restart(), desc="Restart qtile"),
-    Key([mod], "x", lazy.spawn("/home/sam/.config/qtile/xmenu.sh")),
     Key([mod, "shift"], "c", lazy.shutdown(), desc="Shutdown qtile"),
     # system power
     Key([mod, "control"], "1", lazy.spawn(" systemctl suspend")),
     Key([mod, "control"], "2", lazy.spawn("systemctl poweroff")),
     Key([mod, "control"], "3", lazy.spawn("systemctl reboot")),
-    # extension keymaps
-    Key(
-        [mod],
-        "space",
-        lazy.run_extension(
-            DmenuRun(
-                dmenu_prompt=">",
-                dmenu_font="MesloLgs NF",
-                background="#282a36",
-                foreground="#f8f8f2",
-                selected_background="#bd93f9",
-                selected_foreground="#f8f8f2",
-            )
-        ),
-    ),
-    Key(
-        [mod],
-        "a",
-        lazy.run_extension(
-            WindowList(
-                all_groups=True,
-                background="#282a36",
-                foreground="#f8f8f2",
-                selected_background="#bd93f9",
-                selected_foreground="#f8f8f2",
-            )
-        ),
-    ),
+    # run prompts and menu
+    Key([mod], "x", lazy.spawn("/home/sam/.config/qtile/xmenu.sh")),
+    Key([mod], "space", lazy.spawn("rofi -show drun")),
+    Key([mod], "a", lazy.spawn("rofi -show window")),
+    Key([mod], "slash", lazy.spawn("rofi -show file-browser")),
     # move between windows
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
@@ -61,12 +40,13 @@ keys = [
     Key([mod, "control"], "h", lazy.layout.shuffle_left()),
     Key([mod, "control"], "l", lazy.layout.shuffle_right()),
     # resize windows
-    Key([mod, "shift"], "j", lazy.layout.grow_down()),
-    Key([mod, "shift"], "k", lazy.layout.grow_up()),
     Key([mod, "shift"], "h", lazy.layout.shrink()),
     Key([mod, "shift"], "l", lazy.layout.grow()),
+    Key([mod, "shift"], "m", lazy.layout.maximize()),
     Key([mod, "shift"], "r", lazy.layout.normalize()),
+    #layout modifires
     Key([mod, "shift"], "f", lazy.window.toggle_fullscreen()),
+    Key([mod, "shift"], "t", lazy.window.toggle_floating()),
     # brightness
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),
@@ -74,6 +54,14 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("ponymix toggle")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("ponymix increase 5")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("ponymix decrease 5")),
+    # screenshots
+    Key(
+        [mod],
+        "s",
+        lazy.spawn(
+            "scrot '%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'mv $f /home/sam/hdd/screenshots/'"
+        ),
+    ),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -107,7 +95,7 @@ for i in groups:
     )
 
 # borders
-border_focus_p = "#bd93f9"
+border_focus_p = "#D500F9"
 border_width_p = 2
 margin_p = 6
 single_border_width_p = 0
@@ -121,13 +109,7 @@ layouts = [
         margin=margin_p,
         single_border_width=single_border_width_p,
         single_margin=single_margin_p,
-    ),
-    Matrix(
-        border_focus=border_focus_p,
-        border_width=border_width_p,
-        margin=margin_p,
-        single_border_width=single_border_width_p,
-        single_margin=single_margin_p,
+        name="Tall",
     ),
     MonadWide(
         border_focus=border_focus_p,
@@ -135,27 +117,40 @@ layouts = [
         margin=margin_p,
         single_border_width=single_border_width_p,
         single_margin=single_margin_p,
+        name="wide",
+    ),
+    bsp.Bsp(
+        border_focus=border_focus_p,
+        border_width=border_width_p,
+        margin=margin_p,
+        single_border_width=single_border_width_p,
+        single_margin=single_margin_p,
+        name="Grid",
     ),
     Max(
         border_focus=border_focus_p,
         border_width=border_width_p,
         margin=single_margin_p,
-        single_border_width=single_border_width_p,
-        single_margin=single_margin_p,
+        single_border_width=0,
+        single_margin=0,
+        name="Full",
     ),
 ]
 
 widget_defaults = dict(
     font="Hack Bold",
-    fontsize=12,
+    fontsize=13,
     padding=3,
 )
-#calbacks
+# calbacks
 def run_htop(qtile):
     qtile.cmd_spawn("st -e htop")
 
+
 def run_xmenu(qtile):
     qtile.cmd_spawn("/home/sam/.config/qtile/xmenu.sh")
+
+
 # bar color
 bar_colors = [
     "#282a36",  # black
@@ -171,8 +166,10 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Image(filename="/home/sam/.config/qtile/py.png",
-                    mouse_callbacks={"Button1":run_xmenu}),
+                widget.Image(
+                    filename="/home/sam/.config/qtile/py.png",
+                    mouse_callbacks={"Button1": run_xmenu},
+                ),
                 widget.Sep(
                     linewidth=4,
                     foreground=bar_colors[0],
@@ -189,18 +186,14 @@ screens = [
                     size_percent=100,
                 ),
                 widget.GroupBox(
-                    font="San Francisco",
-                    foreground=bar_colors[0],
-                    background=bar_colors[4],
-                    highlight_method="line",
-                    highlight_color=bar_colors[7],
-                    active=bar_colors[0],
-                    this_current_screen_border=bar_colors[1],
-                    this_screen_border=bar_colors[3],
-                    other_current_screen_border=bar_colors[5],
-                    other_screen_border=bar_colors[2],
-                    padding=1,
-                    rounded=False,
+                    margin_y=3,
+                    margin_x=0,
+                    padding_y=5,
+                    padding_x=3,
+                    borderwidth=3,
+                    background=bar_colors[3],
+                    active=bar_colors[1],
+                    disable_drag=True,
                 ),
                 widget.Sep(
                     linewidth=10,
@@ -211,22 +204,22 @@ screens = [
                 widget.WindowName(foreground=bar_colors[5], background=bar_colors[0]),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/cpu.png",
-                    background=bar_colors[1],
+                    background=bar_colors[5],
                     margin=2,
-                    mouse_callbacks = {"Button1":run_htop}
+                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.CPU(
                     format="CPU {freq_current}GHz {load_percent}%",
                     update_interval=5,
                     foreground=bar_colors[0],
-                    background=bar_colors[1],
-                    mouse_callbacks = {"Button1":run_htop}
+                    background=bar_colors[5],
+                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.ThermalSensor(
-                    background=bar_colors[1],
+                    background=bar_colors[5],
                     foreground=bar_colors[0],
                     update_interval=5,
-                    mouse_callbacks = {"Button1":run_htop}
+                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.Sep(
                     linewidth=4,
@@ -238,14 +231,14 @@ screens = [
                     filename="/home/sam/.config/qtile/icons/memory.png",
                     background=bar_colors[3],
                     margin=1,
-                    mouse_callbacks = {"Button1":run_htop}
+                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.Memory(
                     format="Mem {MemUsed}MB ",
                     foreground=bar_colors[0],
                     background=bar_colors[3],
                     update_interval=5,
-                    mouse_callbacks = {"Button1":run_htop}
+                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.Sep(
                     linewidth=4,
@@ -283,9 +276,9 @@ screens = [
                     margin=1,
                 ),
                 widget.Battery(
-                    charge_char="",
+                    charge_char="AC",
                     discharge_char="",
-                    low_foreground="#ff5555",
+                    low_foreground=bar_colors[1],
                     low_percentage=0.2,
                     format="{char} {percent:2.0%} ({hour:d}:{min:02d})",
                     update_interval=30,
@@ -381,10 +374,23 @@ floating_layout = Floating(
         {"wname": "branchdialog"},  # gitk
         {"wname": "pinentry"},  # GPG key password entry
         {"wmclass": "ssh-askpass"},  # ssh-askpass
-        {"wmclass": "Steam"},  # ssh-askpass
+        {"wmclass": "Steam"},
+        {"wmclass": "feh"},
     ]
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-wmname = "LG3D"
+#auto shifting programs to specified groups
+groups = [
+        Group("1"),
+        Group("2"),
+        Group("3"),
+        Group("4", matches=[Match(wm_class=["Steam"])]),
+        Group("5", matches=[Match(wm_class=["csgo_linux64"])]),
+        Group("6"),
+        Group("7"),
+        Group("8"),
+        Group("9"),
+       ]
+wmname = "Qtile"
