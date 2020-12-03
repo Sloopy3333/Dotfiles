@@ -49,10 +49,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xsetroot -cursor_name left_ptr &
-xwallpaper --maximize ~/hdd/walls/wallhaven-j5p23m.jpg &
+feh --bg-scale ~/hdd/walls/wallhaven-oxzpem.png &
 #nitrogen --restore & 
 #stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &
 #pasystray &
 #nm-applet &
-xbacklight -set 10 &
+xbacklight -set 5 &
 exec qtile
