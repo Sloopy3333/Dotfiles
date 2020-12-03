@@ -1,21 +1,21 @@
 static struct Config config = {
 	/* font, separate different fonts with comma */
-	.font = "Hack Bold:size=10,Hack Bold:size=10",
+	.font = "Hack Bold:size=11,Hack Bold:size=12",
 
 	/* colors */
-	.background_color = "#282a36",
-	.foreground_color = "#f8f8f2",
-	.selbackground_color = "#6272a4",
-	.selforeground_color = "#FFFFFF",
-	.separator_color = "#bd93f9",
-	.border_color = "#bd93f9",
+	.background_color = "#070707",
+	.foreground_color = "#FFFFFF",
+	.selbackground_color = "#57c7ff",
+	.selforeground_color = "#070707",
+	.separator_color =  "#ff6ac1",
+	.border_color = "#ff6ac1",
 
 	/* sizes in pixels */
 	.width_pixels = 130,        /* minimum width of a menu */
 	.height_pixels = 25,        /* height of a single menu item */
-	.border_pixels = 1,         /* menu border */
+	.border_pixels = 2,         /* menu border */
 	.separator_pixels = 3,      /* space around separator */
-	.gap_pixels = 1,            /* gap between menus */
+	.gap_pixels = 4,            /* gap between menus */
 
 	/*
 	 * The variables below cannot be set by X resources.
