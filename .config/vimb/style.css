@@ -1,0 +1,46 @@
+*,div,pre,textarea,body,input,td,tr,p {
+    background-color: #282a36 !important;
+    background-image: none !important;
+    color: #f1f1f0 !important;
+}
+h1,h2,h3,h4 {
+    background-color: #303030 !important;
+    color: #57c7ff !important;
+}
+a {
+    color: #5af78e !important;
+}
+a:hover,a:focus {
+    color: #8be9fd !important;
+}
+a:visited {
+    color: #ff5555 !important;
+}
+img {
+    opacity: 1.0;
+}
+img:hover {
+    opacity: 1;
+}
+
+/* Hint mode color styling*/
+span[vimbhint^='label'] {
+    background-color: #282a36 !important;
+    border: 1px solid #57c7ff !important;
+    color: #f8f8f2 !important;
+    font: bold 10pt monospace !important;
+    opacity: 1 !important;
+    padding: .1em .4em !important;
+    text-transform: uppercase !important;
+}
+span[vimbhint='label focus'] {
+    font: bold 13pt monospace !important;
+}
+*[vimbhint^='hint'] {
+    background-color: #282a36 !important;
+    color: #57c7ff !important;
+}
+*[vimbhint='hint focus'] {
+    background-color: #282a36 !important;
+    color: #50fa7b !important;
+}

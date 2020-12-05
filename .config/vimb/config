@@ -1,0 +1,62 @@
+# Homepage that vimb opens if started without a URI.
+set home-page=about:blank
+
+#Downloads
+set download-path=~/Downloads
+
+#spawn editor
+set editor-command=st -e nvim %s
+
+# hide input box
+set input-autohide=true
+
+#spellcheck
+set spell-checking=true
+set spell-checking-languages=en
+
+#smooth scrolling
+set smooth-scrolling=on
+# While typing a search command, show where the pattern typed so far matches.
+set incsearch=true
+
+# The font family to use as the default for content that does not specify a
+# font.
+set default-font=FiraSans-Bold
+
+# The font family used as the default for content using monospace font.
+set monospace-font= FiraMono-Regular
+
+# The font family used as the default for content using sans-serif font.
+set sans-serif-font=FiraMono-Regular
+
+# The font family used as the default for content using serif font.
+set serif-font=FiraMono-Regular
+
+# The default font size used to display text.
+set font-size=16
+
+# Default font size for the monospace font.
+set monospace-font-size=16
+
+# Default Full-Content zoom level in percent. Default is 100.
+set default-zoom=100
+
+# Shortcuts allow the opening of an URI built up from a named template with
+# additional parameters.
+shortcut-add dd=https://duckduckgo.com/?q=$0
+shortcut-add so=https://stackoverflow.com/search?q=$0
+shortcut-add aw=https://wiki.archlinux.org/index.php?search=$0
+shortcut-add rd=https://www.reddit.com/search/?q=$0
+shortcut-add go=https://www.google.com/search?q=$0
+shortcut-add yt=http://www.youtube.com/results?search_query=$0
+shortcut-add ud=https://www.urbandictionary.com/define.php?term=$0
+
+# Set the shortcut as the default, that is the shortcut to be used if no
+# shortcut is given and the string to open is not an URI.
+shortcut-default duck
+
+# Map page zoom in normal mode to keys commonly used across applications
+# + (zoom in), - (zoom out), = (zoom reset)
+nmap + zI
+nmap - zO
+nmap = zz
