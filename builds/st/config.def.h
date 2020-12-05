@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "MesloLGS NF:pixelsize=16:antialias=true:autohint=true";
+static char *font = "Hack:pixelsize=16:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -98,32 +98,33 @@ float alpha = 0.8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"#000000",
-	"#ff5555",
-	"#50fa7b",
-	"#f1fa8c",
-	"#bd93f9",
-	"#ff79c6",
-	"#8be9fd",
-	"#f8f8f2",
+ /* 8 normal colors */
+         "#282a36",
+         "#ff5555",
+         "#50fa7b",
+         "#f1fa8c",
+         "#bd93f9",
+         "#ff79c6",
+         "#8be9fd",
+         "#f8f8f2",
 
-	/* 8 bright colors */
-	"#44475a",
-	"#ff5555",
-	"#50fa7b",
-	"#f1fa8c",
-	"#bd93f9",
-	"#ff79c6",
-	"#8be9fd",
-	"#ffffff",
+         /* 8 bright colors */
+         "#44475a",
+         "#ff5555",
+         "#50fa7b",
+         "#f1fa8c",
+         "#bd93f9",
+         "#ff79c6",
+         "#8be9fd",
+         "#ffffff",
 
-	[255] = 0,
+         [255] = 0,
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#282a36",
-	"#f8f8f2",
-};
+         /* more colors can be added after 255 to use with DefaultXX */
+         "#282a36",
+         "#f8f8f2",
+
+ };
 
 
 /*
