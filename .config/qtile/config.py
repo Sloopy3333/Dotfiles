@@ -1,4 +1,4 @@
-from typing import List
+
 from datetime import datetime
 from libqtile import bar, widget
 from libqtile.layout import MonadTall, MonadWide, Max, Floating, bsp
@@ -9,51 +9,63 @@ from libqtile.extension import DmenuRun, WindowList
 
 mod = "mod4"
 terminal = "st"
-browser = "firefox"
+browser = "vimb"
 filemanager = "pcmanfm"
 keys = [
-    Key([mod], "n", lazy.layout.next()),
+
+    # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
-    Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+
+    #qtile commands
     Key([mod], "c", lazy.restart(), desc="Restart qtile"),
     Key([mod, "shift"], "c", lazy.shutdown(), desc="Shutdown qtile"),
+
     # system power
     Key([mod, "control"], "1", lazy.spawn(" systemctl suspend")),
     Key([mod, "control"], "2", lazy.spawn("systemctl poweroff")),
     Key([mod, "control"], "3", lazy.spawn("systemctl reboot")),
+
     # run prompts and menu
     Key([mod], "x", lazy.spawn("/home/sam/.config/qtile/xmenu.sh")),
-    Key([mod], "space", lazy.spawn("rofi -show drun")),
-    Key([mod], "a", lazy.spawn("rofi -show window")),
-    Key([mod], "slash", lazy.spawn("rofi -show file-browser")),
+    Key([mod], "space", lazy.spawn("rofi -show drun -display-drun '>>'")),
+    Key([mod], "a", lazy.spawn("rofi -show window -display-window '>>>'")),
+    Key([mod], "slash", lazy.spawn("rofi -show file-browser -display-file-browser '>>>'")),
+
     # move between windows
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
+
     # shufle windows
     Key([mod, "control"], "j", lazy.layout.shuffle_down()),
     Key([mod, "control"], "k", lazy.layout.shuffle_up()),
     Key([mod, "control"], "h", lazy.layout.shuffle_left()),
     Key([mod, "control"], "l", lazy.layout.shuffle_right()),
+
     # resize windows
     Key([mod, "shift"], "h", lazy.layout.shrink()),
     Key([mod, "shift"], "l", lazy.layout.grow()),
     Key([mod, "shift"], "m", lazy.layout.maximize()),
     Key([mod, "shift"], "r", lazy.layout.normalize()),
+
     #layout modifires
+    Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "f", lazy.window.toggle_fullscreen()),
     Key([mod, "shift"], "t", lazy.window.toggle_floating()),
+
     # brightness
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),
+
     # Audio
-    Key([], "XF86AudioMute", lazy.spawn("ponymix toggle")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("ponymix increase 5")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("ponymix decrease 5")),
+    Key([], "XF86AudioMute", lazy.spawn("pulsemixer --toggle-mute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(" pulsemixer --change-volume +5")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(" pulsemixer --change-volume -5")),
+
     # screenshots
     Key(
         [mod],
@@ -95,42 +107,42 @@ for i in groups:
     )
 
 # borders
-border_focus_p = "#D500F9"
-border_width_p = 2
-margin_p = 6
-single_border_width_p = 0
-single_margin_p = 6
+border_focus = "#ff6ac1"
+border_width = 2
+margin = 6
+single_border_width = 0
+single_margin = 6
 
 # bar
 layouts = [
     MonadTall(
-        border_focus=border_focus_p,
-        border_width=border_width_p,
-        margin=margin_p,
-        single_border_width=single_border_width_p,
-        single_margin=single_margin_p,
+        border_focus=border_focus,
+        border_width=border_width,
+        margin=margin,
+        single_border_width=single_border_width,
+        single_margin=single_margin,
         name="Tall",
     ),
     MonadWide(
-        border_focus=border_focus_p,
-        border_width=border_width_p,
-        margin=margin_p,
-        single_border_width=single_border_width_p,
-        single_margin=single_margin_p,
+        border_focus=border_focus,
+        border_width=border_width,
+        margin=margin,
+        single_border_width=single_border_width,
+        single_margin=single_margin,
         name="wide",
     ),
     bsp.Bsp(
-        border_focus=border_focus_p,
-        border_width=border_width_p,
-        margin=margin_p,
-        single_border_width=single_border_width_p,
-        single_margin=single_margin_p,
+        border_focus=border_focus,
+        border_width=border_width,
+        margin=margin,
+        single_border_width=single_border_width,
+        single_margin=single_margin,
         name="Grid",
     ),
     Max(
-        border_focus=border_focus_p,
-        border_width=border_width_p,
-        margin=single_margin_p,
+        border_focus=border_focus,
+        border_width=border_width,
+        margin=single_margin,
         single_border_width=0,
         single_margin=0,
         name="Full",
@@ -376,6 +388,7 @@ floating_layout = Floating(
         {"wmclass": "ssh-askpass"},  # ssh-askpass
         {"wmclass": "Steam"},
         {"wmclass": "feh"},
+        {"wmclass": "vlc"},
     ]
 )
 auto_fullscreen = True

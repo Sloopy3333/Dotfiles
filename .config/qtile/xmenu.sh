@@ -16,7 +16,9 @@ Configs
 	Nvim		st -e nvim ~/.config/nvim/init.vim
 	Xinitrc		st -e nvim ~/.config/X11/.xinitrc
 Network
-	Scan		st -e nmcli dev wifi
+	Wifi on		st -e nmcli radio wifi on
+	Wifi off	st -e nmcli radio wifi off
+	Scan		st -e nmcli dev wifi &
 	Nmtui		st -e nmtui
 	Connect		st -e nmcli --ask device wifi connect
 Screenshot
