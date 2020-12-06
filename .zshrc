@@ -1,106 +1,78 @@
+# sourcing
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/sam/.oh-my-zsh"
+source ~/scripts/zsh/vi-mode.zsh
+source ~/scripts/zsh/autojump.zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="dracula"
+# comand completion
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+setopt COMPLETE_ALIASES
+compinit
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+zstyle ':completion:*:pacman:*' force-list always
+zstyle ':completion:*:*:pacman:*' menu yes select
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*'   force-list always
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# coloured man pages
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# prompt
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+autoload -U colors zsh/terminfo
+colors
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r/%S%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+setprompt() {
+  setopt prompt_subst
+  p_host='%F{green}%M%f'
+  PS1=${(j::Q)${(Z:Cn:):-$'
+    %F{cyan}[%f
+    %(!.%F{red}%n%f.%F{green}%n%f)
+    %F{cyan}@%f
+    ${p_host}
+    %F{cyan}][%f
+    %F{blue}%~%f
+    %F{cyan}]%f
+    %(!.%F{red}%#%f.%F{green}%#%f)
+    " "
+  '}}
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+  PS2=$'%_>'
+  RPROMPT=$'${vcs_info_msg_0_}'
+}
+setprompt
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git z extract vi-mode)
-source $ZSH/oh-my-zsh.sh
+#alias
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# git dot files alias 
-
-set -o GLOB_SUBST
-export EDITOR=nvim
-
+# dot file
 alias dot="git --git-dir=$HOME/Dotfiles/ --work-tree=$HOME"
-#alias for network
+
+#network
 alias scwifi="nmcli d wifi list --rescan yes"
 alias cntwifi="nmcli --ask device wifi connect"
 
