@@ -1,8 +1,11 @@
 # sourcing
 
 source ~/scripts/zsh/vi-mode.zsh
-source ~/scripts/zsh/autojump.zsh
+#source ~/scripts/zsh/autojump.zsh
 
+# variables
+EDITOR=nvim
+BRWSER=firefox
 # comand completion
 
 autoload -Uz compinit

@@ -3,10 +3,10 @@ static struct Config config = {
 	.font = "Hack Bold:size=11,Hack Bold:size=12",
 
 	/* colors */
-	.background_color = "#070707",
-	.foreground_color = "#FFFFFF",
+	.background_color = "#282a36",
+	.foreground_color = "#f1f1f0",
 	.selbackground_color = "#57c7ff",
-	.selforeground_color = "#070707",
+	.selforeground_color = "#282a36",
 	.separator_color =  "#ff6ac1",
 	.border_color = "#ff6ac1",
 

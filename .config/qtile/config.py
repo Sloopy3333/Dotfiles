@@ -1,71 +1,67 @@
-
 from datetime import datetime
 from libqtile import bar, widget
 from libqtile.layout import MonadTall, MonadWide, Max, Floating, bsp
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.extension import DmenuRun, WindowList
+from libqtile.extension import DmenuRun, WindowList, CommandSet
 
 mod = "mod4"
 terminal = "st"
-browser = "vimb"
+browser = "firefox"
 filemanager = "pcmanfm"
 keys = [
-
     # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-
-    #qtile commands
+    # qtile commands
     Key([mod], "c", lazy.restart(), desc="Restart qtile"),
     Key([mod, "shift"], "c", lazy.shutdown(), desc="Shutdown qtile"),
-
-    # system power
-    Key([mod, "control"], "1", lazy.spawn(" systemctl suspend")),
-    Key([mod, "control"], "2", lazy.spawn("systemctl poweroff")),
-    Key([mod, "control"], "3", lazy.spawn("systemctl reboot")),
-
     # run prompts and menu
-    Key([mod], "x", lazy.spawn("/home/sam/.config/qtile/xmenu.sh")),
-    Key([mod], "space", lazy.spawn("rofi -show drun -display-drun '>>'")),
-    Key([mod], "a", lazy.spawn("rofi -show window -display-window '>>>'")),
-    Key([mod], "slash", lazy.spawn("rofi -show file-browser -display-file-browser '>>>'")),
-
+    Key([mod], "x", lazy.spawn("/home/sam/.config/xmenu/xmenu.sh")),
+    Key([mod], "space", lazy.run_extension(DmenuRun())),
+    Key([mod, "control"], "a", lazy.run_extension(WindowList())),
+    Key(
+        [mod, "control"],
+        "p",
+        lazy.run_extension(
+            CommandSet(
+                commands={
+                    "suspend": "systemctl suspend",
+                    "shutdown": "systemctl poweroff",
+                    "reboot": "systemctl reboot",
+                },
+            )
+        ),
+    ),
     # move between windows
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
-
     # shufle windows
     Key([mod, "control"], "j", lazy.layout.shuffle_down()),
     Key([mod, "control"], "k", lazy.layout.shuffle_up()),
     Key([mod, "control"], "h", lazy.layout.shuffle_left()),
     Key([mod, "control"], "l", lazy.layout.shuffle_right()),
-
     # resize windows
     Key([mod, "shift"], "h", lazy.layout.shrink()),
     Key([mod, "shift"], "l", lazy.layout.grow()),
     Key([mod, "shift"], "m", lazy.layout.maximize()),
     Key([mod, "shift"], "r", lazy.layout.normalize()),
-
-    #layout modifires
+    # layout modifires
     Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "f", lazy.window.toggle_fullscreen()),
     Key([mod, "shift"], "t", lazy.window.toggle_floating()),
-
     # brightness
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),
-
     # Audio
     Key([], "XF86AudioMute", lazy.spawn("pulsemixer --toggle-mute")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn(" pulsemixer --change-volume +5")),
     Key([], "XF86AudioLowerVolume", lazy.spawn(" pulsemixer --change-volume -5")),
-
     # screenshots
     Key(
         [mod],
@@ -109,7 +105,7 @@ for i in groups:
 # borders
 border_focus = "#ff6ac1"
 border_width = 2
-margin = 6
+margin = 8
 single_border_width = 0
 single_margin = 6
 
@@ -179,7 +175,8 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(
-                    filename="/home/sam/.config/qtile/py.png",
+                    filename="/home/sam/.config/qtile/icons/py.png",
+                    margin=2,
                     mouse_callbacks={"Button1": run_xmenu},
                 ),
                 widget.Sep(
@@ -345,7 +342,8 @@ screens = [
                 ),
                 widget.Systray(background=bar_colors[0]),
             ],
-            20,
+            size=20,
+            opacity=1.0
         ),
     ),
 ]
@@ -394,16 +392,16 @@ floating_layout = Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-#auto shifting programs to specified groups
+# auto shifting programs to specified groups
 groups = [
-        Group("1"),
-        Group("2"),
-        Group("3"),
-        Group("4", matches=[Match(wm_class=["Steam"])]),
-        Group("5", matches=[Match(wm_class=["csgo_linux64"])]),
-        Group("6"),
-        Group("7"),
-        Group("8"),
-        Group("9"),
-       ]
+    Group("1"),
+    Group("2"),
+    Group("3"),
+    Group("4", matches=[Match(wm_class=["Steam"])]),
+    Group("5", matches=[Match(wm_class=["csgo_linux64"])]),
+    Group("6"),
+    Group("7"),
+    Group("8"),
+    Group("9"),
+]
 wmname = "Qtile"
