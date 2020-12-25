@@ -48,6 +48,8 @@ Plug 'ap/vim-css-color'
 call plug#end()
 
 colorscheme dracula
+hi Normal guibg=none
+hi Normal ctermbg=none
 
 
 let mapleader="SPACE"

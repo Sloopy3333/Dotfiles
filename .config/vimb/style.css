@@ -1,46 +1,48 @@
 *,div,pre,textarea,body,input,td,tr,p {
     background-color: #282a36 !important;
     background-image: none !important;
-    color: #f1f1f0 !important;
+    color: #f8f8f2 !important;
 }
 h1,h2,h3,h4 {
-    background-color: #303030 !important;
-    color: #57c7ff !important;
+    background-color: #282a36 !important;
+    color: #8be9fd !important;
 }
 a {
-    color: #5af78e !important;
+    color: #50fa7b !important;
 }
 a:hover,a:focus {
-    color: #8be9fd !important;
+    color: #bd93f9 !important;
 }
 a:visited {
     color: #ff5555 !important;
 }
 img {
-    opacity: 1.0;
+    opacity: .5;
 }
 img:hover {
     opacity: 1;
 }
 
-/* Hint mode color styling*/
 span[vimbhint^='label'] {
     background-color: #282a36 !important;
-    border: 1px solid #57c7ff !important;
+    border: 1px solid #bd93f9 !important;
     color: #f8f8f2 !important;
-    font: bold 10pt monospace !important;
+    font: Hack bold 11pt monospace !important;
     opacity: 1 !important;
-    padding: .1em .4em !important;
+    padding: .1em .1em !important;
     text-transform: uppercase !important;
 }
 span[vimbhint='label focus'] {
     font: bold 13pt monospace !important;
 }
 *[vimbhint^='hint'] {
-    background-color: #282a36 !important;
-    color: #57c7ff !important;
+    background-color: #ffb86c !important;
+    color: #2d2d2d !important;
 }
 *[vimbhint='hint focus'] {
-    background-color: #282a36 !important;
-    color: #50fa7b !important;
+    background-color: #bd93f9 !important;
+    color: #2d2d2d !important;
+}
+body::-webkit-scrollbar {
+    display: none;
 }

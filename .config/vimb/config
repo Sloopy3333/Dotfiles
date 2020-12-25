@@ -1,5 +1,5 @@
 # Homepage that vimb opens if started without a URI.
-set home-page=about:blank
+set home-page=/home/sam/.config/startpage/index.html
 
 #Downloads
 set download-path=~/Downloads
@@ -16,6 +16,7 @@ set spell-checking-languages=en
 
 #smooth scrolling
 set smooth-scrolling=on
+
 # While typing a search command, show where the pattern typed so far matches.
 set incsearch=true
 
@@ -41,6 +42,28 @@ set monospace-font-size=16
 # Default Full-Content zoom level in percent. Default is 100.
 set default-zoom=100
 
+#Cookie accept policy {‘always’, ‘never’, ‘origin’ (accept all non-third-party cookies)}.
+set cookie-accept=origin
+
+#Whether to enable dark mode. Websites can use the `prefers-color-scheme’ media query to adjust styles according to this option.
+set dark-mode=true
+
+#If enabled the inputbox will be hidden whenever it contains no text.
+set input-autohide=true
+
+#Controls website access to the geolocation API (‘always’, ‘never’, ‘ask’ - display a prompt each time)
+set geolocation=ask
+
+#Multiplier to increase the scroll distance if window is scrolled by mouse wheel.
+set scroll-step=30
+
+#Determines whether the titlebar is shown (on systems that provide window decoration). Defaults to true.
+set show-titlebar=false
+
+#Indicates if the status bar should be shown.
+set status-bar=false
+#
+#
 # Shortcuts allow the opening of an URI built up from a named template with
 # additional parameters.
 shortcut-add dd=https://duckduckgo.com/?q=$0
@@ -60,3 +83,5 @@ shortcut-default duck
 nmap + zI
 nmap - zO
 nmap = zz
+nnoremap H <C-o>
+nnoremap L <C-i>

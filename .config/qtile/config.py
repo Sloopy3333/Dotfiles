@@ -1,4 +1,3 @@
-from datetime import datetime
 from libqtile import bar, widget
 from libqtile.layout import MonadTall, MonadWide, Max, Floating, bsp
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
@@ -8,7 +7,7 @@ from libqtile.extension import DmenuRun, WindowList, CommandSet
 
 mod = "mod4"
 terminal = "st"
-browser = "firefox"
+browser = "vimb"
 filemanager = "pcmanfm"
 keys = [
     # launch and kill programs
@@ -21,8 +20,8 @@ keys = [
     Key([mod, "shift"], "c", lazy.shutdown(), desc="Shutdown qtile"),
     # run prompts and menu
     Key([mod], "x", lazy.spawn("/home/sam/.config/xmenu/xmenu.sh")),
-    Key([mod], "space", lazy.run_extension(DmenuRun())),
-    Key([mod, "control"], "a", lazy.run_extension(WindowList())),
+    Key([mod], "space", lazy.spawn("rofi -show drun")),
+    Key([mod, "control"], "a", lazy.spawn("rofi -show window")),
     Key(
         [mod, "control"],
         "p",
@@ -36,12 +35,12 @@ keys = [
             )
         ),
     ),
-    # move between windows
+    # shift window focus
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
-    # shufle windows
+    # move windows
     Key([mod, "control"], "j", lazy.layout.shuffle_down()),
     Key([mod, "control"], "k", lazy.layout.shuffle_up()),
     Key([mod, "control"], "h", lazy.layout.shuffle_left()),
@@ -103,11 +102,11 @@ for i in groups:
     )
 
 # borders
-border_focus = "#ff6ac1"
+border_focus = "#5af78e"
 border_width = 2
-margin = 8
+margin = 25
 single_border_width = 0
-single_margin = 6
+single_margin = 30
 
 # bar
 layouts = [
@@ -178,6 +177,7 @@ screens = [
                     filename="/home/sam/.config/qtile/icons/py.png",
                     margin=2,
                     mouse_callbacks={"Button1": run_xmenu},
+                    background=bar_colors[0],
                 ),
                 widget.Sep(
                     linewidth=4,
@@ -387,6 +387,9 @@ floating_layout = Floating(
         {"wmclass": "Steam"},
         {"wmclass": "feh"},
         {"wmclass": "vlc"},
+        {"wname": "Picture in picture"},
+        {"wname": "FreeTube"},
+        {"wname": "lutris"},
     ]
 )
 auto_fullscreen = True
@@ -404,4 +407,5 @@ groups = [
     Group("8"),
     Group("9"),
 ]
+
 wmname = "Qtile"
