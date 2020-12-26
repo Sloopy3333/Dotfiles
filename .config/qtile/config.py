@@ -8,7 +8,7 @@ from libqtile.extension import DmenuRun, WindowList, CommandSet
 mod = "mod4"
 terminal = "st"
 browser = "vimb"
-filemanager = "pcmanfm"
+filemanager = "st -e vifm"
 keys = [
     # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),

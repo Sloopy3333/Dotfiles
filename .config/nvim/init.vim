@@ -53,5 +53,5 @@ hi Normal ctermbg=none
 
 let mapleader="SPACE"
 inoremap jk <ESC><CR>                   
-map <C-s> : source ~/.config/nvim/init.vim<CR>
+map <C-s> :source ~/.config/nvim/init.vim<CR>
 map <SPACE> : NERDTreeToggle %<CR>
