@@ -8,7 +8,7 @@ set sortnumbers
 set undolevels=100
 set vimhelp
 set norunexec
-colorscheme Default
+colorscheme dracula
 set timefmt=%m/%d\ %H:%M
 set wildmenu
 set wildstyle=popup

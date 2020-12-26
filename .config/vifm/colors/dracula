@@ -1,3 +1,7 @@
+" VIFM COLORS
+" dracula
+" based on: https://github.com/istib/dotfiles/blob/master/vifm/vifm-colors
+
 " Default = -1 = None, can be used for transparency or default color
 " Black = 0
 " Red = 1
@@ -39,4 +43,3 @@ highlight Socket          cterm=none ctermfg=magenta ctermbg=black
 highlight Device          cterm=none ctermfg=red ctermbg=default
 highlight Fifo            cterm=none ctermfg=yellow ctermbg=black
 highlight Executable      cterm=none ctermfg=green ctermbg=default
-

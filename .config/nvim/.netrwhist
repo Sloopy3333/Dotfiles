@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/etc/X11/xinit/xinitrc.d'
-let g:netrw_dirhist_2='/home/sam'
-let g:netrw_dirhist_1='/home/sam/.config/nvim'

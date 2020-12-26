@@ -9,10 +9,12 @@ mod = "mod4"
 terminal = "st"
 browser = "vimb"
 filemanager = "st -e vifm"
+musicplayer = "st -e cmus"
 keys = [
     # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod], "m", lazy.spawn(musicplayer), desc="Launch musicplayer"),
     Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     # qtile commands
@@ -168,6 +170,9 @@ bar_colors = [
     "#ff6ac1",  # magenta
     "#8be9fd",  # cyan
     "#f1f1f0",  # white
+    "#ffb86c"   # orange
+    "#6272a4"   # purple
+    "#44475a"   # light black
 ]
 screens = [
     Screen(
