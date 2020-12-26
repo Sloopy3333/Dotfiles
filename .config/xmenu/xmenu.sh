@@ -24,7 +24,7 @@ Configs
 	ST		st -e nvim ~/builds/st/config.def.h
 	Nvim		st -e nvim ~/.config/nvim/init.vim
 	Xinitrc		st -e nvim ~/.config/X11/.xinitrc
-Network
+wifi
 	on		st -e nmcli radio wifi on
 	off	st -e nmcli radio wifi off
 	Nmtui		st -e nmtui
