@@ -1,5 +1,6 @@
 # sourcing
 
+
 # auto tab completion 
 source ~/.config/zsh/completion.zsh
 # colred man pages
