@@ -40,18 +40,73 @@ set statusline+=\ %c:%l/%L
 set statusline+=\ %p%%
 set statusline+=\ [%n]
 
+
+" plugins
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'scrooloose/nerdtree'
 Plug 'ap/vim-css-color'
+Plug 'vifm/vifm.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
+" color scheme
 colorscheme dracula
 hi Normal guibg=none
 hi Normal ctermbg=none
 
+"netrw
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 
-let mapleader="SPACE"
-inoremap jk <ESC><CR>                   
-map <C-s> :source ~/.config/nvim/init.vim<CR>
-map <SPACE> : NERDTreeToggle %<CR>
+" fzf
+let g:fzf_layout = {'window':{'width': 0.8, 'height' : 0.8}} 
+ let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+\ 'bg':      ['bg', 'Normal'],
+\ 'hl':      ['fg', 'Comment'],
+\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+\ 'hl+':     ['fg', 'Statement'],
+\ 'info':    ['fg', 'PreProc'],
+\ 'border':  ['fg', 'Ignore'],
+\ 'prompt':  ['fg', 'Conditional'],
+\ 'pointer': ['fg', 'Exception'],
+\ 'marker':  ['fg', 'Keyword'],
+\ 'spinner': ['fg', 'Label'],
+\ 'header':  ['fg', 'Comment'] }
+
+
+" vifm
+let g:vifm_replace_netrw = 1
+let g:vifm_replace_netrw_cmd = "Vifm"
+let g:vifm_embed_term = 1
+"let g:vifm_embed_split = 1
+
+
+
+" leader
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
+" netew
+let g:netrw_banner = 0
+let g:netrw_winsize = 20
+
+map <leader><C-s> :source ~/.config/nvim/init.vim<CR>
+
+" fzf
+map <silent> <Leader>ff :Files<CR>
+map <silent> <Leader>fg :GFiles<CR>
+map <silent> <Leader>fF :Rg<CR>
+map <silent> <Leader>ee :Vex<CR>
+map <silent> <Leader>fh :History<CR>
+map <silent> <Leader>fb :Buffer<CR>
+map <silent> <Leader>fl :Lines<CR>
+map <silent> <Leader>fL :BLines<CR>
+map <silent> <Leader>fc :Commands<CR>
+
+" vifm
+map <silent> <Leader>ve :EditVifm<CR>
+map <silent> <Leader>vv :VsplitVifm<CR>
+map <silent> <Leader>vh :SplitVifm<CR>
