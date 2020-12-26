@@ -1,9 +1,8 @@
 syntax on
 set nocompatible
 set noerrorbells                         " no error bells
-"set tabstop=4 softtabstop=2              " tabstops as 4
 set shiftwidth=4
-"set expandtab
+set nohlsearch
 set smartindent
 set nu
 set nowrap
