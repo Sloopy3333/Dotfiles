@@ -26,7 +26,7 @@ Configs
 	Xinitrc		st -e nvim ~/.config/X11/Xinitrc
 wifi
 	on		st -e nmcli radio wifi on
-	off	st -e nmcli radio wifi off
+	off		st -e nmcli radio wifi off
 	Nmtui		st -e nmtui
 Screenshot
 	Full		maim ~/hdd/screenshots/$(date +%s).png
