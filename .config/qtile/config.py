@@ -101,9 +101,9 @@ for i in groups:
 # borders
 border_focus = "#5af78e"
 border_width = 2
-margin = 35
+margin = 6
 single_border_width = 0
-single_margin = 35
+single_margin = 6
 
 # bar
 layouts = [
