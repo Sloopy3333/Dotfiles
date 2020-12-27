@@ -64,14 +64,9 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.spawn(" pulsemixer --change-volume +5")),
     Key([], "XF86AudioLowerVolume", lazy.spawn(" pulsemixer --change-volume -5")),
     # screenshots
-    Key(
-        [mod],
-        "s",
-        lazy.spawn(
-            "scrot '%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'mv $f /home/sam/hdd/screenshots/'"
-        ),
-    ),
-]
+    Key([mod], "Print", lazy.spawn("escrotum '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'")),
+    Key([mod, "control"], "Print", lazy.spawn("escrotum -s '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'")),
+    ]
 
 groups = [Group(i) for i in "123456789"]
 
@@ -106,9 +101,9 @@ for i in groups:
 # borders
 border_focus = "#5af78e"
 border_width = 2
-margin = 10
+margin = 35
 single_border_width = 0
-single_margin = 10
+single_margin = 35
 
 # bar
 layouts = [
@@ -157,7 +152,7 @@ def run_htop(qtile):
 
 
 def run_xmenu(qtile):
-    qtile.cmd_spawn("/home/sam/.config/qtile/xmenu.sh")
+    qtile.cmd_spawn("/home/sam/.config/xmenu/xmenu.sh")
 
 
 # bar color
@@ -170,8 +165,8 @@ bar_colors = [
     "#ff6ac1",  # magenta
     "#8be9fd",  # cyan
     "#f1f1f0",  # white
-    "#ffb86c"   # orange
-    "#6272a4"   # purple
+    "#ffb86c",   # orange
+    "#6272a4",   # purple
     "#44475a"   # light black
 ]
 screens = [
