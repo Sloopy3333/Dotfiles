@@ -14,6 +14,7 @@ alias vi='nvim'
 alias vim='nvim'
 
 # devour
+alias steam="devour prime-run steam"
 alias sxiv="devour sxiv"
 alias mpv="devour mpv"
 alias zathura="devour zathura"
