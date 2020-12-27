@@ -29,9 +29,9 @@ wifi
 	off		st -e nmcli radio wifi off
 	Nmtui		st -e nmtui
 Screenshot
-	Full		maim ~/hdd/screenshots/$(date +%s).png
-	Select		maim -s ~/hdd/screenshots/$(date +%s).png
-	copy		maim -s | xclip -selection clipboard -t image/png
+	Full		escrotum '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'
+	Select		escrotum -s'/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'	
+	copy		escrotum -s | xclip -selection clipboard -t image/png
 Terminal (st)		st
 
 Shutdown		poweroff
