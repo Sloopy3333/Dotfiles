@@ -89,6 +89,12 @@ let g:vifm_embed_term = 1
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
 " netew
 let g:netrw_banner = 0
 let g:netrw_winsize = 20
