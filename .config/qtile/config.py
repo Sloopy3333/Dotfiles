@@ -7,7 +7,7 @@ from libqtile.extension import DmenuRun, WindowList, CommandSet
 
 mod = "mod4"
 terminal = "st"
-browser = "vimb"
+browser = "tabbed -c vimb -e"
 filemanager = "st -e vifm"
 musicplayer = "st -e cmus"
 keys = [
