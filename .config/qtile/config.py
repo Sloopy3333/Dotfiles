@@ -7,15 +7,25 @@ from libqtile.extension import DmenuRun, WindowList, CommandSet
 
 mod = "mod4"
 terminal = "st"
+terminal_alt = "alacritty"
 browser = "tabbed -c vimb -e"
+browser_alt = "firefox"
 filemanager = "st -e vifm"
+filemanager_alt = "pcmanfm"
 musicplayer = "st -e cmus"
 keys = [
     # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "t", lazy.spawn(terminal_alt), desc="Launch alternative terminal"),
+
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod, "shift"], "b", lazy.spawn(browser_alt), desc="Launch alternative browser"),
+
     Key([mod], "m", lazy.spawn(musicplayer), desc="Launch musicplayer"),
+
     Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
+    Key([mod, "shift"], "f", lazy.spawn(filemanager_alt), desc="Launch alternative filemanager"),
+
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     # qtile commands
     Key([mod], "c", lazy.restart(), desc="Restart qtile"),
@@ -54,8 +64,8 @@ keys = [
     Key([mod, "shift"], "r", lazy.layout.normalize()),
     # layout modifires
     Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod, "shift"], "f", lazy.window.toggle_fullscreen()),
-    Key([mod, "shift"], "t", lazy.window.toggle_floating()),
+    Key([mod, "control"], "f", lazy.window.toggle_fullscreen()),
+    Key([mod, "control"], "t", lazy.window.toggle_floating()),
     # brightness
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),

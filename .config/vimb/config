@@ -22,16 +22,16 @@ set incsearch=true
 
 # The font family to use as the default for content that does not specify a
 # font.
-set default-font=FiraSans-Bold
+set default-font=Hack-Regular
 
 # The font family used as the default for content using monospace font.
-set monospace-font= FiraMono-Regular
+set monospace-font= Hack-Regular
 
 # The font family used as the default for content using sans-serif font.
-set sans-serif-font=FiraMono-Regular
+set sans-serif-font=Hack-Regular
 
 # The font family used as the default for content using serif font.
-set serif-font=FiraMono-Regular
+set serif-font=Hack-Regular
 
 # The default font size used to display text.
 set font-size=16
@@ -66,6 +66,7 @@ set status-bar=false
 #
 # Shortcuts allow the opening of an URI built up from a named template with
 # additional parameters.
+shortcut-add sr=https://searx.prvcy.eu/?q=$0
 shortcut-add dd=https://duckduckgo.com/?q=$0
 shortcut-add so=https://stackoverflow.com/search?q=$0
 shortcut-add aw=https://wiki.archlinux.org/index.php?search=$0
@@ -76,7 +77,7 @@ shortcut-add ud=https://www.urbandictionary.com/define.php?term=$0
 
 # Set the shortcut as the default, that is the shortcut to be used if no
 # shortcut is given and the string to open is not an URI.
-shortcut-default duck
+shortcut-default sr
 
 # Map page zoom in normal mode to keys commonly used across applications
 # + (zoom in), - (zoom out), = (zoom reset)

@@ -37,7 +37,7 @@ fi
 #nm-applet &
 #xbacklight -set 5 &
 picom &
-sudo /home/sam/scripts/powertop_fix.sh &
+sudo $HOME/scripts/powertop_fix.sh &
 xsetroot -cursor_name left_ptr &
-nitrogen --restore & 
+cat $HOME/.config/wallpaper | xargs xwallpaper --stretch &
 exec qtile

@@ -12,5 +12,7 @@ source ~/.config/zsh/dracula/dracula.zsh-theme
 source ~/.config/zsh/alias.zsh
 # vi-mode
 source ~/.config/zsh/vi-mode.zsh
+# exports
+source ~/.config/zsh/exports.zsh
 # spotify keys
 source ~/hdd/scripts/spotify.zsh
