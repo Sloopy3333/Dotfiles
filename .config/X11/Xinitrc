@@ -36,7 +36,7 @@ fi
 #pasystray &
 #nm-applet &
 #xbacklight -set 5 &
-picom &
+#picom &
 sudo $HOME/scripts/powertop_fix.sh &
 xsetroot -cursor_name left_ptr &
 cat $HOME/.config/wallpaper | xargs xwallpaper --stretch &
