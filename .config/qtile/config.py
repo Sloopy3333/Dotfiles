@@ -12,20 +12,30 @@ browser = "tabbed -c vimb -e"
 browser_alt = "firefox"
 filemanager = "st -e vifm"
 filemanager_alt = "pcmanfm"
+email = "st -e neomutt"
 musicplayer = "st -e cmus"
 keys = [
     # launch and kill programs
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod, "shift"], "t", lazy.spawn(terminal_alt), desc="Launch alternative terminal"),
-
+    Key(
+        [mod, "shift"],
+        "t",
+        lazy.spawn(terminal_alt),
+        desc="Launch alternative terminal",
+    ),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
-    Key([mod, "shift"], "b", lazy.spawn(browser_alt), desc="Launch alternative browser"),
-
-    Key([mod], "m", lazy.spawn(musicplayer), desc="Launch musicplayer"),
-
+    Key(
+        [mod, "shift"], "b", lazy.spawn(browser_alt), desc="Launch alternative browser"
+    ),
+    Key([mod], "m", lazy.spawn(musicplayer), desc="Launch kusicplayer"),
     Key([mod], "f", lazy.spawn(filemanager), desc="Launch filemanager"),
-    Key([mod, "shift"], "f", lazy.spawn(filemanager_alt), desc="Launch alternative filemanager"),
-
+    Key(
+        [mod, "shift"],
+        "f",
+        lazy.spawn(filemanager_alt),
+        desc="Launch alternative filemanager",
+    ),
+    Key([mod], "e", lazy.spawn(email), desc="Launch neomutt"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     # qtile commands
     Key([mod], "c", lazy.restart(), desc="Restart qtile"),
@@ -74,9 +84,19 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.spawn(" pulsemixer --change-volume +5")),
     Key([], "XF86AudioLowerVolume", lazy.spawn(" pulsemixer --change-volume -5")),
     # screenshots
-    Key([mod], "Print", lazy.spawn("escrotum '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'")),
-    Key([mod, "control"], "Print", lazy.spawn("escrotum -s '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'")),
-    ]
+    Key(
+        [mod],
+        "Print",
+        lazy.spawn("escrotum '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'"),
+    ),
+    Key(
+        [mod, "control"],
+        "Print",
+        lazy.spawn(
+            "escrotum -s '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'"
+        ),
+    ),
+]
 
 groups = [Group(i) for i in "123456789"]
 
@@ -175,9 +195,9 @@ bar_colors = [
     "#ff6ac1",  # magenta
     "#8be9fd",  # cyan
     "#f1f1f0",  # white
-    "#ffb86c",   # orange
-    "#6272a4",   # purple
-    "#44475a"   # light black
+    "#ffb86c",  # orange
+    "#6272a4",  # purple
+    "#44475a",  # light black
 ]
 screens = [
     Screen(
@@ -353,7 +373,7 @@ screens = [
                 widget.Systray(background=bar_colors[0]),
             ],
             size=20,
-            opacity=1.0
+            opacity=1.0,
         ),
     ),
 ]
