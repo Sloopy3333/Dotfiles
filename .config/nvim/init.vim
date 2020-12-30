@@ -40,7 +40,7 @@ set statusline+=\ %c:%l/%L
 set statusline+=\ %p%%
 set statusline+=\ [%n]
 
-
+source $HOME/.config/nvim/plug-config/coc.vim
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -48,6 +48,7 @@ Plug 'ap/vim-css-color'
 Plug 'vifm/vifm.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " color scheme
