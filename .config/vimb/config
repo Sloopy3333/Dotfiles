@@ -42,28 +42,38 @@ set monospace-font-size=16
 # Default Full-Content zoom level in percent. Default is 100.
 set default-zoom=100
 
-#Cookie accept policy {‘always’, ‘never’, ‘origin’ (accept all non-third-party cookies)}.
+# Cookie accept policy {‘always’, ‘never’, ‘origin’ (accept all non-third-party cookies)}.
 set cookie-accept=origin
 
-#Whether to enable dark mode. Websites can use the `prefers-color-scheme’ media query to adjust styles according to this option.
+# Whether to enable dark mode. Websites can use the `prefers-color-scheme’ media query to adjust styles according to this option.
 set dark-mode=true
 
-#If enabled the inputbox will be hidden whenever it contains no text.
+# If enabled the inputbox will be hidden whenever it contains no text.
 set input-autohide=true
 
-#Controls website access to the geolocation API (‘always’, ‘never’, ‘ask’ - display a prompt each time)
+# Controls website access to the geolocation API (‘always’, ‘never’, ‘ask’ - display a prompt each time)
 set geolocation=ask
 
-#Multiplier to increase the scroll distance if window is scrolled by mouse wheel.
-set scroll-step=30
+# Multiplier to increase the scroll distance if window is scrolled by mouse wheel.
+set scroll-step=50
 
-#Determines whether the titlebar is shown (on systems that provide window decoration). Defaults to true.
+# Determines whether the titlebar is shown (on systems that provide window decoration). Defaults to true.
 set show-titlebar=false
 
-#Indicates if the status bar should be shown.
+# Indicates if the status bar should be shown.
 set status-bar=false
-#
-#
+
+# Cookie accept policy {`always', `never', `origin' (accept all non-third-party cookies)}.  
+set cookie-accept=origin
+
+# Indicates if Vimb prefetches domain names.
+set dns-prefetching=false
+
+# for playing youtube vedios in mpv
+:set x-hint-command=:sh! mpv <C-R>% <C-R>;<CR>
+
+# The user-agent string used by WebKit.
+set user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
 # Shortcuts allow the opening of an URI built up from a named template with
 # additional parameters.
 shortcut-add sr=https://searx.prvcy.eu/?q=$0
@@ -79,10 +89,26 @@ shortcut-add ud=https://www.urbandictionary.com/define.php?term=$0
 # shortcut is given and the string to open is not an URI.
 shortcut-default sr
 
-# Map page zoom in normal mode to keys commonly used across applications
-# + (zoom in), - (zoom out), = (zoom reset)
+# Maps
 nmap + zI
 nmap - zO
 nmap = zz
+nmap i ;i
+nmap I ;I
+nmap x ;x
 nnoremap H <C-o>
 nnoremap L <C-i>
+nmap ZZ :quit<CR>
+nmap ZQ :quit!<CR>
+nnoremap <C-u> <C-U>
+nnoremap <C-d> <C-D>
+
+# GUI color settings
+set completion-css=color:#f8f8f2;background-color:#282a36;font:12pt Hack-Bold;
+set completion-hover-css=color:#f8f8f2;background-color:#282a36 Hack-Bold;
+set completion-selected-css=color:#282a36;background-color:#bd93f9;font:12p Hack-Bold;
+set input-css=color:#f8f8f2;background-color:#282a36;font:12pt Hack-Bold;
+set input-error-css=color:#ff5555;background-color:#282a36;font:12pt Hack-Bold;
+set status-css=color:#bd93f9;background-color:#282a36;font:12pt Hack-Bold;
+set status-ssl-css=color:#99cc99;background-color:#393939;font:12pt Hack-Bold; 
+set status-ssl-invalid-css=color:#f2777a;background-color:#393939;font:12pt Hack-Bold ;
