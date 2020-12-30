@@ -24,6 +24,7 @@ endif
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 mark b ~/bin/
 mark h ~/
+mark d ~/Downloads/
 
 " ------------------------------------------------------------------------------
 
@@ -335,6 +336,7 @@ nnoremap gc :cd ~/.config<cr>
 nnoremap gw :cd ~/hdd/walls<cr>
 nnoremap gs :cd ~/hdd/screenshots<cr>
 nnoremap gm :cd ~/hdd/songs<cr>
+nnoremap gd :cd ~/Downloads<cr>
 nnoremap <C-s> :write | edit $MYVIFMRC | restart full<cr>
 
 
