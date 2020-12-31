@@ -46,7 +46,7 @@ set default-zoom=100
 set cookie-accept=origin
 
 # Whether to enable dark mode. Websites can use the `prefers-color-scheme’ media query to adjust styles according to this option.
-set dark-mode=true
+set dark-mode=on
 
 # If enabled the inputbox will be hidden whenever it contains no text.
 set input-autohide=true
@@ -87,7 +87,7 @@ shortcut-add ud=https://www.urbandictionary.com/define.php?term=$0
 
 # Set the shortcut as the default, that is the shortcut to be used if no
 # shortcut is given and the string to open is not an URI.
-shortcut-default sr
+shortcut-default dd
 
 # Maps
 nmap + zI

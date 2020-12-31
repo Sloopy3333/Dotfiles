@@ -1,9 +1,7 @@
 html{
   display: flex;
   flex-flow: row nowrap;  
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+  justify-content: center; align-content: center; align-items: center;
   height: 100%;
   width: 100%;
   margin: 0;

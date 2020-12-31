@@ -42,7 +42,7 @@ config.set("content.javascript.enabled", True, "qute://*/*")
 # preferences
 c.tabs.show = "multiple"
 c.url.searchengines = {
-    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "DEFAULT": "/home/sam/.config/startpage/index.html",
     "aw": "https://wiki.archlinux.org/?search={}",
     "go": "https://www.google.com/search?q={}",
     "re": "https://www.reddit.com/r/{}",

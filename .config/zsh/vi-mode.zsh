@@ -58,3 +58,8 @@ function vi_mode_prompt_info() {
 if [[ "$RPS1" == "" && "$RPROMPT" == "" ]]; then
   RPS1='$(vi_mode_prompt_info)'
 fi
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
