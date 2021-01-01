@@ -1,5 +1,10 @@
 #alias
 
+# common
+alias ls="ls --color=auto"
+alias la="ls -a --color=auto"
+alias lla="ls -la --color=auto"
+
 # dot file
 alias dot="git --git-dir=$HOME/Dotfiles/ --work-tree=$HOME"
 

@@ -38,6 +38,6 @@ fi
 #xbacklight -set 5 &
 #picom &
 sudo $HOME/scripts/powertop_fix.sh &
+$HOME/scripts/walli -r &
 xsetroot -cursor_name left_ptr &
-walli -r &
 exec qtile

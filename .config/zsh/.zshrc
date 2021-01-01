@@ -17,6 +17,6 @@ source ~/.config/zsh/history.zsh
 # spotify keys
 #source ~/hdd/scripts/spotify.zsh
 # auto suggestions
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # syntx-highlighting
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

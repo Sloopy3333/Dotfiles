@@ -1,3 +1,4 @@
+set undodir=$XDG_DATA_HOME/vim/undo
 syntax on
 set nocompatible
 set noerrorbells                         " no error bells
