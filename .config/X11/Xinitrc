@@ -39,5 +39,5 @@ fi
 #picom &
 sudo $HOME/scripts/powertop_fix.sh &
 xsetroot -cursor_name left_ptr &
-cat $HOME/.config/walli | xargs xwallpaper --stretch &
+walli -r &
 exec qtile

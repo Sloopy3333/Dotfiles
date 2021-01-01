@@ -87,14 +87,20 @@ keys = [
     Key(
         [mod],
         "Print",
-        lazy.spawn("escrotum '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'"),
+        lazy.spawn("/home/sam/scripts/sc"),
+        desc="Take full screen shot",
+    ),
+    Key(
+        [mod, "shift"],
+        "Print",
+        lazy.spawn("/home/sam/scripts/sc -s"),
+        desc="Take screenshot of selected area",
     ),
     Key(
         [mod, "control"],
         "Print",
-        lazy.spawn(
-            "escrotum -s '/home/sam/hdd/screenshots/%Y-%m-%d-%H%M%S_$wx$h_sc.png'"
-        ),
+        lazy.spawn("/home/sam/scripts/sc -cs"),
+        desc="Cpoy selected area to clipboard",
     ),
 ]
 
@@ -135,7 +141,7 @@ margin = 10
 single_border_width = 0
 single_margin = 10
 
-# bar
+# layouts
 layouts = [
     MonadTall(
         border_focus=border_focus,
