@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# checks if directory exists 
+if [[ ! -d /home/$USER/.config/walli ]] 
+then
+    mkdir /home/$USER/.config/walli
+fi
+
+# checks if wallpaper file exists 
+if [[ ! -f /home/$USER/.config/walli/wallpaper ]] 
+then
+    touch /home/$USER/.config/walli/wallpaper
+fi
+
+# to add multiple directories add dir path as space seperated list eg WALL_DIR=("path1" "path2")
+WALL_DIR=("~/hdd/walls")
+OPT="${2:---stretch}"
+case $1 in 
+     # restore previous wallpaper
+    -r)
+	cat $HOME/.config/walli/wallpaper | xargs xwallpaper --stretch 
+	;;
+     # set new wallpaper 
+    *)
+	#echo ${WALL_DIR[*]}
+	SELECTED=$(devour sxiv -o -q -r -t ${WALL_DIR[*]})
+	if [[ $SELECTED == "" ]]
+	    then
+		exit
+	fi
+	echo $SELECTED > ~/.config/walli/wallpaper
+	xwallpaper $OPT $SELECTED
+	;;
+esac
+

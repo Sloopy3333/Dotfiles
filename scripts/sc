@@ -1,0 +1,35 @@
+#!/bin/bash
+
+SC_DIR=~/hdd/screenshots/
+
+case $1 in
+      # screenshots select tool
+     -s)
+	maim -s $SC_DIR/$(date +%s).png
+	;;
+      # screenshots focused window
+     -w)
+     maim -i $(xdotool getactivewindow) $SC_DIR/$(date +%s).png
+	;;
+      # copies entire screen
+     -c)
+	maim | xclip -selection clipboard -t image/png
+	;;
+      # copies focused window to clipboard
+     -cw)
+	maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+	;;
+      # copies selected window to clipboard 
+     -cs)
+	maim -s | xclip -selection clipboard -t image/png
+	;;
+      # gives rgb values of select pixel
+     -r)
+	maim -st 0 | convert - -resize 1x1\! -format '%[pixel:p{0,0}]' info:-
+	;;
+      # full screenshots
+     *)
+	maim $SC_DIR/$(date +%s).png
+	;;
+esac 
+

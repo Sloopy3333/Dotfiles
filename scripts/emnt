@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# dependencies
+# simple-mtpfs
+# fusermount
+# dmenu
+
+# creates dir if doesnt exists 
+DIR=$HOME/external
+if [[ ! -d $DIR ]]
+    then
+	mkdir $HOME/external
+fi
+
+mount () {
+    DEV_LIST=$(simple-mtpfs -l)
+
+    if [[ ! -n DEV_LIST ]] 
+	then
+	    echo "no device found"
+	    exit
+    fi
+    DEV_SELECTED=$(echo "$DEV_LIST" | dmenu -p "selct device to mount")
+    SELECTED_ID=$(echo $DEV_SELECTED |  sed 's/ //g'|cut -d':' -f1)
+    SELECTED_NAME=$(echo $DEV_SELECTED |  sed 's/ //g'|cut -d':' -f2)
+    mkdir $DIR/$SELECTED_NAME
+    simple-mtpfs --device $SELECTED_ID $DIR/$SELECTED_NAME/
+}
+
+unmount () {
+    MOUNTED=$(ls $DIR)
+    UNMOUNT_SELECTED=$(echo "$MOUNTED" | dmenu -p "selct device to umount")
+    fusermount -u $DIR/$UNMOUNT_SELECTED
+    rm -r $DIR/$UNMOUNT_SELECTED
+}
+
+case $1 in 
+    # mount device
+    -m)
+	mount
+	;;
+    # unmount device
+    -u)
+	unmount
+	;;
+esac 
