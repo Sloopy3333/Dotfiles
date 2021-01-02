@@ -1,12 +1,19 @@
 #alias
 
-# common
-alias ls="ls --color=auto"
-alias la="ls -a --color=auto"
-alias lla="ls -la --color=auto"
+# ls
+alias ls="exa --color=always --group-directories-first"
+alias la="exa -a --color=always --group-directories-first"
+alias lla="exa -la --color=always --group-directories-first"
 
-# dot file
+# grep
+alias grep="grep --color=auto"
+
+# dot file repo
 alias dot="git --git-dir=$HOME/Dotfiles/ --work-tree=$HOME"
+alias status="dot status"
+alias stage="dot stage"
+alias stageall="dot stage -A"
+alias commit="dot commit -m"
 
 #network
 alias scwifi="nmcli d wifi list --rescan yes"

@@ -73,3 +73,10 @@ VirtualBox VMs/
 hdd/
 scripts/history.sh
 scripts/test.sh
+.config/zsh/.zcompdump
+.config/git/
+.config/mpd/
+.config/ncmpcpp/
+.config/pipewire-media-session/
+.moc/
+
