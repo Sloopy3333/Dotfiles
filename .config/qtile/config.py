@@ -80,9 +80,9 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),
     # Audio
-    Key([], "XF86AudioMute", lazy.spawn("pulsemixer --toggle-mute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn(" pulsemixer --change-volume +5")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn(" pulsemixer --change-volume -5")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer sset Master toggle")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-")),
     # screenshots
     Key(
         [mod],
@@ -210,35 +210,40 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(
-                    filename="/home/sam/.config/qtile/icons/py.png",
+                    filename="/home/sam/.config/qtile/icons/arch.png",
                     margin=2,
                     mouse_callbacks={"Button1": run_xmenu},
-                    background=bar_colors[0],
-                ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
-                    background=bar_colors[0],
-                    size_percent=100,
+                    background=bar_colors[4],
                 ),
                 widget.CurrentLayout(
                     foreground=bar_colors[0], background=bar_colors[4]
                 ),
-                widget.Sep(
-                    linewidth=10,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p8.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.GroupBox(
-                    margin_y=3,
-                    margin_x=0,
+                    margin_y=5,
                     padding_y=5,
                     padding_x=3,
                     borderwidth=3,
                     background=bar_colors[3],
+                    highlight_method="line",
+                    block_highlight_text_color=bar_colors[0],
+                    highlight_color=bar_colors[3],
+                    this_current_screen_border=bar_colors[0],
                     active=bar_colors[1],
+                    markup=True,
+                    center_aligned=True,
                     disable_drag=True,
+                ),
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p7.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
+                    background=bar_colors[0],
                 ),
                 widget.Sep(
                     linewidth=10,
@@ -247,6 +252,12 @@ screens = [
                     size_percent=100,
                 ),
                 widget.WindowName(foreground=bar_colors[5], background=bar_colors[0]),
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p1.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
+                    background=bar_colors[0],
+                ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/cpu.png",
                     background=bar_colors[5],
@@ -266,11 +277,11 @@ screens = [
                     update_interval=5,
                     mouse_callbacks={"Button1": run_htop},
                 ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p2.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/memory.png",
@@ -285,11 +296,11 @@ screens = [
                     update_interval=5,
                     mouse_callbacks={"Button1": run_htop},
                 ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p3.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/wifi.png",
@@ -299,7 +310,7 @@ screens = [
                 widget.Wlan(
                     interface="wlp0s20f3",
                     format="{essid}",
-                    disconnected_message="",
+                    disconnected_message="Disconnected",
                     foreground=bar_colors[0],
                     background=bar_colors[4],
                 ),
@@ -309,11 +320,11 @@ screens = [
                     foreground=bar_colors[0],
                     background=bar_colors[4],
                 ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p4.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/battery.png",
@@ -330,11 +341,11 @@ screens = [
                     background=bar_colors[2],
                     foreground=bar_colors[0],
                 ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p5.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/brightness.png",
@@ -348,23 +359,17 @@ screens = [
                     background=bar_colors[3],
                     step=1,
                 ),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
-                    background=bar_colors[0],
-                    size_percent=100,
-                ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/vol.png",
                     background=bar_colors[3],
                     margin=4,
                 ),
                 widget.Volume(foreground=bar_colors[0], background=bar_colors[3]),
-                widget.Sep(
-                    linewidth=4,
-                    foreground=bar_colors[0],
+                widget.Image(
+                    filename="/home/sam/.config/qtile/icons/p6.png",
+                    margin=0,
+                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
-                    size_percent=100,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/calendar.png",
