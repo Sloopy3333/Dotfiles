@@ -14,6 +14,7 @@ alias status="dot status"
 alias stage="dot stage"
 alias stageall="dot stage -A"
 alias commit="dot commit -m"
+alias push="dot push origin master"
 
 #network
 alias scwifi="nmcli d wifi list --rescan yes"
