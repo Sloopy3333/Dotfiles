@@ -183,10 +183,6 @@ widget_defaults = dict(
     padding=3,
 )
 # calbacks
-def run_htop(qtile):
-    qtile.cmd_spawn("st -e htop")
-
-
 def run_xmenu(qtile):
     qtile.cmd_spawn("/home/sam/.config/xmenu/xmenu.sh")
 
@@ -212,7 +208,6 @@ screens = [
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/arch.png",
                     margin=2,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[4],
                 ),
                 widget.CurrentLayout(
@@ -221,7 +216,6 @@ screens = [
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p8.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.GroupBox(
@@ -242,7 +236,6 @@ screens = [
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p7.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Sep(
@@ -255,51 +248,43 @@ screens = [
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p1.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/cpu.png",
                     background=bar_colors[5],
                     margin=2,
-                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.CPU(
                     format="CPU {freq_current}GHz {load_percent}%",
-                    update_interval=5,
+                    update_interval=10,
                     foreground=bar_colors[0],
                     background=bar_colors[5],
-                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.ThermalSensor(
                     background=bar_colors[5],
                     foreground=bar_colors[0],
-                    update_interval=5,
-                    mouse_callbacks={"Button1": run_htop},
+                    update_interval=10,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p2.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/memory.png",
                     background=bar_colors[3],
                     margin=1,
-                    mouse_callbacks={"Button1": run_htop},
                 ),
                 widget.Memory(
                     format="Mem {MemUsed}MB ",
                     foreground=bar_colors[0],
                     background=bar_colors[3],
-                    update_interval=5,
-                    mouse_callbacks={"Button1": run_htop},
+                    update_interval=10,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p3.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
@@ -309,21 +294,15 @@ screens = [
                 ),
                 widget.Wlan(
                     interface="wlp0s20f3",
-                    format="{essid}",
+                    format="{essid} {quality}/70",
                     disconnected_message="Disconnected",
-                    foreground=bar_colors[0],
-                    background=bar_colors[4],
-                ),
-                widget.Net(
-                    format="{interface}",
-                    interface="enp0s20f0u1",
+                    update_interval=5,
                     foreground=bar_colors[0],
                     background=bar_colors[4],
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p4.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
@@ -336,7 +315,7 @@ screens = [
                     discharge_char="",
                     low_foreground=bar_colors[1],
                     low_percentage=0.2,
-                    format="{char} {percent:2.0%} ({hour:d}:{min:02d})",
+                    format="{char} {percent:2.0%} ({hour:d}:{min:02d}) {watt:.2f} W",
                     update_interval=30,
                     background=bar_colors[2],
                     foreground=bar_colors[0],
@@ -344,7 +323,6 @@ screens = [
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p5.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
@@ -357,18 +335,22 @@ screens = [
                     format="{percent:2.0%}",
                     foreground=bar_colors[0],
                     background=bar_colors[3],
-                    step=1,
+                    update_interval=1,
+                    step=5,
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/vol.png",
                     background=bar_colors[3],
                     margin=4,
                 ),
-                widget.Volume(foreground=bar_colors[0], background=bar_colors[3]),
+                widget.Volume(
+                    foreground=bar_colors[0],
+                    background=bar_colors[3],
+                    update_interval=1,
+                ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/p6.png",
                     margin=0,
-                    mouse_callbacks={"Button1": run_xmenu},
                     background=bar_colors[0],
                 ),
                 widget.Image(
