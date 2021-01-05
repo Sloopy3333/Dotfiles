@@ -1,5 +1,8 @@
 #!/bin/sh
-
+# simple tool to set wallpaper
+# dependencies
+#	sxixv
+#	xwallpaper
 # checks if directory exists 
 if [[ ! -d /home/$USER/.config/walli ]] 
 then

@@ -4,7 +4,6 @@ from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.extension import DmenuRun, WindowList, CommandSet
-
 mod = "mod4"
 terminal = "st"
 terminal_alt = "alacritty"
@@ -63,23 +62,24 @@ keys = [
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
     # move windows
-    Key([mod, "control"], "j", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "k", lazy.layout.shuffle_up()),
-    Key([mod, "control"], "h", lazy.layout.shuffle_left()),
-    Key([mod, "control"], "l", lazy.layout.shuffle_right()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
     # resize windows
-    Key([mod, "shift"], "h", lazy.layout.shrink()),
-    Key([mod, "shift"], "l", lazy.layout.grow()),
-    Key([mod, "shift"], "m", lazy.layout.maximize()),
-    Key([mod, "shift"], "r", lazy.layout.normalize()),
+    Key([mod, "control"], "h", lazy.layout.shrink()),
+    Key([mod, "control"], "l", lazy.layout.grow()),
+    Key([mod, "control"], "m", lazy.layout.maximize()),
+    Key([mod, "control"], "r", lazy.layout.normalize()),
     # layout modifires
-    Key([mod], "n", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "n", lazy.next_layout(), desc="Toggle next layout"),
+    Key([mod], "m", lazy.prev_layout(), desc="Toggle prev layout"),
     Key([mod, "control"], "f", lazy.window.toggle_fullscreen()),
     Key([mod, "control"], "t", lazy.window.toggle_floating()),
     # brightness
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc +5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec +5")),
-    # Audio
+    # Volume
     Key([], "XF86AudioMute", lazy.spawn("amixer sset Master toggle")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-")),
@@ -151,6 +151,14 @@ layouts = [
         single_margin=single_margin,
         name="Tall",
     ),
+    Max(
+        border_focus=border_focus,
+        border_width=border_width,
+        margin=single_margin,
+        single_border_width=0,
+        single_margin=0,
+        name="Full",
+    ),
     MonadWide(
         border_focus=border_focus,
         border_width=border_width,
@@ -166,14 +174,6 @@ layouts = [
         single_border_width=single_border_width,
         single_margin=single_margin,
         name="Grid",
-    ),
-    Max(
-        border_focus=border_focus,
-        border_width=border_width,
-        margin=single_margin,
-        single_border_width=0,
-        single_margin=0,
-        name="Full",
     ),
 ]
 
@@ -273,13 +273,13 @@ screens = [
                 ),
                 widget.Image(
                     filename="/home/sam/.config/qtile/icons/memory.png",
-                    background=bar_colors[3],
+                    background=bar_colors[8],
                     margin=1,
                 ),
                 widget.Memory(
-                    format="Mem {MemUsed}MB ",
+                    format=" Mem {MemUsed}MB ",
                     foreground=bar_colors[0],
-                    background=bar_colors[3],
+                    background=bar_colors[8],
                     update_interval=10,
                 ),
                 widget.Image(
@@ -413,6 +413,7 @@ floating_layout = Floating(
         {"wname": "Picture in picture"},
         {"wname": "FreeTube"},
         {"wname": "lutris"},
+        {"wname": "virt-manager"},
     ]
 )
 auto_fullscreen = True
@@ -423,8 +424,8 @@ groups = [
     Group("1"),
     Group("2"),
     Group("3"),
-    Group("4", matches=[Match(wm_class=["Steam"])]),
-    Group("5", matches=[Match(wm_class=["csgo_linux64"])]),
+    Group("4"),
+    Group("5"),
     Group("6"),
     Group("7"),
     Group("8"),

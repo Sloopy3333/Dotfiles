@@ -1,7 +1,7 @@
 # Homepage that vimb opens if started without a URI.
 set home-page=/home/sam/.config/startpage/index.html
 
-#Downloads
+# Downloads
 set download-path=~/Downloads
 
 #spawn editor
@@ -100,6 +100,7 @@ nnoremap H <C-o>
 nnoremap L <C-i>
 nmap ZZ :quit<CR>
 nmap ZQ :quit!<CR>
+nmap gc :shellcmd git clone $VIMB_URI<CR>
 nnoremap <C-u> <C-U>
 nnoremap <C-d> <C-D>
 

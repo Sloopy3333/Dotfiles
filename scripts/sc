@@ -1,5 +1,8 @@
 #!/bin/bash
-
+# script to take screenshots
+# dependencies
+#	maim
+#	xdotool
 SC_DIR=~/hdd/screenshots/
 
 case $1 in
