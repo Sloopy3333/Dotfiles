@@ -20,7 +20,7 @@ set cmdheight=1
 set ignorecase                          " ignore case while searching
 set laststatus=2                        " always show status line
 set termguicolors                       " true colors
-set clipboard+=unnamedplus              " set clipboard to system clipboard
+set clipboard=unnamedplus              " set clipboard to system clipboard
 set path+=**                            " ** for recursive search on all dir
 set wildmenu
 filetype plugin indent on

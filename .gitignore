@@ -79,4 +79,5 @@ scripts/test.sh
 .config/ncmpcpp/
 .config/pipewire-media-session/
 .moc/
+.config/qtile/__pycache__/keys.cpython-39.pyc
 

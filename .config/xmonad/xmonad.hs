@@ -98,7 +98,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask  ,  xK_g                    ), sendMessage $ ToggleGaps)               -- toggle all gaps
     , ((modm .|. controlMask  ,  xK_f                    ), sendMessage ToggleStruts)
     , ((modm                  ,  xK_r                    ), shellPrompt promptconfig)
-    , ((modm                  ,  xK_x                    ), spawn "~/.config/xmobar/xmenu.sh")
+    , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
     , ((modm .|. controlMask  ,  xK_s                    ), spawn "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam")    --to launch steam with dedicated nvidia gpu on pop os
     , ((modm                  ,  xK_b                    ), spawn "firefox")

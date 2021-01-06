@@ -30,7 +30,7 @@ static struct Config config = {
 	.iconpadding = 2,
 
 	/* area around the icon, the triangle and the separator */
-	.horzpadding = 8,
+	.horzpadding = 12,
 };
 
 /*
