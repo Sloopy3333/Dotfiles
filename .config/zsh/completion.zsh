@@ -5,7 +5,6 @@ zmodload zsh/complist
 setopt COMPLETE_ALIASES
 setopt autocd
 compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
-#compinit
 
 zstyle ':completion:*:pacman:*' force-list always
 zstyle ':completion:*:*:pacman:*' menu yes select

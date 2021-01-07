@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SELECTED=$(ls /usr/bin/ | fzf)
+devour $SELECTED
+

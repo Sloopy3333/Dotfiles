@@ -61,23 +61,6 @@ hi Normal ctermbg=none
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 
-" fzf
-let g:fzf_layout = {'window':{'width': 0.8, 'height' : 0.8}} 
- let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-\ 'bg':      ['bg', 'Normal'],
-\ 'hl':      ['fg', 'Comment'],
-\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-\ 'hl+':     ['fg', 'Statement'],
-\ 'info':    ['fg', 'PreProc'],
-\ 'border':  ['fg', 'Ignore'],
-\ 'prompt':  ['fg', 'Conditional'],
-\ 'pointer': ['fg', 'Exception'],
-\ 'marker':  ['fg', 'Keyword'],
-\ 'spinner': ['fg', 'Label'],
-\ 'header':  ['fg', 'Comment'] }
-
 
 " vifm
 let g:vifm_replace_netrw = 1
@@ -107,7 +90,6 @@ map <leader><C-s> :source ~/.config/nvim/init.vim<CR>
 map <silent> <Leader>ff :Files<CR>
 map <silent> <Leader>fg :GFiles<CR>
 map <silent> <Leader>fF :Rg<CR>
-map <silent> <Leader>ee :Vex<CR>
 map <silent> <Leader>fh :History<CR>
 map <silent> <Leader>fb :Buffer<CR>
 map <silent> <Leader>fl :Lines<CR>

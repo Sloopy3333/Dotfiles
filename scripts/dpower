@@ -1,0 +1,6 @@
+#!/bin/bash
+opt='suspend
+poweroff
+reboot '
+choosen="$(printf  "$opt" | dmenu -i -p "power")"
+systemctl $choosen

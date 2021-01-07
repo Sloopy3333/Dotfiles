@@ -1,0 +1,4 @@
+#!/bin/sh
+mem=$(free -m | sed -n '2{p;q}' | awk '{print $3}')
+memicon="💾"
+printf "%s %s MB\\n" "$memicon" "$mem"

@@ -31,3 +31,14 @@ alias steam="devour prime-run steam"
 alias sxiv="devour sxiv"
 alias mpv="devour mpv"
 alias zathura="devour zathura"
+
+# files
+alias -s json=$EDITOR
+alias -s txt=$EDITOR
+alias -s md=$EDITOR
+alias -s MD=$EDITOR
+alias -s vim=$EDITOR
+alias -s zsh=$EDITOR
+alias -s config=$EDITOR
+alias -s py=$EDITOR
+alias -s rc=$EDITOR

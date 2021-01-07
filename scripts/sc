@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # script to take screenshots
 # dependencies
 #	maim

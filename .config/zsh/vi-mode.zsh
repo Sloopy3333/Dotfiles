@@ -1,5 +1,7 @@
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+bindkey -v
 export KEYTIMEOUT=1
+autoload edit-command-line; zle -N edit-command-line
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
@@ -14,7 +16,6 @@ function zle-keymap-select {
 }
 zle -N zle-keymap-select
 zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
@@ -27,3 +28,6 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
+
+# open in nvim
+bindkey -M vicmd '^e' edit-command-line

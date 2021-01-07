@@ -3,6 +3,7 @@ userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+wm=dwm
 
 # merge in defaults and keymaps
 
@@ -39,4 +40,7 @@ xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
 xsetroot -cursor_name left_ptr &
-exec qtile
+if [ $wm = dwm ]; then
+    dwmblocks &
+fi
+exec $wm
