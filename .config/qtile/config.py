@@ -1,9 +1,11 @@
+from  os.path import expanduser 
+from subprocess import check_output
 from libqtile import bar
 from libqtile.lazy import lazy
 from libqtile.extension import CommandSet
 from libqtile.layout import MonadTall, MonadWide, Max, Floating
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
-from libqtile.widget import CurrentLayout, Image, GroupBox, Sep, WindowName, CPU, ThermalSensor, Memory, Wlan, Battery, Backlight, Volume, Clock, Systray
+from libqtile.widget import CurrentLayout, Image, GroupBox, Sep, WindowName, CPU, ThermalSensor, Memory, Wlan, Battery, Backlight, GenPollText, Volume, Clock, Systray
 
 mod = "mod4"
 terminal = "st"
@@ -14,68 +16,67 @@ filemanager = "st -e vifm"
 filemanager_alt = "pcmanfm"
 email = "st -e neomutt"
 musicplayer = "st -e cmus"
-scripts_dir="/home/sam/scripts"
 
 keys = [
 
     # launch and kill programs
-    Key([mod],              "t",                    lazy.spawn(terminal),                           desc="Launch terminal"),
-    Key([mod,"shift"],      "t",                    lazy.spawn(terminal_alt),                       desc="Launch alternative terminal"),
-    Key([mod],              "b",                    lazy.spawn(browser),                            desc="Launch browser"),
-    Key([mod,"shift"],      "b",                    lazy.spawn(browser_alt),                        desc="Launch alternative browser"),
-    Key([mod],              "m",                    lazy.spawn(musicplayer),                        desc="Launch musicplayer"),
-    Key([mod],              "f",                    lazy.spawn(filemanager),                        desc="Launch filemanager"),
-    Key([mod,"shift"],      "f",                    lazy.spawn(filemanager_alt),                    desc="Launch alternative filemanager",),
-    Key([mod],              "e",                    lazy.spawn(email),                              desc="Launch neomutt"),
-    Key([mod],              "q",                    lazy.window.kill(),                             desc="Kill focused window"),
+    Key([mod],              "t",                    lazy.spawn(terminal),                                desc="Launch terminal"),
+    Key([mod,"shift"],      "t",                    lazy.spawn(terminal_alt),                            desc="Launch alternative terminal"),
+    Key([mod],              "b",                    lazy.spawn(browser),                                 desc="Launch browser"),
+    Key([mod,"shift"],      "b",                    lazy.spawn(browser_alt),                             desc="Launch alternative browser"),
+    Key([mod],              "m",                    lazy.spawn(musicplayer),                             desc="Launch musicplayer"),
+    Key([mod],              "f",                    lazy.spawn(filemanager),                             desc="Launch filemanager"),
+    Key([mod,"shift"],      "f",                    lazy.spawn(filemanager_alt),                         desc="Launch alternative filemanager",),
+    Key([mod],              "e",                    lazy.spawn(email),                                   desc="Launch neomutt"),
+    Key([mod],              "q",                    lazy.window.kill(),                                  desc="Kill focused window"),
 
     # qtile commands
-    Key([mod],              "c",                    lazy.restart(),                                 desc="Restart qtile"),
-    Key([mod, "shift"],     "c",                    lazy.shutdown(),                                desc="Shutdown qtile"),
+    Key([mod],              "c",                    lazy.restart(),                                      desc="Restart qtile"),
+    Key([mod, "shift"],     "c",                    lazy.shutdown(),                                     desc="Shutdown qtile"),
 
 
     # shift window focus
-    Key([mod],              "j",                    lazy.layout.down(),                              desc="Shift focus down"),
-    Key([mod],              "k",                    lazy.layout.up(),                                desc="Shift focus up"),
-    Key([mod],              "h",                    lazy.layout.left(),                              desc="Shift focus left"),
-    Key([mod],              "l",                    lazy.layout.right(),                             desc="Shift focus right"),
+    Key([mod],              "j",                    lazy.layout.down(),                                  desc="Shift focus down"),
+    Key([mod],              "k",                    lazy.layout.up(),                                    desc="Shift focus up"),
+    Key([mod],              "h",                    lazy.layout.left(),                                  desc="Shift focus left"),
+    Key([mod],              "l",                    lazy.layout.right(),                                 desc="Shift focus right"),
 
     # move windows
-    Key([mod, "shift"],     "j",                    lazy.layout.shuffle_down(),                      desc="Move focused window down"),
-    Key([mod, "shift"],     "k",                    lazy.layout.shuffle_up(),                        desc="Move focused window up"),
-    Key([mod, "shift"],     "h",                    lazy.layout.shuffle_left(),                      desc="Move focused window left"),
-    Key([mod, "shift"],     "l",                    lazy.layout.shuffle_right(),                     desc="Move focused window right"),
+    Key([mod, "shift"],     "j",                    lazy.layout.shuffle_down(),                          desc="Move focused window down"),
+    Key([mod, "shift"],     "k",                    lazy.layout.shuffle_up(),                            desc="Move focused window up"),
+    Key([mod, "shift"],     "h",                    lazy.layout.shuffle_left(),                          desc="Move focused window left"),
+    Key([mod, "shift"],     "l",                    lazy.layout.shuffle_right(),                         desc="Move focused window right"),
 
     # resize windows
-    Key([mod, "control"],   "h",                    lazy.layout.shrink(),                            desc="Increase Master window size"),
-    Key([mod, "control"],   "l",                    lazy.layout.grow(),                              desc="Decrease Master window size"),
-    Key([mod, "control"],   "m",                    lazy.layout.maximize(),                          desc="Mazimize Master window size"),
-    Key([mod, "control"],   "r",                    lazy.layout.normalize(),                         desc="Normalize Master window size"),
+    Key([mod, "control"],   "h",                    lazy.layout.shrink(),                                desc="Increase Master window size"),
+    Key([mod, "control"],   "l",                    lazy.layout.grow(),                                  desc="Decrease Master window size"),
+    Key([mod, "control"],   "m",                    lazy.layout.maximize(),                              desc="Mazimize Master window size"),
+    Key([mod, "control"],   "r",                    lazy.layout.normalize(),                             desc="Normalize Master window size"),
 
     # layout modifires
-    Key([mod],              "n",                    lazy.next_layout(),                              desc="Toggle next layout"),
-    Key([mod],              "p",                    lazy.prev_layout(),                              desc="Toggle prev layout"),
-    Key([mod, "control"],   "f",                    lazy.window.toggle_fullscreen(),                 desc="Toggle Full Screen"),
-    Key([mod, "control"],   "t",                    lazy.window.toggle_floating(),                   desc="Toggle Full Screen"),
+    Key([mod],              "n",                    lazy.next_layout(),                                  desc="Toggle next layout"),
+    Key([mod],              "p",                    lazy.prev_layout(),                                  desc="Toggle prev layout"),
+    Key([mod, "control"],   "f",                    lazy.window.toggle_fullscreen(),                     desc="Toggle Full Screen"),
+    Key([mod, "control"],   "t",                    lazy.window.toggle_floating(),                       desc="Toggle Full Screen"),
 
     # brightness
-    Key([],                 "XF86MonBrightnessUp",  lazy.spawn("xbacklight -inc +5"),                desc="Increase backlight by 5%"),
-    Key([],                 "XF86MonBrightnessDown",lazy.spawn("xbacklight -dec +5"),                desc="Decrease backlight by 5%"),
+    Key([],                 "XF86MonBrightnessUp",  lazy.spawn("xbacklight -inc +5"),                    desc="Increase backlight by 5%"),
+    Key([],                 "XF86MonBrightnessDown",lazy.spawn("xbacklight -dec +5"),                    desc="Decrease backlight by 5%"),
 
     # Volume
-    Key([],                 "XF86AudioMute",        lazy.spawn("amixer sset Master toggle"),         desc="Toggle mute"),
-    Key([],                 "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+"),            desc="Increase volume by 5%"),
-    Key([],                 "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-"),            desc="Decrease volume by 5%"),
+    Key([],                 "XF86AudioMute",        lazy.spawn("amixer sset Master toggle"),             desc="Toggle mute"),
+    Key([],                 "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+"),                desc="Increase volume by 5%"),
+    Key([],                 "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-"),                desc="Decrease volume by 5%"),
 
     # screenshots
-    Key( [mod],             "Print",                lazy.spawn(f"{scripts_dir}/sc"),                 desc="Take full screen shot"),
-    Key( [mod, "shift"],    "Print",                lazy.spawn(f"{scripts_dir}/sc -s"),              desc="Take screenshot of selected area"),
-    Key( [mod, "control"],  "Print",                lazy.spawn(f"{scripts_dir}/sc -cs"),             desc="Cpoy selected area to clipboard"),
+    Key( [mod],             "Print",                lazy.spawn(expanduser("~/scripts/sc")),              desc="Take full screen shot"),
+    Key( [mod, "shift"],    "Print",                lazy.spawn(expanduser("~/scripts/sc -s")),           desc="Take screenshot of selected area"),
+    Key( [mod, "control"],  "Print",                lazy.spawn(expanduser("~/scripts/sc -cs")),          desc="Cpoy selected area to clipboard"),
 
     # run prompts and menu   return
-    Key([mod],              "x",                    lazy.spawn("/home/sam/.config/xmenu/xmenu.sh"),  desc="Run xmenu"),
-    Key([mod],              "space",                lazy.spawn("rofi -show drun"),                   desc="Rofi run menu"),
-    Key([mod, "control"],   "a",                    lazy.spawn("rofi -show window"),                 desc="Rofi window menu"),
+    Key([mod],              "x",                    lazy.spawn(expanduser("~/.config/xmenu/xmenu.sh")),  desc="Run xmenu"),
+    Key([mod],              "space",                lazy.spawn("rofi -show drun"),                       desc="Rofi run menu"),
+    Key([mod, "control"],   "a",                    lazy.spawn("rofi -show window"),                     desc="Rofi window menu"),
     Key([mod, "control"],   "p",                    lazy.run_extension( CommandSet( commands={ "suspend": "systemctl suspend", "shutdown": "systemctl poweroff", "reboot": "systemctl reboot", },)),desc="Power prompt"),
 ]
 
@@ -207,7 +208,7 @@ widget_defaults = dict(
 
 # calbacks
 def run_xmenu(qtile):
-    qtile.cmd_spawn("/home/sam/.config/xmenu/xmenu.sh")
+    qtile.cmd_spawn(expanduser("~/.config/xmenu/xmenu.sh"))
 
 
 screens = [
@@ -215,7 +216,7 @@ screens = [
         top=bar.Bar(
             [
                 Image(
-                    filename="/home/sam/.config/qtile/icons/arch.png",
+                    filename=expanduser("~/.config/qtile/icons/arch.png"),
                     margin=2,
                     background=bar_colors[4],
                 ),
@@ -223,7 +224,7 @@ screens = [
                     foreground=bar_colors[0], background=bar_colors[4]
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p8.png",
+                    filename=expanduser("~/.config/qtile/icons/p8.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
@@ -243,7 +244,7 @@ screens = [
                     disable_drag=True,
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p7.png",
+                    filename=expanduser("~/.config/qtile/icons/p7.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
@@ -255,12 +256,12 @@ screens = [
                 ),
                 WindowName(foreground=bar_colors[5], background=bar_colors[0]),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p1.png",
+                    filename=expanduser("~/.config/qtile/icons/p1.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/cpu.png",
+                    filename=expanduser("~/.config/qtile/icons/cpu.png"),
                     background=bar_colors[5],
                     margin=2,
                 ),
@@ -276,12 +277,12 @@ screens = [
                     update_interval=10,
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p2.png",
+                    filename=expanduser("~/.config/qtile/icons/p2.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/memory.png",
+                    filename=expanduser("~/.config/qtile/icons/memory.png"),
                     background=bar_colors[8],
                     margin=1,
                 ),
@@ -292,30 +293,28 @@ screens = [
                     update_interval=10,
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p3.png",
+                    filename=expanduser("~/.config/qtile/icons/p3.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/wifi.png",
+                    filename=expanduser("~/.config/qtile/icons/wifi.png"),
                     background=bar_colors[4],
                     margin=3,
                 ),
-                Wlan(
-                    interface="wlp0s20f3",
-                    format="{essid} {quality}/70",
-                    disconnected_message="Disconnected",
+                GenPollText(
+                    func = lambda: check_output(expanduser("~/scripts/internet")).decode("utf-8"),
                     update_interval=5,
                     foreground=bar_colors[0],
                     background=bar_colors[4],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p4.png",
+                    filename=expanduser("~/.config/qtile/icons/p4.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/battery.png",
+                    filename=expanduser("~/.config/qtile/icons/battery.png"),
                     background=bar_colors[2],
                     margin=1,
                 ),
@@ -330,12 +329,12 @@ screens = [
                     foreground=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p5.png",
+                    filename=expanduser("~/.config/qtile/icons/p5.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/brightness.png",
+                    filename=expanduser("~/.config/qtile/icons/brightness.png"),
                     background=bar_colors[3],
                     margin=2,
                 ),
@@ -348,7 +347,7 @@ screens = [
                     step=5,
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/vol.png",
+                    filename=expanduser("~/.config/qtile/icons/vol.png"),
                     background=bar_colors[3],
                     margin=4,
                 ),
@@ -358,12 +357,12 @@ screens = [
                     update_interval=1,
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/p6.png",
+                    filename=expanduser("~/.config/qtile/icons/p6.png"),
                     margin=0,
                     background=bar_colors[0],
                 ),
                 Image(
-                    filename="/home/sam/.config/qtile/icons/calendar.png",
+                    filename=expanduser("~/.config/qtile/icons/calendar.png"),
                     background=bar_colors[6],
                     margin=4,
                 ),

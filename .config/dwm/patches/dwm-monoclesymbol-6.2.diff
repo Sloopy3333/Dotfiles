@@ -1,0 +1,34 @@
+From 3700a18554e035722682712ac68176166e47e0f2 Mon Sep 17 00:00:00 2001
+From: aleks <aleks.stier@icloud.com>
+Date: Mon, 8 Apr 2019 22:17:10 +0200
+Subject: [PATCH] Don't display number of open clients in monocle-mode
+
+Always display the the monocle-symbol as defined in config.h if the
+monocle-layout is activated. Do not display the number of open clients
+in the current tag.
+---
+ dwm.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/dwm.c b/dwm.c
+index 4465af1..3b98778 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1103,14 +1103,8 @@ maprequest(XEvent *e)
+ void
+ monocle(Monitor *m)
+ {
+-	unsigned int n = 0;
+ 	Client *c;
+ 
+-	for (c = m->clients; c; c = c->next)
+-		if (ISVISIBLE(c))
+-			n++;
+-	if (n > 0) /* override layout symbol */
+-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+ 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+ 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+ }
+-- 
+2.21.0
+
