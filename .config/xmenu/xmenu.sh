@@ -7,14 +7,13 @@ All applications
 		    Firefox		firefox
 		    Brave		brave
 	    Utilities
+		    vifm		st -e vifm
 		    pcmanfm		pcmanfm
-		    Nitrogen		nitrogen
+		    walli 		$HOME/scripts/walli
 		    Volume		pavucontrol
-		    Apprearance		lxappearance
 	    Games
 		    Steam		prime-run steam
 	    Graphics
-		    MPV			mpv
 		    Gimp		gimp
 Configs
 	Qtile		st -e nvim ~/.config/qtile/config.py

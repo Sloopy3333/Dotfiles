@@ -7,7 +7,7 @@
 
 # creates dir if doesnt exists 
 DIR=$HOME/external
-if [[ ! -d $DIR ]]
+if [ ! -d $DIR ]
     then
 	mkdir $HOME/external
 fi
@@ -15,7 +15,7 @@ fi
 mount () {
     DEV_LIST=$(simple-mtpfs -l)
 
-    if [[ ! -n DEV_LIST ]] 
+    if [ ! -n DEV_LIST ] 
 	then
 	    echo "no device found"
 	    exit

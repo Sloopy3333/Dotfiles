@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sleep 0.3
+printf "%.0f" "$(xbacklight -get)"

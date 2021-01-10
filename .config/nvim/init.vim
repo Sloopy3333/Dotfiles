@@ -49,7 +49,6 @@ Plug 'ap/vim-css-color'
 Plug 'vifm/vifm.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'valloric/youcompleteme'
 call plug#end()
 
 " color scheme

@@ -1,0 +1,8 @@
+#!/bin/sh
+p="/sys/class/power_supply/BAT1/"
+
+mc=$(cat "$p/charge_full")
+cc=$(cat "$p/charge_now")
+prf "$((cc/$((mc/100))))"
+
+printf "%s" "$prf"
