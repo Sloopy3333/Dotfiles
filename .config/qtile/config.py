@@ -7,14 +7,6 @@ from libqtile.layout import MonadTall, MonadWide, Max, Floating
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.widget import CurrentLayout, Image, GroupBox, Sep, WindowName, Battery, GenPollText, Systray
 
-def update_volume(qtile):
-    qtile.widgets_map["volume"].tick()
-
-def update_backlight(qtile):
-    qtile.widgets_map["backlight"].tick()
-
-def run_xmenu(qtile):
-    qtile.cmd_spawn(expanduser("~/.config/xmenu/xmenu.sh"))
 
 mod = "mod4"
 terminal = "st"
@@ -29,69 +21,70 @@ musicplayer = "st -e cmus"
 keys = [
 
     # launch and kill programs
-    Key([mod],                      "t",                        lazy.spawn(terminal),                                                    desc="Launch terminal"),
-    Key([mod,"shift"],              "t",                        lazy.spawn(terminal_alt),                                                desc="Launch alternative terminal"),
-    Key([mod],                      "b",                        lazy.spawn(browser),                                                     desc="Launch browser"),
-    Key([mod,"shift"],              "b",                        lazy.spawn(browser_alt),                                                 desc="Launch alternative browser"),
-    Key([mod],                      "m",                        lazy.spawn(musicplayer),                                                 desc="Launch musicplayer"),
-    Key([mod],                      "f",                        lazy.spawn(filemanager),                                                 desc="Launch filemanager"),
-    Key([mod,"shift"],              "f",                        lazy.spawn(filemanager_alt),                                             desc="Launch alternative filemanager",),
-    Key([mod],                      "e",                        lazy.spawn(email),                                                       desc="Launch neomutt"),
-    Key([mod],                      "q",                        lazy.window.kill(),                                                      desc="Kill focused window"),
+    Key([mod],                      "t",                        lazy.spawn(terminal),                            desc="Launch terminal"),
+    Key([mod,"shift"],              "t",                        lazy.spawn(terminal_alt),                        desc="Launch alternative terminal"),
+    Key([mod],                      "b",                        lazy.spawn(browser),                             desc="Launch browser"),
+    Key([mod,"shift"],              "b",                        lazy.spawn(browser_alt),                         desc="Launch alternative browser"),
+    Key([mod],                      "m",                        lazy.spawn(musicplayer),                         desc="Launch musicplayer"),
+    Key([mod],                      "f",                        lazy.spawn(filemanager),                         desc="Launch filemanager"),
+    Key([mod,"shift"],              "f",                        lazy.spawn(filemanager_alt),                     desc="Launch alternative filemanager",),
+    Key([mod],                      "e",                        lazy.spawn(email),                               desc="Launch neomutt"),
+    Key([mod],                      "q",                        lazy.window.kill(),                              desc="Kill focused window"),
 
     # qtile commands
-    Key([mod],                      "c",                        lazy.restart(),                                                          desc="Restart qtile"),
-    Key([mod, "shift"],             "c",                        lazy.shutdown(),                                                         desc="Shutdown qtile"),
+    Key([mod],                      "c",                        lazy.restart(),                                  desc="Restart qtile"),
+    Key([mod, "shift"],             "c",                        lazy.shutdown(),                                 desc="Shutdown qtile"),
 
 
     # shift window focus
-    Key([mod],                      "j",                        lazy.layout.down(),                                                      desc="Shift focus down"),
-    Key([mod],                      "k",                        lazy.layout.up(),                                                        desc="Shift focus up"),
-    Key([mod],                      "h",                        lazy.layout.left(),                                                      desc="Shift focus left"),
-    Key([mod],                      "l",                        lazy.layout.right(),                                                     desc="Shift focus right"),
-    Key([mod],                      "Tab",                      lazy.screen.toggle_group(),                                              desc="Toggle prev workspace"),
+    Key([mod],                      "j",                        lazy.layout.down(),                              desc="Shift focus down"),
+    Key([mod],                      "k",                        lazy.layout.up(),                                desc="Shift focus up"),
+    Key([mod],                      "h",                        lazy.layout.left(),                              desc="Shift focus left"),
+    Key([mod],                      "l",                        lazy.layout.right(),                             desc="Shift focus right"),
+    Key([mod],                      "Tab",                      lazy.screen.toggle_group(),                      desc="Toggle prev workspace"),
 
     # move windows
-    Key([mod, "shift"],             "j",                        lazy.layout.shuffle_down(),                                              desc="Move focused window down"),
-    Key([mod, "shift"],             "k",                        lazy.layout.shuffle_up(),                                                desc="Move focused window up"),
-    Key([mod, "shift"],             "h",                        lazy.layout.shuffle_left(),                                              desc="Move focused window left"),
-    Key([mod, "shift"],             "l",                        lazy.layout.shuffle_right(),                                             desc="Move focused window right"),
+    Key([mod, "shift"],             "j",                        lazy.layout.shuffle_down(),                      desc="Move focused window down"),
+    Key([mod, "shift"],             "k",                        lazy.layout.shuffle_up(),                        desc="Move focused window up"),
+    Key([mod, "shift"],             "h",                        lazy.layout.shuffle_left(),                      desc="Move focused window left"),
+    Key([mod, "shift"],             "l",                        lazy.layout.shuffle_right(),                     desc="Move focused window right"),
 
     # resize windows
-    Key([mod, "control"],           "h",                        lazy.layout.shrink(),                                                    desc="Increase Master window size"),
-    Key([mod, "control"],           "l",                        lazy.layout.grow(),                                                      desc="Decrease Master window size"),
-    Key([mod, "control"],           "m",                        lazy.layout.maximize(),                                                  desc="Mazimize Master window size"),
-    Key([mod, "control"],           "r",                        lazy.layout.normalize(),                                                 desc="Normalize Master window size"),
+    Key([mod, "control"],           "h",                        lazy.layout.shrink(),                            desc="Increase Master window size"),
+    Key([mod, "control"],           "l",                        lazy.layout.grow(),                              desc="Decrease Master window size"),
+    Key([mod, "control"],           "m",                        lazy.layout.maximize(),                          desc="Mazimize Master window size"),
+    Key([mod, "control"],           "r",                        lazy.layout.normalize(),                         desc="Normalize Master window size"),
 
     # layout modifires
-    Key([mod],                      "n",                        lazy.next_layout(),                                                      desc="Toggle next layout"),
-    Key([mod],                      "p",                        lazy.prev_layout(),                                                      desc="Toggle prev layout"),
-    Key([mod, "control"],           "f",                        lazy.window.toggle_fullscreen(),                                         desc="Toggle Full Screen"),
-    Key([mod, "control"],           "t",                        lazy.window.toggle_floating(),                                           desc="Toggle Full Screen"),
-
-    # brightness
-    Key([],                         "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc +5"),lazy.function(update_backlight),        desc="Increase backlight by 5%"),
-    Key([mod],                      "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc +15"),lazy.function(update_backlight),       desc="Increase backlight by 15%"),
-    Key([],                         "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec +5"),lazy.function(update_backlight),        desc="Decrease backlight by 5%"),
-    Key([mod],                      "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec +15"),lazy.function(update_backlight),       desc="Decrease backlight by 15%"),
-
-    # Volume
-    Key([],                         "XF86AudioMute",            lazy.spawn("amixer sset Master toggle"),lazy.function(update_volume),    desc="Toggle mute"),
-    Key([],                         "XF86AudioRaiseVolume",     lazy.spawn("amixer sset Master 5%+"),lazy.function(update_volume),       desc="Increase volume by 5%"),
-    Key([mod],                      "XF86AudioRaiseVolume",     lazy.spawn("amixer sset Master 15%+"),lazy.function(update_volume),      desc="Increase volume by 15%"),
-    Key([],                         "XF86AudioLowerVolume",     lazy.spawn("amixer sset Master 5%-"),lazy.function(update_volume),       desc="Decrease volume by 5%"),
-    Key([mod],                      "XF86AudioLowerVolume",     lazy.spawn("amixer sset Master 15%-"),lazy.function(update_volume),      desc="Decrease volume by 15%"),
+    Key([mod],                      "n",                        lazy.next_layout(),                              desc="Toggle next layout"),
+    Key([mod],                      "p",                        lazy.prev_layout(),                              desc="Toggle prev layout"),
+    Key([mod, "control"],           "f",                        lazy.window.toggle_fullscreen(),                 desc="Toggle Full Screen"),
+    Key([mod, "control"],           "t",                        lazy.window.toggle_floating(),                   desc="Toggle Full Screen"),
 
     # screenshots
-    Key( [mod],                     "Print",                    lazy.spawn(expanduser("~/scripts/sc")),                                  desc="Take full screen shot"),
-    Key( [mod, "shift"],            "Print",                    lazy.spawn(expanduser("~/scripts/sc -s")),                               desc="Take screenshot of selected area"),
-    Key( [mod, "control"],          "Print",                    lazy.spawn(expanduser("~/scripts/sc -cs")),                              desc="Cpoy selected area to clipboard"),
+    Key( [mod],                     "Print",                    lazy.spawn(expanduser("~/scripts/sc")),          desc="Take full screen shot"),
+    Key( [mod, "shift"],            "Print",                    lazy.spawn(expanduser("~/scripts/sc -s")),       desc="Take screenshot of selected area"),
+    Key( [mod, "control"],          "Print",                    lazy.spawn(expanduser("~/scripts/sc -cs")),      desc="Cpoy selected area to clipboard"),
 
     # run prompts and menu           return
-    Key([mod],                      "x",                        lazy.function(run_xmenu),  desc="Run xmenu"),
-    Key([mod],                      "space",                    lazy.spawn("rofi -show drun"),                                           desc="Rofi run menu"),
-    Key([mod, "control"],           "a",                        lazy.spawn("rofi -show window"),                                         desc="Rofi window menu"),
+    Key([mod],                      "space",                    lazy.spawn("dmenu_run"),                                                                              desc="Rofi run menu"),
+    Key([mod, "control"],           "a",                        lazy.spawn("rofi -show window"),                                                                            desc="Rofi window menu"),
+    Key([mod],                      "x",                        lazy.function(lambda qtile: qtile.cmd_spawn(expanduser("~/.config/xmenu/xmenu.sh"))),                       desc="Run xmenu"),
     Key([mod, "control"],           "p",                        lazy.run_extension( CommandSet( commands={ "suspend": "systemctl suspend", "shutdown": "systemctl poweroff", "reboot": "systemctl reboot", },)),desc="Power prompt"),
+
+    # brightness
+    Key([],                         "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc +5"),lazy.function(lambda qtile: qtile.widgets_map["backlight"].tick()),        desc="Increase backlight by 5%"),
+    Key([mod],                      "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc +15"),lazy.function(lambda qtile: qtile.widgets_map["backlight"].tick()),       desc="Increase backlight by 15%"),
+    Key([],                         "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec +5"),lazy.function(lambda qtile: qtile.widgets_map["backlight"].tick()),        desc="Decrease backlight by 5%"),
+    Key([mod],                      "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec +15"),lazy.function(lambda qtile: qtile.widgets_map["backlight"].tick()),       desc="Decrease backlight by 15%"),
+
+    # Volume
+    Key([],                         "XF86AudioMute",            lazy.spawn("amixer sset Master toggle"),lazy.function(lambda qtile: qtile.widgets_map["volume"].tick()),    desc="Toggle mute"),
+    Key([],                         "XF86AudioRaiseVolume",     lazy.spawn("amixer sset Master 5%+"),lazy.function(lambda qtile: qtile.widgets_map["volume"].tick()),       desc="Increase volume by 5%"),
+    Key([mod],                      "XF86AudioRaiseVolume",     lazy.spawn("amixer sset Master 15%+"),lazy.function(lambda qtile: qtile.widgets_map["volume"].tick()),      desc="Increase volume by 15%"),
+    Key([],                         "XF86AudioLowerVolume",     lazy.spawn("amixer sset Master 5%-"),lazy.function(lambda qtile: qtile.widgets_map["volume"].tick()),       desc="Decrease volume by 5%"),
+    Key([mod],                      "XF86AudioLowerVolume",     lazy.spawn("amixer sset Master 15%-"),lazy.function(lambda qtile: qtile.widgets_map["volume"].tick()),      desc="Decrease volume by 15%"),
+
 ]
 
 # Groups
@@ -201,6 +194,8 @@ floating_layout = Floating(border_focus = bar_colors[2],
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+cursor_warp = True
+bring_front_click = True
 
 # auto shifting programs to specified groups
 groups = [
@@ -233,7 +228,7 @@ screens = [
                     filename=expanduser("~/.config/qtile/icons/arch.png"),
                     margin=2,
                     background=bar_colors[4],
-                    mouse_callbacks = {"Button1":run_xmenu},
+                    mouse_callbacks = {"Button1":lambda qtile: qtile.cmd_spawn(expanduser("~/.config/xmenu/xmenu.sh"))},
                 ),
                 CurrentLayout(
                     foreground=bar_colors[0], background=bar_colors[4]
@@ -317,6 +312,9 @@ screens = [
                     update_interval=5,
                     foreground=bar_colors[0],
                     background=bar_colors[4],
+                    mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("st -e nmtui"),
+                        "Button3":lambda qtile: qtile.cmd_spawn("st -e nmcli d wifi list --rescan yes"),
+                        "Button2":lambda qtile: qtile.cmd_spawn("st -e nmtui")}
                 ),
                 Image(
                     filename=expanduser("~/.config/qtile/icons/p4.png"),
@@ -354,6 +352,9 @@ screens = [
                     update_interval=None,
                     foreground=bar_colors[0],
                     background=bar_colors[3],
+                    mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("xbacklight -inc 5"),
+                        "Button3":lambda qtile: qtile.cmd_spawn("xbacklight -dec 5"),
+                        "Button2":lambda qtile: qtile.cmd_spawn("xbacklight -set 5")}
                 ),
                 Image(
                     filename=expanduser("~/.config/qtile/icons/vol.png"),
@@ -366,6 +367,9 @@ screens = [
                     update_interval=None,
                     foreground=bar_colors[0],
                     background=bar_colors[3],
+                    mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%+"),
+                        "Button3":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%-"),
+                        "Button2":lambda qtile: qtile.cmd_spawn("amixer sset Master toggle")}
                 ),
                 Image(
                     filename=expanduser("~/.config/qtile/icons/p6.png"),
@@ -390,5 +394,3 @@ screens = [
         ),
     ),
 ]
-
-

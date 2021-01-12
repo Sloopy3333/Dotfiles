@@ -28,18 +28,70 @@ filetype plugin on
 set ttyfast                             "for faster scrolling
 set lazyredraw                          "faster scrolling
 
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ '' : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'R ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \}
+" so $VIMRUNTIME/syntax/hitest.vim for colors name
 " status line
+"set statusline=
+"set statusline+=%#DraculaTodo#
+"set statusline+=\ %{toupper(g:currentmode[mode()])}
+"set statusline+=%{&modified?'[+]':''}
+"set statusline+=%r
+"set statusline+=%y
+"set statusline+=%r
+"set statusline+=\ %F
+"set statusline+=\ %=                     "rightside
+"set statusline+=%#DraculaSearch#
+"set statusline+=\ %c:%l/%L
+"set statusline+=\ %p%%
+"set statusline+=\ [%n]
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
 set statusline=
-set statusline+=%#DraculaTodo#
-set statusline+=\ %M
-set statusline+=\ %y
-set statusline+=\ %r
-set statusline+=\ %F
-set statusline+=\ %=                     "rightside
 set statusline+=%#DraculaSearch#
+set statusline+=%{StatuslineGit()}
+
+set statusline+=%#DraculaTodo#
+set statusline+=\ 
+set statusline+=%{toupper(g:currentmode[mode()])}
+
+set statusline+=%#WildMenu#
+set statusline+=\ 
+set statusline+=\ %F
+set statusline+=\ 
+set statusline+=\ 
+
+set statusline+=%#StatusLineTerm#
+set statusline+=%=
+
+set statusline+=%#DraculaSearch#
+" filetype
+set statusline+=%y
+" line info
 set statusline+=\ %c:%l/%L
 set statusline+=\ %p%%
 set statusline+=\ [%n]
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+"set statusline+=\
 
 source $HOME/.config/nvim/plug-config/coc.vim
 " plugins

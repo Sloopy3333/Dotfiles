@@ -4,8 +4,8 @@ static const Block blocks[] = {
 	{"","~/scripts/bar/cpu",	5,		0},
 	{"","~/scripts/bar/memory",	5,		0},
 	{"","~/scripts/bar/internet",	5,		0},
-	{"","~/scripts/bar/volume",	5,		0},
-	{"","~/scripts/bar/backlight",	5,		0},
+	{"","~/scripts/bar/volume",	0,		10},
+	{"","~/scripts/bar/backlight",	0,		12},
 	{"","~/scripts/bar/battery",	5,		0},
 	{"","~/scripts/bar/clock",	60,		0},
 };

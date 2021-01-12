@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+# terminal to open manual
+# list all manuals
+manual="$(man -k . | awk '{print $1}'| dmenu -p Man)"
+st -e man $manual

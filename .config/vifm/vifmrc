@@ -21,7 +21,7 @@ set scrolloff=4
 if !has('win')
     set slowfs=curlftpfs
 endif
-set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+set statusline="%t %5A %10u:%-15g %20s %25d  "
 mark b ~/bin/
 mark h ~/
 mark d ~/Downloads/
@@ -297,7 +297,6 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
 
 " ------------------------------------------------------------------------------
-
 "mappings
 
 nnoremap s :shell<cr>

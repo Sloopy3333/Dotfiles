@@ -264,13 +264,13 @@ _topXmobarPP h = xmobarPP {
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Startup hook
 
-myStartupHook = return ()
+myStartupHook = spawnOnce "tint2"
 	  --spawnOnce "udiskie --no-automount --no-notify --tray &"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 main :: IO ()
 main = do 
-  _topXmobar <- spawnPipe "xmobar -x 0 /home/sam/.config/xmobar/xmobar.config"
+  --_topXmobar <- spawnPipe "xmobar -x 0 /home/sam/.config/xmobar/xmobar.config"
   xmonad $ docks $ ewmh def
      {
       -- simple stuff
@@ -285,7 +285,6 @@ main = do
         layoutHook         = spacingRaw True (Border 0 2 2 2) True (Border 2 2 2 2) True $ gaps [(U,25), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = dynamicLogWithPP $ _topXmobarPP _topXmobar,
         startupHook        = myStartupHook
     }
  

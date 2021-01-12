@@ -25,6 +25,7 @@ alias wifioff="nmcli radio wifi off"
 #misc
 alias vi='nvim'
 alias vim='nvim'
+alias build='rm -f config.h && sudo make install'
 
 # devour
 alias steam="devour prime-run steam"

@@ -2,7 +2,7 @@
 
 vol="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
 mute="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)\].*/\1/')"
-if [ $mute = on ]; then
+if [ $mute = off ]; then
     printf "M"
 else    
     printf "%s"  "$vol"
