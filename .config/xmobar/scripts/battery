@@ -1,0 +1,11 @@
+#!/bin/sh
+cap="$(cat /sys/class/power_supply/BAT1/capacity)"
+status="$(cat /sys/class/power_supply/BAT1/status)"
+estimated="$(acpi -b | sed -n '2{p;q}' | awk '{print $5}')"
+if [ $status = "Charging" ]; then 
+   icon=""
+fi
+if [ $status = "Discharging" ]; then
+    icon=""
+fi
+printf "%s %s (%s)" "$icon" "$cap" "$estimated"

@@ -1,7 +1,7 @@
 #!/bin/sh
 userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.config/X11/Xmodmap
-wm=qtile
+wm=xmonad
 xrdb -merge $userresources
 #xmodmap $usermodmap &
 #stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &

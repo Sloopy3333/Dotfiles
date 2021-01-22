@@ -24,7 +24,6 @@ import XMonad.Prompt.FuzzyMatch
 import XMonad.Prompt.Theme
 import XMonad.ManageHook
 import XMonad.Layout.NoBorders
-import XMonad.Util.NamedScratchpad
 import XMonad.Hooks.InsertPosition
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Grid
@@ -48,11 +47,17 @@ import qualified XMonad.Actions.Search as S
 myTerminal :: String
 myTerminal = "st"
 
-myBrowser :: String
-myBrowser = "firefox"
-
 myModMask :: KeyMask
 myModMask = mod4Mask
+
+myFilemanager :: String
+myFilemanager = "st -e vifm"
+
+myBrowser :: String
+myBrowser = "brave"
+
+myMusicplayer :: String
+myMusicplayer = "st -e cums"
 
 myFocusFollowsMouse :: Bool
 
@@ -74,98 +79,71 @@ myFocusedBorderColor = "#bd93f9"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    [ ((modm                  ,  xK_t                    ), spawn $ XMonad.terminal conf)
+    [ 
+      -- spawm applications
+      ((modm                  ,  xK_t                    ), spawn $ XMonad.terminal conf)
+    , ((modm                  ,  xK_f                    ), spawn myFilemanager)
+    , ((modm                  ,  xK_b                    ), spawn myBrowser)
+    , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
+      -- prompts and memues
     , ((modm                  ,  xK_space                ), shellPrompt promptconfig)
-    , ((modm                  ,  xK_q                    ), kill)
-    , ((modm                  ,  xK_n                    ), sendMessage NextLayout)
-    , ((modm .|. shiftMask    ,  xK_n                    ), setLayout $ XMonad.layoutHook conf)
-    , ((modm                  ,  xK_a                    ), gotoMenu)
     , ((modm .|. shiftMask    ,  xK_a                    ), bringMenu)
+    , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
+       -- kill compile and exit
+    , ((modm                  ,  xK_q                    ), kill)
+    , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm .|. shiftMask    ,  xK_c                    ), io (exitWith ExitSuccess))
+      -- layout change focus
     , ((modm                  ,  xK_Tab                  ), windows W.focusDown)
     , ((modm                  ,  xK_j                    ), windows W.focusDown)
     , ((modm                  ,  xK_k                    ), windows W.focusUp)
     , ((modm                  ,  xK_m                    ), windows W.focusMaster)
     , ((modm                  ,  xK_Return               ), windows W.swapMaster)
+      -- shift windows
     , ((modm .|. shiftMask    ,  xK_j                    ), windows W.swapDown)
     , ((modm .|. shiftMask    ,  xK_k                    ), windows W.swapUp)
+      -- change layoout
+    , ((modm                  ,  xK_n                    ), sendMessage NextLayout)
+    , ((modm .|. shiftMask    ,  xK_n                    ), setLayout $ XMonad.layoutHook conf)
+      -- resize windows
     , ((modm                  ,  xK_h                    ), sendMessage Shrink)  
-    , ((modm                  ,  xK_p                    ), sendMessage NextLayout)
     , ((modm                  ,  xK_l                    ), sendMessage Expand)
     , ((modm .|. shiftMask    ,  xK_t                    ), withFocused $ windows . W.sink)
-    , ((modm                  ,  xK_comma                ), sendMessage (IncMasterN 1))
-    , ((modm                  ,  xK_period               ), sendMessage (IncMasterN (-1)))
-    , ((modm .|. shiftMask    ,  xK_c                    ), io (exitWith ExitSuccess))
-    , ((modm .|. controlMask  ,  xK_g                    ), sendMessage $ ToggleGaps)               -- toggle all gaps
+      -- gaps and struts
+    , ((modm .|. controlMask  ,  xK_g                    ), sendMessage $ ToggleGaps)
     , ((modm .|. controlMask  ,  xK_f                    ), sendMessage ToggleStruts)
-    , ((modm                  ,  xK_r                    ), shellPrompt promptconfig)
-    , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
-    , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modm .|. controlMask  ,  xK_s                    ), spawn "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia steam")    --to launch steam with dedicated nvidia gpu on pop os
-    , ((modm                  ,  xK_b                    ), spawn "firefox")
-    , ((modm                  ,  xK_f                    ), spawn "pcmanfm")
-    , ((modm                  ,  xK_Print                ), spawn "maim ~/hdd/screenshots/$(date +%s).png")
-    , ((modm .|. controlMask  ,  xK_Print                ), spawn "maim -s ~/hdd/screenshots/$(date +%s).png")
-    , ((modm .|. controlMask  ,  xK_c                    ), spawn "maim -s | xclip -selection clipboard -t image/png")
-    , ((0                     ,  xF86XK_AudioRaiseVolume ), raiseVolume 4 >> return())                                                    --increase volume
-    , ((0                     ,  xF86XK_AudioLowerVolume ), lowerVolume 4 >> return ())                                                   --decrease volume
-    , ((0                     ,  xF86XK_AudioMute        ), spawn "pactl set-sink-mute 0 toggle")                                         --toggle mute
-    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbrightness -inc +5")                                                           --increase brightness
-    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbrightness -dec +5")                                                          --decrease brighrness  
-    , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                    --search engine submap
-    , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                                 --search from clipboard keymap
-    , ((modm                  ,  xK_a), goToSelected defaultGSConfig)
-    , ((modm .|. controlMask  ,  xK_t), namedScratchpadAction myScratchPads "terminal")
-    , ((modm .|. controlMask  ,  xK_h), namedScratchpadAction myScratchPads "htop")
+      -- screenshots
+    , ((modm                  ,  xK_Print                ), spawn "~/scripts/sc")
+    , ((modm .|. shiftMask    ,  xK_Print                ), spawn "~/scripts/sc -s")
+    , ((modm .|. controlMask  ,  xK_Print                ), spawn "~/scripts/sc -cs")
+      -- volume
+    , ((0                     ,  xF86XK_AudioRaiseVolume ), raiseVolume 4 >> return())
+    , ((0                     ,  xF86XK_AudioLowerVolume ), lowerVolume 4 >> return ())
+    , ((0                     ,  xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
+      -- backlight 
+    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbrightness -inc +5")    
+    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbrightness -dec +5")   
+      -- searchengine sub maps
+    , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                 
+    , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                             
     ]
     ++
-    [((m .|. modm, k), windows $ f i)                                                                                           --change workspace
+      --change workspace
+    [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))                                                    --move windows to workspaces
+     --move windows to workspaces
+    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))                                                    
         | (key, sc) <- zip [xK_w, xK_e, xK_i
         ] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]  
     ++
-       [((modm .|. shiftMask , xK_p), submap . M.fromList $                                                                     --system power submaps
-       [ ((0, xK_1),     spawn "systemctl suspend")
-       , ((0, xK_2),     spawn "systemctl poweroff")
-       , ((0, xK_3),     spawn "systemctl reboot")
-       ])]	
-     ++
-       [((modm,          xK_o), submap . M.fromList $                                                                           --other prompts submaps
-       [ ((0, xK_m),     manPrompt promptconfig) 
-       , ((0,  xK_t),     themePrompt promptconfig)
-       ])]
-    -- ++
-      -- [((modm .|. controlMask,          xK_p), submap . M.fromList $
-      -- [ ((0,  xK_p),    passPrompt promptconfig)
-      -- , ((0,  xK_g),    passGeneratePrompt promptconfig)
-      -- , ((0,  xK_e),    passEditPrompt promptconfig)
-      -- , ((0,  xK_r),    passRemovePrompt promptconfig)
-      -- ])]
------------------------------------------------------------------------------------------
---myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "htop" spawnMocp findMocp manageMocp
-                ]
-  where
-    spawnTerm  = myTerminal ++ " -n scratchpad"
-    findTerm   = resource =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -n htop 'htop'"
-    findMocp   = resource =? "htop"
-    manageMocp = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+     --other prompts submaps
+    [((modm,          xK_o), submap . M.fromList $                                                                           
+    [ ((0, xK_m),     manPrompt promptconfig) 
+    , ((0,  xK_t),     themePrompt promptconfig)
+    ])]
 -------------------------------------------------------------------------------------------
 --add custom search engines
 
@@ -235,7 +213,7 @@ myManageHook = composeAll
      ,className  =? "vlc" --> doFloat
      ,className  =? "VirtualBox Manager" --> doFloat
      ,className =? "Steam"     --> doShift ( myWorkspaces !! 2 )
-     ,className =? "csgo_linux64"     --> doShift ( myWorkspaces !! 3)]<+> namedScratchpadManageHook myScratchPads
+     ,className =? "csgo_linux64"     --> doShift ( myWorkspaces !! 3)]
      
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Event handling
@@ -245,8 +223,8 @@ myEventHook = mempty
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Status bars and logging for StdinReader 
 
-windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+--windowCount :: X (Maybe String)
+--windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 _topXmobarPP h = xmobarPP {
     ppCurrent = xmobarColor "#50fa7b" "" . wrap "[" "]"
@@ -257,20 +235,20 @@ _topXmobarPP h = xmobarPP {
     , ppTitle = xmobarColor "#8be9fd" "" . shorten 60
     , ppLayout = xmobarColor "#ff79c6" ""
     , ppOutput = hPutStrLn h
-    , ppExtras  = [windowCount]
+    --, ppExtras  = [windowCount]
     , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]}
     
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Startup hook
 
-myStartupHook = spawnOnce "tint2"
+myStartupHook = return ()
 	  --spawnOnce "udiskie --no-automount --no-notify --tray &"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 main :: IO ()
 main = do 
-  --_topXmobar <- spawnPipe "xmobar -x 0 /home/sam/.config/xmobar/xmobar.config"
+  _topXmobar <- spawnPipe "xmobar -x 0 /home/sam/.config/xmobar/xmobar.config"
   xmonad $ docks $ ewmh def
      {
       -- simple stuff
@@ -285,6 +263,7 @@ main = do
         layoutHook         = spacingRaw True (Border 0 2 2 2) True (Border 2 2 2 2) True $ gaps [(U,25), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
+        logHook            = dynamicLogWithPP $ _topXmobarPP _topXmobar,
         startupHook        = myStartupHook
     }
  

@@ -1,0 +1,4 @@
+#!/bin/sh
+bri="$(xbacklight -get)"
+icon=""
+printf "%s %.0f" "$icon" "$(xbacklight -get)"

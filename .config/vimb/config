@@ -100,7 +100,7 @@ nnoremap H <C-o>
 nnoremap L <C-i>
 nmap ZZ :quit<CR>
 nmap ZQ :quit!<CR>
-nmap gc :shellcmd git clone $VIMB_URI<CR>
+nmap gc :sh! /bin/sh -c cd $VIMB_DOWNLOAD_PATH && git clone $VIMB_URI
 nnoremap <C-u> <C-U>
 nnoremap <C-d> <C-D>
 

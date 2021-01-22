@@ -80,4 +80,5 @@ scripts/test.sh
 .config/pipewire-media-session/
 .moc/
 .config/qtile/__pycache__/keys.cpython-39.pyc
-
+.config/zsh/bw.zsh
+.config/Bitwarden CLI/

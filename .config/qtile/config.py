@@ -26,6 +26,7 @@ keys = [
     Key([mod],                      "b",                        lazy.spawn(browser),                             desc="Launch browser"),
     Key([mod,"shift"],              "b",                        lazy.spawn(browser_alt),                         desc="Launch alternative browser"),
     Key([mod],                      "m",                        lazy.spawn(musicplayer),                         desc="Launch musicplayer"),
+    Key([mod,"shift"],              "m",                        lazy.spawn(email),                               desc="Launch neomutt"),
     Key([mod],                      "f",                        lazy.spawn(filemanager),                         desc="Launch filemanager"),
     Key([mod,"shift"],              "f",                        lazy.spawn(filemanager_alt),                     desc="Launch alternative filemanager",),
     Key([mod],                      "e",                        lazy.spawn(email),                               desc="Launch neomutt"),
@@ -125,7 +126,7 @@ bar_colors = [
 ]
 
 # borders
-border_focus = bar_colors[2]
+border_focus = bar_colors[4]
 border_width = 2
 margin = 10
 single_border_width = 0
@@ -180,7 +181,6 @@ floating_layout = Floating(border_focus = bar_colors[2],
         {"wname": "branchdialog"},  # gitk
         {"wname": "pinentry"},  # GPG key password entry
         {"wmclass": "ssh-askpass"},  # ssh-askpass
-        {"wmclass": "Steam"},
         {"wmclass": "feh"},
         {"wmclass": "vlc"},
         {"wmclass": "Picture in picture"},
@@ -194,7 +194,7 @@ floating_layout = Floating(border_focus = bar_colors[2],
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-cursor_warp = True
+cursor_warp = False
 bring_front_click = True
 
 # auto shifting programs to specified groups
@@ -202,7 +202,7 @@ groups = [
     Group("1"),
     Group("2"),
     Group("3"),
-    Group("4", matches=[Match(wm_class=["Steam"])]),
+    Group("4"),
     Group("5"),
     Group("6"),
     Group("7"),

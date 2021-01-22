@@ -1,0 +1,11 @@
+#!/bin/sh
+
+journalctl -f | \
+while read line ; do
+    echo "$line" | grep "kernel read not supported for file pci0000:00/0000:00:01.0/0000:01:00.0/config"
+    if [ $? = 0 ]
+    then
+	echo $line
+      #     dd if="/sys/bus/pci/devices/0000:01:00.0/config" bs=1 count=1 of=/dev/null
+    fi
+done

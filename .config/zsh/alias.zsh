@@ -26,6 +26,8 @@ alias wifioff="nmcli radio wifi off"
 alias vi='nvim'
 alias vim='nvim'
 alias build='rm -f config.h && sudo make install'
+alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
+
 
 # devour
 alias steam="devour prime-run steam"

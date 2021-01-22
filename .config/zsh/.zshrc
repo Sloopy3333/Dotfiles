@@ -1,5 +1,6 @@
 # exports
 source ~/.config/zsh/exports.zsh
+source ~/.config/zsh/bw.zsh
 
 # alias
 source ~/.config/zsh/alias.zsh

@@ -1,0 +1,101 @@
+#!/bin/sh
+
+[ ! -d $XDG_CONFIG_HOME/isync ] && mkdir $XDG_CONFIG_HOME/isync && touch $XDG_CONFIG_HOME/isync/mbsyncrc
+[ ! -f $XDG_CONFIG_HOME/isync/mbsyncrc ] && touch $XDG_CONFIG_HOME/isync/mbsyncrc
+[ ! -d $XDG_CONFIG_HOME/mutt ] && mkdir $XDG_CONFIG_HOME/mutt
+[ ! -f $XDG_CONFIG_HOME/mutt/globalrc ] && cp $XDG_BIN_HOME/msync/globalrc $XDG_CONFIG_HOME/mutt
+[ ! -f $XDG_CONFIG_HOME/mutt/muttrc ] && cp $XDG_BIN_HOME/msync/muttrc $XDG_CONFIG_HOME/mutt
+[ ! -d $XDG_CONFIG_HOME/mutt/accounts ] && mkdir $XDG_CONFIG_HOME/mutt/accounts 
+
+
+
+case $1 in
+    -a)
+	read -p "enter mail id: " mailid
+	read -p "imap server: " imapserver
+	read -p "imap port(default 993): " imapport
+	read -p "smtp server: " smtpserver
+	read -p "smtp port(default 587): " smtpport
+	read -p "Bitwarden search term (must be unique) : " searchterm
+	read -p "acount name: " name
+
+	[ -z $imapport ] && imapport=993
+	[ -z $smtpportport ] && smtpport=587
+	[ ! -d $XDG_DATA_HOME/mail/$mailid-$name ] && mkdir $XDG_DATA_HOME/mail/$mailid-$name && mkdir $XDG_DATA_HOME/mail/$mailid-$name/Sent && mkdir $XDG_DATA_HOME/mail/$mailid-$name/Drafts 
+if grep -q $searchterm $XDG_CONFIG_HOME/isync/mbsyncrc
+then
+echo "$mailid alredy exists"
+else
+echo "# $mailid $name
+IMAPStore $name-remote
+Host $imapserver
+Port $imapport 
+User $mailid
+PassCmd \"bw get password $searchterm\"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore $name-local
+Subfolders Verbatim
+Path $XDG_DATA_HOME/mail/$mailid-$name/
+Inbox $XDG_DATA_HOME/mail/$mailid-$name/INBOX
+Flatten .
+
+Channel $name
+Expunge Both
+Master :$name-remote:
+Slave :$name-local:
+Patterns * ![Gmail]*
+Create Both
+Expunge Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+"  >> $XDG_CONFIG_HOME/isync/mbsyncrc
+	fi
+
+	read -p "you want to add email to mutt (y/n): " confirm
+	read -p "type your real name: " realname
+	if [ $confirm = "y" ]; then
+	   touch $XDG_CONFIG_HOME/mutt/accounts/$mailid-$name
+	   num=$(grep -srhwoc "[[:alnum:]]\+@[[:alnum:]]\+" $HOME/.config/mutt/muttrc | awk '{id = ($1/3)+1} END {print id}')
+echo "set smtp_url = "smtp://$mailid@$smtpserver:$smtpport"
+set smtp_pass = \`bw get password $searchterm\`
+
+unmailboxes *
+set folder = "$XDG_DATA_HOME/mail/$mailid-$name"
+set spoolfile = \"+INBOX\"
+set record = \"+Sent\"
+set postponed = \"+Drafts\"
+set trash = \"+Trash\"
+mailboxes =INBOX =Sent =Trash =Drafts =Junk
+set from = "$mailid"
+set realname = "$realname"
+" >> $XDG_CONFIG_HOME/mutt/accounts/$mailid-$name
+
+echo "# $mailid $name
+source $XDG_CONFIG_HOME/mutt/accounts/$mailid-$name
+macro index,pager i$num '<sync-mailbox><enter-command>source $XDG_CONFIG_HOME/mutt/accounts/$mailid-$name<enter><change-folder>!<enter>;<check-stats>' \"switch to $mailid\"
+" >> $XDG_CONFIG_HOME/mutt/muttrc
+else 
+    exit
+fi
+	;;
+
+    -r)
+	read -p "enter mail id to remove: " id
+	sed -i "/# $id/,+26d" $XDG_CONFIG_HOME/isync/mbsyncrc
+	sed -i "/# $id/,+3d" $XDG_CONFIG_HOME/mutt/muttrc
+	rm -rf $XDG_CONFIG_HOME/mutt/accounts/$id-*
+	;;
+    -l)
+	#mail=$(grep -srhwo "[[:alnum:]]\+@[[:alnum:]]\+" $HOME/.config/isync/mbsyncrc)
+	name=$(grep "#" $XDG_CONFIG_HOME/mutt/muttrc | cut -d " " -f 2)
+	echo $name 
+	;;
+    -s)
+	mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc -a $2
+esac
+
+
