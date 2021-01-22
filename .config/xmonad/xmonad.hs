@@ -29,13 +29,8 @@ import XMonad.Layout.Fullscreen
 import XMonad.Layout.Grid
 import Graphics.X11.Xlib
 import Graphics.X11.Xlib.Extras
-import XMonad.Layout.Accordion
-import XMonad.Layout.Spiral
 import Data.Tree
-import XMonad.Layout.TwoPane
-import XMonad.Layout.DwmStyle
 import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import qualified XMonad.Prompt         as P
@@ -86,9 +81,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                  ,  xK_b                    ), spawn myBrowser)
     , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
       -- prompts and memues
-    , ((modm                  ,  xK_space                ), shellPrompt promptconfig)
+    , ((modm                  ,  xK_space                ), spawn("dmenu_run"))
+    --, ((modm                  ,  xK_space                ), shellPrompt promptconfig)
     , ((modm .|. shiftMask    ,  xK_a                    ), bringMenu)
     , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
+    , ((modm .|. controlMask  ,  xK_p                    ), spawn "~/scripts/dpower")
        -- kill compile and exit
     , ((modm                  ,  xK_q                    ), kill)
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
@@ -171,7 +168,7 @@ searchEngineMap method = M.fromList $
 
 promptconfig :: XPConfig
 promptconfig = def
-      { font                = "xft:Hack Bold:size=11:bold:antialias=true" 
+      { font                = "xft:Hacksize=11:Bold:antialias=true" 
       , bgColor             = "#282a36"
       , fgColor             = "#f8f8f2"
       , bgHLight            = "#c792ea"
@@ -179,7 +176,7 @@ promptconfig = def
       , borderColor         = "#bd93f9"
       , promptBorderWidth   = 3
       , position            = Top--CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 } 
-      , height              = 20
+      , height              = 23
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
@@ -203,7 +200,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Layouts:
 
-myLayout = avoidStruts( Tall 1 (3/100) (1/2) ||| Full ||| simpleTabbed ||| Grid ||| ThreeColMid 1 (3/100) (1/2) ||| Accordion ||| spiral (6/7))
+myLayout = avoidStruts( Tall 1 (3/100) (1/2) ||| Full ||| simpleTabbed)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Window rules:
 
@@ -214,7 +211,7 @@ myManageHook = composeAll
      ,className  =? "VirtualBox Manager" --> doFloat
      ,className =? "Steam"     --> doShift ( myWorkspaces !! 2 )
      ,className =? "csgo_linux64"     --> doShift ( myWorkspaces !! 3)]
-     
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Event handling
 

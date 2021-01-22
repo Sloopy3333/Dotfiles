@@ -2,5 +2,5 @@
 opt='suspend
 poweroff
 reboot '
-choosen="$(printf  "$opt" | dmenu -i -p "power")"
+choosen="$(printf  "$opt" | dmenu)"
 systemctl $choosen
