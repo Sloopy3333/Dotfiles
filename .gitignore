@@ -1,4 +1,6 @@
 .Xauthority
+.config/vifm/*.json*
+.config/emacs
 .bash_profile
 .cache/
 .config/Bitwarden/

@@ -1,13 +1,11 @@
 #!/bin/sh
+cap="$(cat /sys/class/power_supply/BAT1/capacity)"
 status="$(cat /sys/class/power_supply/BAT1/status)"
-capacity="$(cat /sys/class/power_supply/BAT1/capacity)"
-estimated="$(acpi -b | grep "remaining" | awk '{print $5}')"
-case $status in
-    Charging)
-	icon="🔌"
-    ;;
-    Discharging)
-	icon="🔋"
-    ;;
-esac
-printf "%s %s (%s)\\n" "$icon" "$capacity" "$estimated"
+estimated="$(acpi -b | grep -E 'remaining|until' | awk '{print $5}')"
+if [ $status = "Charging" ]; then 
+   icon=""
+fi
+if [ $status = "Discharging" ]; then
+    icon=""
+fi
+printf "%s %s (%s)" "$icon" "$cap" "$estimated"

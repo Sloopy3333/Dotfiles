@@ -1,39 +1,25 @@
 --imports
 
 import XMonad
-import Data.Monoid
 import System.Exit
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.SpawnOnce
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Actions.WindowMenu
 import XMonad.Hooks.DynamicLog
 import XMonad.Actions.Submap
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Prompt
-import XMonad.Actions.GridSelect
-import XMonad.Prompt.Shell
 import XMonad.Prompt.Man
 import XMonad.Actions.WindowBringer
-import XMonad.Prompt.Shell
 import XMonad.Prompt.FuzzyMatch
 import XMonad.Prompt.Theme
-import XMonad.ManageHook
 import XMonad.Layout.NoBorders
-import XMonad.Hooks.InsertPosition
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.Grid
-import Graphics.X11.Xlib
-import Graphics.X11.Xlib.Extras
-import Data.Tree
 import XMonad.Layout.Tabbed
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
-import qualified XMonad.Prompt         as P
 import qualified XMonad.Actions.Submap as SM
 import qualified XMonad.Actions.Search as S
 
@@ -49,7 +35,13 @@ myFilemanager :: String
 myFilemanager = "st -e vifm"
 
 myBrowser :: String
-myBrowser = "brave"
+myBrowser = "vimb"
+
+myTabedBrowser :: String
+myTabedBrowser = "tabbed -c vimb -e"
+
+myMail :: String
+myMail = "st -e neomutt"
 
 myMusicplayer :: String
 myMusicplayer = "st -e cums"
@@ -68,7 +60,7 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 --myNormalBorderColor  = "dddddd"
 
-myFocusedBorderColor = "#bd93f9"
+myFocusedBorderColor = "#ff6ac1"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -79,7 +71,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       ((modm                  ,  xK_t                    ), spawn $ XMonad.terminal conf)
     , ((modm                  ,  xK_f                    ), spawn myFilemanager)
     , ((modm                  ,  xK_b                    ), spawn myBrowser)
+    , ((modm .|. shiftMask    ,  xK_b                    ), spawn myTabedBrowser)
     , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
+    , ((modm .|. shiftMask    ,  xK_m                    ), spawn myMail)
       -- prompts and memues
     , ((modm                  ,  xK_space                ), spawn("dmenu_run"))
     --, ((modm                  ,  xK_space                ), shellPrompt promptconfig)
@@ -94,7 +88,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                  ,  xK_Tab                  ), windows W.focusDown)
     , ((modm                  ,  xK_j                    ), windows W.focusDown)
     , ((modm                  ,  xK_k                    ), windows W.focusUp)
-    , ((modm                  ,  xK_m                    ), windows W.focusMaster)
     , ((modm                  ,  xK_Return               ), windows W.swapMaster)
       -- shift windows
     , ((modm .|. shiftMask    ,  xK_j                    ), windows W.swapDown)
@@ -118,8 +111,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0                     ,  xF86XK_AudioLowerVolume ), lowerVolume 4 >> return ())
     , ((0                     ,  xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
       -- backlight 
-    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbrightness -inc +5")    
-    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbrightness -dec +5")   
+    , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc +5")    
+    , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbacklight -dec +5")   
       -- searchengine sub maps
     , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                 
     , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                             

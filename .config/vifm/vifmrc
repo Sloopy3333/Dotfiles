@@ -332,6 +332,7 @@ nnoremap mf :touch<space>
 nnoremap md :mkdir<space>
 
 nnoremap gc :cd ~/.config<cr>
+nnoremap gh :cd ~<cr>
 nnoremap gw :cd ~/hdd/walls<cr>
 nnoremap gs :cd ~/hdd/screenshots<cr>
 nnoremap gm :cd ~/hdd/songs<cr>

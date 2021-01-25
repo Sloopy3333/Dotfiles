@@ -40,6 +40,7 @@ config.set("content.javascript.enabled", True, "chrome://*/*")
 config.set("content.javascript.enabled", True, "qute://*/*")
 
 # preferences
+c.url.start_pages = "/home/sam/.config/startpage/index.html"
 c.tabs.show = "multiple"
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",

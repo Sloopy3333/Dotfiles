@@ -69,7 +69,7 @@ set statusline+=%{StatuslineGit()}
 
 set statusline+=%#DraculaTodo#
 set statusline+=\ 
-set statusline+=%{toupper(g:currentmode[mode()])}
+"set statusline+=%{toupper(g:currentmode[mode()])}
 
 set statusline+=%#WildMenu#
 set statusline+=\ 

@@ -11,9 +11,9 @@ static const int user_bh            = 22;        /* 0 means that dwm will calcul
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 
-static const char *fonts[]          = { "Hack Bold:size=11:antialias=true:autohint=true",
+static const char *fonts[]          = { "Hack Nerd Font:size=11:antialias=true:autohint=true",
 					"JoyPixels:pixelsize=14:antialias=true:autohint=true"};
-static const char dmenufont[]       = "Hack Bold:size=10";
+static const char dmenufont[]       = "Hack Nerd Font:size=10";
 static const char col_black[]       = "#282a36";
 static const char col_white[]       = "#f1f1f0";
 static const char col_magenta[]     = "#ff79c6";
@@ -22,11 +22,11 @@ static const char col_purple[]      = "#bd93f9";
 static const char col_border[]      = "#5af78e";
 static const char *colors[][3]      = {
 	/*                 	fg         bg         border   */
-	[SchemeNorm] 	 =  { col_white,	col_black,	col_black },
-	[SchemeSel] 	 =  { col_black,	col_purple, 	col_border},
+	[SchemeNorm] 	 =  { col_purple,	col_black,	col_black },
+	[SchemeSel] 	 =  { col_purple,	col_black, 	col_border},
 	[SchemeStatus]   =  { col_white,	col_black, 	col_black  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  =  { col_black,	col_purple,	col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
-        [SchemeTagsNorm] =  { col_white,	col_black,	col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  =  { col_green,	col_black,	col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
+        [SchemeTagsNorm] =  { col_purple,	col_black,	col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
         [SchemeInfoSel]  =  { col_magenta,	col_black,	col_black  }, // infobar middle  selected {text,background,not used but cannot be empty}
         [SchemeInfoNorm] =  { col_magenta,	col_black,	col_black  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
@@ -91,7 +91,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_b,			   spawn,          SHCMD("firefox") },
 	{ MODKEY,                       XK_f,			   spawn,          SHCMD("st -e vifm") },
 	{ MODKEY,                       XK_m,			   spawn,          SHCMD("st -e cmus") },
-	{ MODKEY,                       XK_space,		   spawn,          SHCMD("rofi -show drun") },
+	{ MODKEY,                       XK_space,		   spawn,          SHCMD("dmenu_run") },
 	{ MODKEY,                       XK_x,			   spawn,          SHCMD("~/.config/xmenu/xmenu.sh") },
 	{ MODKEY,          	        XK_q,			   killclient,     {0} },
 	// window movement

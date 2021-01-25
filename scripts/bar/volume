@@ -1,12 +1,9 @@
 #!/bin/sh
 
 vol="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
-if [ "$vol" -gt "70" ]; then
-	icon="🔊"
-elif [ "$vol" -lt "30" ]; then
-	icon="🔈"
-else
-	icon="🔉"
+mute="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)\].*/\1/')"
+if [ $mute = off ]; then
+    printf "ﱝ M"
+else    
+    printf " %s"  "$vol"
 fi
-
-printf "%s %s\\n" "$icon" "$vol"

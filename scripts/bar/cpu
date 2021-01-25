@@ -1,7 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
 clock="$(cat /proc/cpuinfo | awk '/MHz/ {print $4;exit;}')"
-clockimg="💻"
 temp="$(sensors | awk '/Core 0/ {print substr($3,2)}')"
-tempicon="🌡"
-printf "%s %d MHz %s %s\\n" "$clockimg" "$clock" "$tempicon" "$temp"
+printf "  %.0f MHz   %s" "$clock" "$temp"

@@ -1,7 +1,7 @@
 #!/bin/sh
+wm=xmonad
 userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.config/X11/Xmodmap
-wm=xmonad
 xrdb -merge $userresources
 #xmodmap $usermodmap &
 #stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &
@@ -12,7 +12,7 @@ xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
 xsetroot -cursor_name left_ptr &
-if [ $wm = dwm ]; then
+if [ $wm = "dwm" ]; then
     dwmblocks &
 fi
 exec $wm

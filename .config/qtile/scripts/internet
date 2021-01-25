@@ -8,7 +8,7 @@ if [ $wifistatus = "up" ]; then
 elif [ $ethstatus = "up" ]; then
     essid="$(nmcli c | sed -n '2{p;q}' | awk '{print $5}')"
     quality=""
-elif [ -d /sys/class/net/enp0s20f0u1 ]; then
+elif [ -d /sys/class/net/enp0s20f0u* ]; then
     essid="$(nmcli c | sed -n '2{p;q}' | awk '{print $5}')"
     quality=""
 else
