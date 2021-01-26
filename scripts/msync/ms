@@ -6,32 +6,36 @@
 [ ! -f $XDG_CONFIG_HOME/mutt/globalrc ] && cp $XDG_BIN_HOME/msync/globalrc $XDG_CONFIG_HOME/mutt
 [ ! -f $XDG_CONFIG_HOME/mutt/muttrc ] && cp $XDG_BIN_HOME/msync/muttrc $XDG_CONFIG_HOME/mutt
 [ ! -d $XDG_CONFIG_HOME/mutt/accounts ] && mkdir $XDG_CONFIG_HOME/mutt/accounts 
+[ ! -d $XDG_CONFIG_HOME/mutt/pass ] && mkdir $XDG_CONFIG_HOME/mutt/pass 
 
 
 
 case $1 in
     -a)
 	read -p "enter mail id: " mailid
+	if grep -q $mailid $XDG_CONFIG_HOME/isync/mbsyncrc
+	then
+	echo "$mailid alredy exists"
+	else
+	read -p "password : " pass
 	read -p "imap server: " imapserver
 	read -p "imap port(default 993): " imapport
 	read -p "smtp server: " smtpserver
 	read -p "smtp port(default 587): " smtpport
-	read -p "Bitwarden search term (must be unique) : " searchterm
+#	read -p "Bitwarden search term (must be unique) : " searchterm
 	read -p "acount name: " name
 
 	[ -z $imapport ] && imapport=993
 	[ -z $smtpportport ] && smtpport=587
 	[ ! -d $XDG_DATA_HOME/mail/$mailid-$name ] && mkdir $XDG_DATA_HOME/mail/$mailid-$name && mkdir $XDG_DATA_HOME/mail/$mailid-$name/Sent && mkdir $XDG_DATA_HOME/mail/$mailid-$name/Drafts 
-if grep -q $searchterm $XDG_CONFIG_HOME/isync/mbsyncrc
-then
-echo "$mailid alredy exists"
-else
+	touch /tmp/$mailid && echo $pass > /tmp/$mailid 
+	gpg -r sudo@firemail.cc -e /tmp/$mailid && mv /tmp/$mailid.gpg $XDG_CONFIG_HOME/mutt/pass && shred /tmp/$mailid
 echo "# $mailid $name
 IMAPStore $name-remote
 Host $imapserver
 Port $imapport 
 User $mailid
-PassCmd \"bw get password $searchterm\"
+PassCmd \"gpg -d $XDG_CONFIG_HOME/mutt/pass/$mailid.gpg\"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -61,7 +65,7 @@ ExpireUnread no
 	   touch $XDG_CONFIG_HOME/mutt/accounts/$mailid-$name
 	   num=$(grep -srhwoc "[[:alnum:]]\+@[[:alnum:]]\+" $HOME/.config/mutt/muttrc | awk '{id = ($1/3)+1} END {print id}')
 echo "set smtp_url = "smtp://$mailid@$smtpserver:$smtpport"
-set smtp_pass = \`bw get password $searchterm\`
+set smtp_pass = \`gpg -q -d $XDG_CONFIG_HOME/mutt/pass/$mailid.gpg\`
 
 unmailboxes *
 set folder = "$XDG_DATA_HOME/mail/$mailid-$name"

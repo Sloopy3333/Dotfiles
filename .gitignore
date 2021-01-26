@@ -1,3 +1,5 @@
+.ghc/
+.librewolf/
 .Xauthority
 .config/vifm/*.json*
 .config/emacs

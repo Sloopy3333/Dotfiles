@@ -4,6 +4,9 @@ status="$(cat /sys/class/power_supply/BAT1/status)"
 estimated="$(acpi -b | grep -E 'remaining|until' | awk '{print $5}')"
 if [ $status = "Charging" ]; then 
    icon=""
+       if [ $cap -ge 85 ] ;then
+       notify-send "battery $cap"
+    fi
 fi
 if [ $status = "Discharging" ]; then
     icon=""

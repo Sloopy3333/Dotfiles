@@ -116,6 +116,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       -- searchengine sub maps
     , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                 
     , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                             
+    , ((modm                  ,  xK_equal               ), incWindowSpacing 4)                 
+    , ((modm                  ,  xK_minus               ), decWindowSpacing 4)                 
+    , ((modm .|. shiftMask    ,  xK_equal               ), incScreenSpacing 4)                 
+    , ((modm .|. shiftMask    ,  xK_minus               ), decScreenSpacing 4)                 
     ]
     ++
       --change workspace
@@ -250,7 +254,7 @@ main = do
         workspaces         = myWorkspaces,
         focusedBorderColor = myFocusedBorderColor,
         keys               = myKeys,
-        layoutHook         = spacingRaw True (Border 0 2 2 2) True (Border 2 2 2 2) True $ gaps [(U,25), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
+        layoutHook         = spacingRaw False (Border 0 2 2 2) True (Border 2 2 2 2) True $ gaps [(U,35), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ _topXmobarPP _topXmobar,

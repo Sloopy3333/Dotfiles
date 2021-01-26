@@ -11,6 +11,7 @@ xrdb -merge $userresources
 xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
+dunst &
 xsetroot -cursor_name left_ptr &
 if [ $wm = "dwm" ]; then
     dwmblocks &
