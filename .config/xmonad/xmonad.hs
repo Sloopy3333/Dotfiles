@@ -35,10 +35,10 @@ myFilemanager :: String
 myFilemanager = "st -e vifm"
 
 myBrowser :: String
-myBrowser = "vimb"
+myBrowser = "tabbed -c vimb -e"
 
 myTabedBrowser :: String
-myTabedBrowser = "tabbed -c vimb -e"
+myTabedBrowser = "librewolf"
 
 myMail :: String
 myMail = "st -e neomutt"
@@ -60,7 +60,7 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 --myNormalBorderColor  = "dddddd"
 
-myFocusedBorderColor = "#ff6ac1"
+myFocusedBorderColor = "#57c7ff"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -80,6 +80,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask    ,  xK_a                    ), bringMenu)
     , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
     , ((modm .|. controlMask  ,  xK_p                    ), spawn "~/scripts/dpower")
+    , ((modm .|. shiftMask    ,  xK_p                    ), spawn "passmenu")
        -- kill compile and exit
     , ((modm                  ,  xK_q                    ), kill)
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
@@ -205,6 +206,8 @@ myManageHook = composeAll
     [ className  =? "Steam"       --> doFloat
      ,className  =? "Pavucontrol" --> doFloat
      ,className  =? "vlc" --> doFloat
+     ,className  =? "Picture in picture" --> doFloat
+     ,className  =? "Freetube" --> doFloat
      ,className  =? "VirtualBox Manager" --> doFloat
      ,className =? "Steam"     --> doShift ( myWorkspaces !! 2 )
      ,className =? "csgo_linux64"     --> doShift ( myWorkspaces !! 3)]
@@ -254,7 +257,7 @@ main = do
         workspaces         = myWorkspaces,
         focusedBorderColor = myFocusedBorderColor,
         keys               = myKeys,
-        layoutHook         = spacingRaw False (Border 0 2 2 2) True (Border 2 2 2 2) True $ gaps [(U,35), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
+        layoutHook         = spacingRaw False (Border 0 4 4 4) True (Border 4 4 4 4) True $ gaps [(U,25), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ _topXmobarPP _topXmobar,

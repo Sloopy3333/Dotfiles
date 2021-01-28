@@ -1,0 +1,21 @@
+#
+# /home/sam/.config/nvidia/settings
+#
+# Configuration file for nvidia-settings - the NVIDIA X Server Settings utility
+# Generated on Thu Jan 28 23:11:16 2021
+#
+
+# ConfigProperties:
+
+RcFileLocale = C
+DisplayStatusBar = Yes
+SliderTextEntries = Yes
+IncludeDisplayNameInConfigFile = No
+ShowQuitDialog = Yes
+UpdateRulesOnProfileNameChange = Yes
+Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
+Timer = Thermal_Monitor_(GPU_0),Yes,1000
+Timer = Memory_Used_(GPU_0),Yes,3000
+
+# Attributes:
+

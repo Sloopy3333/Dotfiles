@@ -1,0 +1,70 @@
+#  -----------------------------foreground ----background ----------------------------- 
+#  general
+color indicator                 color016       color011
+color error		                color016	   color009
+color normal		            default		   default
+color prompt		            default	       default
+color search		            color016	   color010
+color status 		            color141	   color236
+color tilde		                color231	   default
+color tree		                color141	   default
+
+# message index 
+color  index		            color009		default 	~D # deleted messages
+color  index		            color014	    default 	~F # flagged messages
+color  index		            color010		default 	~N # new messages
+color  index		            color011		default 	~Q # messages which have been replied to
+color  index		            color215		default 	~T # tagged messages
+color  index		            color141		default		~v # messages part of a collapsed thread
+
+# message headers 
+color  hdrdefault	            color010		default
+color  header		            color010		default		"^(From|To|Cc|Bcc)"
+color  header		            color013		default		"^(Subject|Date)"
+
+# message body 
+color  attachment	            color011		default
+color  body		                color010		default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses
+color  body		                color045		default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs
+color  body		                color231		default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text
+color  body		                color231		default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text
+color  body		                color231		default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text
+color  quoted		            color61		    default
+color  quoted1		            color117		default
+color  quoted2		            color84		    default
+color  quoted3		            color215		default
+color  quoted4		            color212		default
+color  signature	            color212		default
+
+# Sidebar
+color  sidebar_divider          color009        default 
+color  sidebar_indicator        color016       	color011
+color  sidebar_highlight        color010  	   	default 
+color  sidebar_new              color212   	   	default
+color  sidebar_ordinary         default 	   	default
+
+# index color
+color  index_flags	            color009 		default 	".*"
+color  index_label              default		    default		
+color  index_date               color013        default
+color  index_author	            color010		default     ".*"
+color  index_subject	        color014		default     ".*"
+color  index_size               color009        default
+#
+# monochrome 
+mono  bold                      bold
+mono  underline                 underline                       
+mono  indicator                 reverse                        
+mono  error                     bold
+mono  header                    bold                            "^(From|Subject|Date|To|Cc|Bcc):"
+mono  quoted                    bold
+
+# Color if the attachment is autoviewed
+color  attach_headers           color010 	    default        "Autoview"
+
+# Color only the brackets around the headers
+color  attach_headers           color011    	default        "^\\[--"
+color  attach_headers           color011    	default        "--]$"
+
+# vi: ft=muttrc ts=4 sw=4 sts=4 et
+

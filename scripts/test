@@ -1,3 +1,5 @@
 #!/bin/sh
-num=$(grep -srhwoc "[[:alnum:]]\+@[[:alnum:]]\+" $HOME/.config/mutt/muttrc | awk '{id = $1/3} END {print id}')
-echo $num
+if [ -z "${XDG_CONFIG_HOME}" ]; then
+    echo "yes"
+fi
+#echo $XDG_CONFIG_HOME
