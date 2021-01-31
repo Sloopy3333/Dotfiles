@@ -10,7 +10,7 @@ set nowrap
 set smartcase
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir              " set a undo directory 
+set undodir=~/.local/share/vim/undodir             " set a undo directory 
 set undofile
 set incsearch
 set number relativenumber               " sets relative line number
@@ -28,32 +28,6 @@ filetype plugin on
 set ttyfast                             "for faster scrolling
 set lazyredraw                          "faster scrolling
 
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ '' : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
-" so $VIMRUNTIME/syntax/hitest.vim for colors name
-" status line
-"set statusline=
-"set statusline+=%#DraculaTodo#
-"set statusline+=\ %{toupper(g:currentmode[mode()])}
-"set statusline+=%{&modified?'[+]':''}
-"set statusline+=%r
-"set statusline+=%y
-"set statusline+=%r
-"set statusline+=\ %F
-"set statusline+=\ %=                     "rightside
-"set statusline+=%#DraculaSearch#
-"set statusline+=\ %c:%l/%L
-"set statusline+=\ %p%%
-"set statusline+=\ [%n]
-
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
@@ -63,10 +37,32 @@ function! StatuslineGit()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
+let g:currentmode={
+      \ 'n'  : 'Normal ',
+      \ 'no' : 'N·Operator Pending ',
+      \ 'v'  : 'Visual ',
+      \ 'V'  : 'V·Line ',
+      \ '^V' : 'V·Block ',
+      \ 's'  : 'Select ',
+      \ 'S'  : 'S·Line ',
+      \ 'x19' : 'S·Block ',
+      \ 'i'  : 'Insert ',
+      \ 'R'  : 'R ',
+      \ 'Rv' : 'V·Replace ',
+      \ 'c'  : 'Command ',
+      \ 'cv' : 'Vim Ex ',
+      \ 'ce' : 'Ex ',
+      \ 'r'  : 'Prompt ',
+      \ 'rm' : 'More ',
+      \ 'r?' : 'Confirm ',
+      \ '!'  : 'Shell ',
+      \ 't'  : 'Terminal '
+      \}
+
+" so $VIMRUNTIME/syntax/hitest.vim for colors name
 set statusline=
 set statusline+=%#DraculaSearch#
 set statusline+=%{StatuslineGit()}
-
 set statusline+=%#DraculaTodo#
 set statusline+=\ 
 set statusline+=%{toupper(g:currentmode[mode()])}
@@ -81,26 +77,21 @@ set statusline+=%#StatusLineTerm#
 set statusline+=%=
 
 set statusline+=%#DraculaSearch#
-" filetype
 set statusline+=%y
-" line info
 set statusline+=\ %c:%l/%L
 set statusline+=\ %p%%
 set statusline+=\ [%n]
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ %l:%c
-"set statusline+=\
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
 
-source $HOME/.config/nvim/plug-config/coc.vim
 " plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin('$XDG_DATA_HOME/vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ap/vim-css-color'
 Plug 'vifm/vifm.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'valloric/youcompleteme'
 call plug#end()
 

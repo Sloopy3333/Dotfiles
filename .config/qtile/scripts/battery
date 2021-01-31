@@ -1,8 +1,14 @@
 #!/bin/sh
-p="/sys/class/power_supply/BAT1/"
-
-mc=$(cat "$p/charge_full")
-cc=$(cat "$p/charge_now")
-prf "$((cc/$((mc/100))))"
-
-printf "%s" "$prf"
+cap="$(cat /sys/class/power_supply/BAT1/capacity)"
+status="$(cat /sys/class/power_supply/BAT1/status)"
+estimated="$(acpi -b | grep -E 'remaining|until' | awk '{print $5}')"
+if [ $status = "Charging" ]; then 
+   icon=""
+       if [ $cap -ge 85 ] ;then
+       notify-send "battery $cap"
+    fi
+fi
+if [ $status = "Discharging" ]; then
+    icon=""
+fi
+printf "%s %s (%s)" "$icon" "$cap" "$estimated"

@@ -5,14 +5,14 @@ from libqtile.lazy import lazy
 from libqtile.extension import CommandSet
 from libqtile.layout import MonadTall, MonadWide, Max, Floating
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
-from libqtile.widget import CurrentLayout, Image, GroupBox, Sep, WindowName, Battery, GenPollText, Systray
+from libqtile.widget import CurrentLayout, GroupBox, WindowName, GenPollText, Systray, TextBox, Sep
 
 
 mod = "mod4"
 terminal = "st"
 terminal_alt = "alacritty"
 browser = "tabbed -c vimb -e"
-browser_alt = "tabbed -c vimb -e"
+browser_alt = "librewolf"
 filemanager = "st -e vifm"
 filemanager_alt = "pcmanfm"
 email = "st -e neomutt"
@@ -102,7 +102,6 @@ for i in groups:
             Key( [mod, "shift"], i.name, lazy.window.togroup(i.name), desc=f"move focused window to group {i.name}"),
         ]
     )
-
 # Drag floating layouts.
 mouse = [
     Drag( [mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position(),),
@@ -110,24 +109,22 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
     #Click([],    "Button3", lazy.function(run_xmenu)),
 ]
-
 # bar color
-bar_colors = [
-    "#282a36",  # black
-    "#ff5555",  # red
-    "#5af78e",  # green
-    "#f1fa8c",  # yellow
-    "#57c7ff",  # blue
-    "#ff6ac1",  # magenta
-    "#8be9fd",  # cyan
-    "#f1f1f0",  # white
-    "#ffb86c",  # orange
-    "#6272a4",  # purple
-    "#44475a",  # light black
-]
+bar_colors = {
+    "black"           :   "#282a36",  # black
+    "red"             :   "#ff5555",  # red
+    "green"           :   "#5af78e",  # green
+    "yellow"          :   "#f1fa8c",  # yellow
+    "blue"            :   "#57c7ff",  # blue
+    "magenta"         :   "#ff6ac1",  # magenta
+    "cyan"            :   "#8be9fd",  # cyan
+    "white"           :   "#f1f1f0",  # white
+    "orange"          :   "#ffb86c",  # orange
+    "purple"          :   "#bd9cf9",  # purple
+}
 
 # borders
-border_focus = bar_colors[4]
+border_focus = bar_colors["blue"]
 border_width = 2
 margin = 10
 single_border_width = 0
@@ -166,7 +163,7 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = True
 cursor_warp = False
-floating_layout = Floating(border_focus = bar_colors[2],
+floating_layout = Floating(border_focus = bar_colors["green"],
     float_rules=[
         {"wmclass": "confirm"},
         {"wmclass": "dialog"},
@@ -213,185 +210,131 @@ groups = [
 
 wmname = "Qtile"
 widget_defaults = dict(
-    font="Hack Bold",
-    fontsize=13,
-    padding=3,
+    font="Hack Nerd Font Bold",
+    fontsize=14,
+    padding=5,
 )
 
 # calbacks
 
-
+#screens = []
 screens = [
     Screen(
         top=Bar(
             [
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/arch.png"),
-                    margin=2,
-                    background=bar_colors[4],
+                TextBox(text="",
+                    fontsize=18,
+                    foreground=bar_colors["blue"],
+                    background=bar_colors["black"],
                     mouse_callbacks = {"Button1":lambda qtile: qtile.cmd_spawn(expanduser("~/.config/xmenu/xmenu.sh"))},
-                ),
-                CurrentLayout(
-                    foreground=bar_colors[0], background=bar_colors[4]
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p8.png"),
-                    margin=0,
-                    background=bar_colors[0],
+                    ),
+                Sep(
+                    linewidth=10,
+                    foreground=bar_colors["black"],
+                    background=bar_colors["black"],
+                    size_percent=100,
                 ),
                 GroupBox(
                     margin_y=5,
                     padding_y=5,
                     padding_x=3,
                     borderwidth=3,
-                    background=bar_colors[3],
                     highlight_method="line",
-                    block_highlight_text_color=bar_colors[0],
-                    highlight_color=bar_colors[3],
-                    this_current_screen_border=bar_colors[0],
-                    active=bar_colors[1],
+                    background=bar_colors["black"],
+                    block_highlight_text_color=bar_colors["green"],
+                    highlight_color=bar_colors["black"],
+                    this_current_screen_border=bar_colors["purple"],
+                    active=bar_colors["yellow"],
+                    inactive=bar_colors["purple"],
                     markup=True,
                     center_aligned=True,
                     disable_drag=True,
                 ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p7.png"),
-                    margin=0,
-                    background=bar_colors[0],
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
+                CurrentLayout(
+                    foreground=bar_colors["magenta"], background=bar_colors["black"]
                 ),
-                Sep(
-                    linewidth=10,
-                    foreground=bar_colors[0],
-                    background=bar_colors[0],
-                    size_percent=100,
-                ),
-                WindowName(foreground=bar_colors[5], background=bar_colors[0]),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p1.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/cpu.png"),
-                    background=bar_colors[5],
-                    margin=2,
-                ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
+                WindowName(foreground=bar_colors["blue"],
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/cpu")).decode("utf-8"),
                     update_interval=5,
-                    foreground=bar_colors[0],
-                    background=bar_colors[5],
+                    foreground=bar_colors["magenta"],
+                    background=bar_colors["black"],
                 ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p2.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/memory.png"),
-                    background=bar_colors[8],
-                    margin=1,
-                ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/memory")).decode("utf-8"),
                     update_interval=5,
-                    foreground=bar_colors[0],
-                    background=bar_colors[8],
+                    foreground=bar_colors["yellow"],
+                    background=bar_colors["black"],
                 ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p3.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/wifi.png"),
-                    background=bar_colors[4],
-                    margin=3,
-                ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/internet")).decode("utf-8"),
                     update_interval=5,
-                    foreground=bar_colors[0],
-                    background=bar_colors[4],
+                    foreground=bar_colors["blue"],
+                    background=bar_colors["black"],
                     mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("st -e nmtui"),
                         "Button3":lambda qtile: qtile.cmd_spawn("st -e nmcli d wifi list --rescan yes"),
                         "Button2":lambda qtile: qtile.cmd_spawn("st -e nmtui")}
                 ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p4.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/battery.png"),
-                    background=bar_colors[2],
-                    margin=1,
-                ),
-                Battery(
-                    charge_char="AC",
-                    discharge_char="",
-                    low_foreground=bar_colors[1],
-                    low_percentage=0.2,
-                    format="{char} {percent:2.0%} ({hour:d}:{min:02d}) {watt:.2f} W",
-                    update_interval=30,
-                    background=bar_colors[2],
-                    foreground=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p5.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/brightness.png"),
-                    background=bar_colors[3],
-                    margin=2,
-                ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
+                GenPollText(
+                    func = lambda: check_output(expanduser("~/.config/qtile/scripts/battery")).decode("utf-8"),
+                    update_interval=5,
+                    foreground=bar_colors["green"],
+                    background=bar_colors["black"],
+                    ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     name = "backlight",
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/backlight")).decode("utf-8"),
                     update_interval=None,
-                    foreground=bar_colors[0],
-                    background=bar_colors[3],
+                    foreground=bar_colors["yellow"],
+                    background=bar_colors["black"],
                     mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("xbacklight -inc 5"),
                         "Button3":lambda qtile: qtile.cmd_spawn("xbacklight -dec 5"),
                         "Button2":lambda qtile: qtile.cmd_spawn("xbacklight -set 5")}
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/vol.png"),
-                    background=bar_colors[3],
-                    margin=4,
                 ),
                 GenPollText(
                     name = "volume",
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/volume")).decode("utf-8"),
                     update_interval=None,
-                    foreground=bar_colors[0],
-                    background=bar_colors[3],
+                    foreground=bar_colors["yellow"],
+                    background=bar_colors["black"],
                     mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%+"),
                         "Button3":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%-"),
                         "Button2":lambda qtile: qtile.cmd_spawn("amixer sset Master toggle")}
                 ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/p6.png"),
-                    margin=0,
-                    background=bar_colors[0],
-                ),
-                Image(
-                    filename=expanduser("~/.config/qtile/icons/calendar.png"),
-                    background=bar_colors[6],
-                    margin=4,
-                ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/clock")).decode("utf-8"),
                     update_interval=None,
-                    foreground=bar_colors[0],
-                    background=bar_colors[6],
+                    foreground=bar_colors["blue"],
+                    background=bar_colors["black"],
                 ),
-                Systray(background=bar_colors[0]),
+                Systray(background=bar_colors["black"]),
             ],
             size=20,
             opacity=1.0,
+            margin=[0,0,0,0]
         ),
     ),
 ]

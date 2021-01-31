@@ -1,3 +1,4 @@
 #!/bin/sh
 mem=$(free -m | sed -n '2{p;q}' | awk '{print $3}')
-printf "%s MB" "$mem"
+icon=""
+printf "%s %s MB" "$icon" "$mem"

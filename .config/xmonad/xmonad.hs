@@ -73,7 +73,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                  ,  xK_b                    ), spawn myBrowser)
     , ((modm .|. shiftMask    ,  xK_b                    ), spawn myTabedBrowser)
     , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
-    , ((modm .|. shiftMask    ,  xK_m                    ), spawn myMail)
+    , ((modm		      ,  xK_e                    ), spawn myMail)
       -- prompts and memues
     , ((modm                  ,  xK_space                ), spawn("dmenu_run"))
     --, ((modm                  ,  xK_space                ), shellPrompt promptconfig)
@@ -117,10 +117,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       -- searchengine sub maps
     , ((modm                  ,  xK_s                    ), SM.submap $ searchEngineMap $ S.promptSearch promptconfig)                 
     , ((modm .|. shiftMask    ,  xK_s                    ), SM.submap $ searchEngineMap $ S.selectSearch)                             
-    , ((modm                  ,  xK_equal               ), incWindowSpacing 4)                 
-    , ((modm                  ,  xK_minus               ), decWindowSpacing 4)                 
-    , ((modm .|. shiftMask    ,  xK_equal               ), incScreenSpacing 4)                 
-    , ((modm .|. shiftMask    ,  xK_minus               ), decScreenSpacing 4)                 
+    , ((modm                  ,  xK_equal                ), incWindowSpacing 4)                 
+    , ((modm                  ,  xK_minus                ), decWindowSpacing 4)                 
+    , ((modm .|. shiftMask    ,  xK_equal                ), incScreenSpacing 4)                 
+    , ((modm .|. shiftMask    ,  xK_minus                ), decScreenSpacing 4)                 
     ]
     ++
       --change workspace

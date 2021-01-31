@@ -1,5 +1,6 @@
 #! /bin/sh
 
 date="$(date +"%a %b %d %l:%M %p"| sed 's/  / /g')"
-printf "%s" "$date"
+icon=""
+printf "%s %s" "$icon" "$date"
 

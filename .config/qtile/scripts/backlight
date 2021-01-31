@@ -1,4 +1,5 @@
 #!/bin/sh
-
 sleep 0.3
-printf "%.0f" "$(xbacklight -get)"
+bri="$(xbacklight -get)"
+icon=""
+printf "%s %.0f" "$icon" "$(xbacklight -get)"
