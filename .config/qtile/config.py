@@ -50,12 +50,13 @@ keys = [
     Key([mod, "shift"],             "k",                        lazy.layout.shuffle_up(),                        desc="Move focused window up"),
     Key([mod, "shift"],             "h",                        lazy.layout.shuffle_left(),                      desc="Move focused window left"),
     Key([mod, "shift"],             "l",                        lazy.layout.shuffle_right(),                     desc="Move focused window right"),
+    Key([mod, "control"],           "Return",                   lazy.layout.flip(),                             desc="Flip windows"),
 
     # resize windows
     Key([mod, "control"],           "h",                        lazy.layout.shrink(),                            desc="Increase Master window size"),
     Key([mod, "control"],           "l",                        lazy.layout.grow(),                              desc="Decrease Master window size"),
     Key([mod, "control"],           "m",                        lazy.layout.maximize(),                          desc="Mazimize Master window size"),
-    Key([mod, "control"],           "r",                        lazy.layout.normalize(),                         desc="Normalize Master window size"),
+    Key([mod, "control"],           "r",                        lazy.layout.reset(),                             desc="Reset window size"),
 
     # layout modifires
     Key([mod],                      "n",                        lazy.next_layout(),                              desc="Toggle next layout"),
@@ -295,6 +296,7 @@ screens = [
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/battery")).decode("utf-8"),
                     update_interval=5,
+
                     foreground=bar_colors["green"],
                     background=bar_colors["black"],
                     ),

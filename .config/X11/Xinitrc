@@ -8,12 +8,11 @@ xrdb -merge $userresources
 #pasystray &
 #nm-applet &
 #picom &
-xbacklight -set 5 &
+#xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
+nitrogen --restore
 dunst &
 xsetroot -cursor_name left_ptr &
-if [ $wm = "dwm" ]; then
-    dwmblocks &
-fi
+[ $wm = "dwm" ] && dwmblocks &
 exec $wm

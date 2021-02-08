@@ -41,7 +41,7 @@ mark d ~/Downloads/
 " %m run the command in a menu window
 
 command! df df -h %m 2> /dev/null
-command! diff vim -d %f %F
+command! diff nvim -d %f %F
 command! zip zip -r %f.zip %f
 command! run !! ./%f
 command! make !!make %a
@@ -216,7 +216,7 @@ set classify=' :dir:/, :exe:, :reg:, :link:,? :?:, ::../::'
 set classify+=' ::.Xdefaults,,.Xresources,,.bashprofile,,.bash_profile,,.bashrc,,.dmrc,,.d_store,,.fasd,,.gitconfig,,.gitignore,,.jack-settings,,.mime.types,,.nvidia-settings-rc,,.pam_environment,,.profile,,.recently-used,,.selected_editor,,.xinitpurc,,.zprofile,,.yarnc,,.snclirc,,.tmux.conf,,.urlview,,.config,,.ini,,.user-dirs.dirs,,.mimeapps.list,,.offlineimaprc,,.msmtprc,,.Xauthority,,config::'
 set classify+=' ::dropbox::'
 set classify+=' ::favicon.*,,README,,readme::'
-set classify+=' ::.vim,,.vimrc,,.gvimrc,,.vifm::'
+set classify+=' ::.vim,,.vimrc,,.gvimrc,,init.vim,,.vifm::'
 set classify+=' ::gruntfile.coffee,,gruntfile.js,,gruntfile.ls::'
 set classify+=' ::gulpfile.coffee,,gulpfile.js,,gulpfile.ls::'
 set classify+=' ::ledger::'
