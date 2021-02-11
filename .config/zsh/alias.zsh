@@ -1,9 +1,7 @@
 #alias
 
 # ls
-alias ls="exa --color=always --group-directories-first"
-alias la="exa -a --color=always --group-directories-first"
-alias lla="exa -la --color=always --group-directories-first"
+alias ls='lsd'
 
 # grep
 alias grep="grep --color=auto"
@@ -27,6 +25,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias build='rm -f config.h && sudo make install'
 alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
+alias vifm='~/.config/vifm/scripts/vifmrun'
+alias aw='wiki-search'
 
 
 # devour

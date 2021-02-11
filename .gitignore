@@ -1,4 +1,5 @@
 .ghc/
+.git-credentia
 .librewolf/
 .Xauthority
 .config/vifm/*.json*

@@ -30,7 +30,7 @@ keys = [
     Key([mod],                      "f",                        lazy.spawn(filemanager),                         desc="Launch filemanager"),
     Key([mod,"shift"],              "f",                        lazy.spawn(filemanager_alt),                     desc="Launch alternative filemanager",),
     Key([mod],                      "e",                        lazy.spawn(email),                               desc="Launch neomutt"),
-    Key([mod, "shift"],             "p",                        lazy.spawn("/home/sam/scripts/passmenu"),        desc="Launch passmenu"),
+    Key([mod, "shift"],             "p",                        lazy.spawn(expanduser("~/scripts/passmenu")),    desc="Launch passmenu"),
     Key([mod],                      "q",                        lazy.window.kill(),                              desc="Kill focused window"),
 
     # qtile commands
