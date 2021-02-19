@@ -90,7 +90,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_b,			   spawn,          SHCMD("firefox") },
 	{ MODKEY,                       XK_f,			   spawn,          SHCMD("st -e vifm") },
 	{ MODKEY,                       XK_m,			   spawn,          SHCMD("st -e cmus") },
-	{ MODKEY,                       XK_space,		   spawn,          SHCMD("rofi -show drun") },
+	{ MODKEY,                       XK_space,		   spawn,          SHCMD("dmenu_run") },
 	{ MODKEY,                       XK_x,			   spawn,          SHCMD("~/.config/xmenu/xmenu.sh") },
 	{ MODKEY,          	        XK_q,			   killclient,     {0} },
 	// window movement

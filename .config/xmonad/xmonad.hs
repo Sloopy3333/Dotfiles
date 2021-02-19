@@ -102,14 +102,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask    ,  xK_t                    ), withFocused $ windows . W.sink)
       -- gaps and struts
     , ((modm .|. controlMask  ,  xK_g                    ), sendMessage $ ToggleGaps)
-    , ((modm .|. controlMask  ,  xK_f                    ), sendMessage ToggleStruts)
+    , ((modm .|. controlMask  ,  xK_f                    ), sendMessage  ToggleStruts)
       -- screenshots
     , ((modm                  ,  xK_Print                ), spawn "~/scripts/sc")
     , ((modm .|. shiftMask    ,  xK_Print                ), spawn "~/scripts/sc -s")
     , ((modm .|. controlMask  ,  xK_Print                ), spawn "~/scripts/sc -cs")
       -- volume
-    , ((0                     ,  xF86XK_AudioRaiseVolume ), raiseVolume 4 >> return())
-    , ((0                     ,  xF86XK_AudioLowerVolume ), lowerVolume 4 >> return ())
+    , ((0                     ,  xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
+    , ((0                     ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%+")
     , ((0                     ,  xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
       -- backlight 
     , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc +5")    
@@ -166,7 +166,7 @@ searchEngineMap method = M.fromList $
 
 promptconfig :: XPConfig
 promptconfig = def
-      { font                = "xft:Hacksize=11:Bold:antialias=true" 
+      { font                = "xft:Hack-Bold:size=11:Bold:antialias=true" 
       , bgColor             = "#282a36"
       , fgColor             = "#f8f8f2"
       , bgHLight            = "#c792ea"

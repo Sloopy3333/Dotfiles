@@ -1,0 +1,6 @@
+#!/bin/sh
+
+killall lemonbar
+killall lemonbarconf
+
+uname -r | lemonbar -p -d -g 1920x20+0+0 -F "#f1f1f0" -B "#282a36" -f "Hack Nerd Font" -12 | $SHELL

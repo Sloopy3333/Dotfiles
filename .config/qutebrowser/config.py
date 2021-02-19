@@ -1,3 +1,4 @@
+config.load_autoconfig(False)
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # Type: String
 # Valid values:
@@ -51,9 +52,55 @@ c.url.searchengines = {
     "yt": "https://www.youtube.com/results?search_query={}",
 }
 
+# colors
+mycolors = {
+    "black"           :   "#282a36",  # black
+    "red"             :   "#ff5555",  # red
+    "green"           :   "#5af78e",  # green
+    "yellow"          :   "#f1fa8c",  # yellow
+    "blue"            :   "#57c7ff",  # blue
+    "magenta"         :   "#ff6ac1",  # magenta
+    "cyan"            :   "#8be9fd",  # cyan
+    "white"           :   "#f1f1f0",  # white
+    "orange"          :   "#ffb86c",  # orange
+    "purple"          :   "#bd9cf9",  # purple
+}
+
 # dark mode
-# Type: Bool
 config.set("colors.webpage.darkmode.enabled", True)
+# completion
+c.colors.completion.category.bg = mycolors["black"]
+c.colors.completion.category.border.bottom = mycolors["black"]
+c.colors.completion.category.border.top = mycolors["black"]
+c.colors.completion.category.fg = mycolors["magenta"]
+c.colors.completion.even.bg = mycolors["black"]
+c.colors.completion.odd.bg = mycolors["black"]
+c.colors.completion.fg = [mycolors["green"], mycolors["blue"], mycolors["red"]]
+c.colors.completion.item.selected.bg = mycolors["purple"]
+c.colors.completion.item.selected.fg = mycolors["black"]
+c.colors.completion.item.selected.match.fg = mycolors["yellow"]
+c.colors.completion.match.fg = mycolors["yellow"]
+
+# statusbar
+c.colors.statusbar.caret.bg = mycolors["black"]
+c.colors.statusbar.caret.fg = mycolors["white"]
+c.colors.statusbar.caret.selection.bg = mycolors["black"]
+c.colors.statusbar.caret.selection.fg = mycolors["white"]
+c.colors.statusbar.command.bg = mycolors["black"]
+c.colors.statusbar.command.fg = mycolors["white"]
+c.colors.statusbar.insert.bg = mycolors["black"]
+c.colors.statusbar.insert.fg = mycolors["white"]
+c.colors.statusbar.normal.bg = mycolors["black"]
+c.colors.statusbar.normal.fg = mycolors["white"]
+
+c.colors.downloads.bar.bg = mycolors["blue"]
+c.colors.downloads.error.bg = mycolors["red"]
+c.colors.downloads.error.fg = mycolors["black"]
+
+c.colors.completion.scrollbar.fg = mycolors["black"]
+
+c.colors.keyhint.bg = mycolors["purple"]
+c.colors.keyhint.fg = mycolors["black"]
 
 c.aliases['ZZ'] = 'quit --save'
 # Bindings for normal mode
@@ -64,4 +111,3 @@ c.bindings.commands = {
         "xx": "config-cycle statusbar.show always never ;; config-cycle tabs.show always never",
     }
 }
-

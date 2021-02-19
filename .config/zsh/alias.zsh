@@ -27,6 +27,8 @@ alias build='rm -f config.h && sudo make install'
 alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
 alias vifm='~/.config/vifm/scripts/vifmrun'
 alias aw='wiki-search'
+alias cat='bat'
+alias yay='paru'
 
 
 # devour

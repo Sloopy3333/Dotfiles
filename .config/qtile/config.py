@@ -5,13 +5,13 @@ from libqtile.lazy import lazy
 from libqtile.extension import CommandSet
 from libqtile.layout import MonadTall, MonadWide, Max, Floating
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
-from libqtile.widget import CurrentLayout, GroupBox, WindowName, GenPollText, Systray, TextBox, Sep
+from libqtile.widget import CurrentLayout, GroupBox, WindowName, GenPollText, TextBox, Sep
 
 
 mod = "mod4"
 terminal = "st"
 terminal_alt = "alacritty"
-browser = "tabbed -c vimb -e"
+browser = "qutebrowser"
 browser_alt = "librewolf"
 filemanager = "st -e vifm"
 filemanager_alt = "pcmanfm"
@@ -26,7 +26,6 @@ keys = [
     Key([mod],                      "b",                        lazy.spawn(browser),                             desc="Launch browser"),
     Key([mod,"shift"],              "b",                        lazy.spawn(browser_alt),                         desc="Launch alternative browser"),
     Key([mod],                      "m",                        lazy.spawn(musicplayer),                         desc="Launch musicplayer"),
-    Key([mod,"shift"],              "m",                        lazy.spawn(email),                               desc="Launch neomutt"),
     Key([mod],                      "f",                        lazy.spawn(filemanager),                         desc="Launch filemanager"),
     Key([mod,"shift"],              "f",                        lazy.spawn(filemanager_alt),                     desc="Launch alternative filemanager",),
     Key([mod],                      "e",                        lazy.spawn(email),                               desc="Launch neomutt"),
@@ -125,7 +124,7 @@ bar_colors = {
 }
 
 # borders
-border_focus = bar_colors["blue"]
+border_focus = bar_colors["purple"]
 border_width = 2
 margin = 10
 single_border_width = 0
@@ -263,6 +262,9 @@ screens = [
                 WindowName(foreground=bar_colors["blue"],
                     background=bar_colors["black"]
                     ),
+                TextBox(text="|",
+                    background=bar_colors["black"]
+                    ),
                 GenPollText(
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/cpu")).decode("utf-8"),
                     update_interval=5,
@@ -307,7 +309,7 @@ screens = [
                     name = "backlight",
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/backlight")).decode("utf-8"),
                     update_interval=None,
-                    foreground=bar_colors["yellow"],
+                    foreground=bar_colors["purple"],
                     background=bar_colors["black"],
                     mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("xbacklight -inc 5"),
                         "Button3":lambda qtile: qtile.cmd_spawn("xbacklight -dec 5"),
@@ -317,7 +319,7 @@ screens = [
                     name = "volume",
                     func = lambda: check_output(expanduser("~/.config/qtile/scripts/volume")).decode("utf-8"),
                     update_interval=None,
-                    foreground=bar_colors["yellow"],
+                    foreground=bar_colors["purple"],
                     background=bar_colors["black"],
                     mouse_callbacks={"Button1":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%+"),
                         "Button3":lambda qtile: qtile.cmd_spawn("amixer sset Master 5%-"),
@@ -332,7 +334,6 @@ screens = [
                     foreground=bar_colors["blue"],
                     background=bar_colors["black"],
                 ),
-                Systray(background=bar_colors["black"]),
             ],
             size=20,
             opacity=1.0,
