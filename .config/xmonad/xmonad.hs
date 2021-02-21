@@ -10,7 +10,6 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
 import XMonad.Actions.Submap
 import Graphics.X11.ExtraTypes.XF86
-import XMonad.Actions.Volume
 import XMonad.Prompt
 import XMonad.Prompt.Man
 import XMonad.Actions.WindowBringer
@@ -60,7 +59,7 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 --myNormalBorderColor  = "dddddd"
 
-myFocusedBorderColor = "#57c7ff"
+myFocusedBorderColor = "#bd9cf9"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -109,7 +108,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask  ,  xK_Print                ), spawn "~/scripts/sc -cs")
       -- volume
     , ((0                     ,  xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
-    , ((0                     ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%+")
+    , ((0                     ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%-")
     , ((0                     ,  xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
       -- backlight 
     , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc +5")    
