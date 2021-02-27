@@ -3,7 +3,6 @@
 import XMonad
 import System.Exit
 import XMonad.Hooks.ManageDocks
-import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Hooks.DynamicLog
@@ -13,23 +12,31 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-myTerminal :: String
-myTerminal = "st"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
 
+myTerminal :: String
+myTerminal = "st"
+
+myTerminalAlt :: String
+myTerminalAlt = "alacritty"
+
 myFilemanager :: String
 myFilemanager = "st -e vifm"
+
+myFilemanagerAlt :: String
+myFilemanagerAlt = "pcmanfm"
 
 myBrowser :: String
 myBrowser = "tabbed -c vimb -e"
 
-myTabedBrowser :: String
-myTabedBrowser = "librewolf"
+myBrowserAlt :: String
+myBrowserAlt = "librewolf"
 
 myMail :: String
 myMail = "st -e neomutt"
@@ -49,22 +56,24 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 --myNormalBorderColor  = "dddddd"
 
-myFocusedBorderColor = "#bd9cf9"
+myFocusedBorderColor = "#ff6ac1"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ 
-      -- spawm applications
-      ((modm                  ,  xK_t                    ), spawn $ XMonad.terminal conf)
+      -- spawn applications
+      ((modm                  ,  xK_t                    ), spawn myTerminal)
+    , ((modm.|. shiftMask     ,  xK_t                    ), spawn myTerminalAlt)
     , ((modm                  ,  xK_f                    ), spawn myFilemanager)
+    , ((modm.|. shiftMask     ,  xK_f                    ), spawn myFilemanagerAlt)
     , ((modm                  ,  xK_b                    ), spawn myBrowser)
-    , ((modm .|. shiftMask    ,  xK_b                    ), spawn myTabedBrowser)
+    , ((modm .|. shiftMask    ,  xK_b                    ), spawn myBrowserAlt)
     , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
     , ((modm                  ,  xK_e                    ), spawn myMail)
 
-      -- prompts and memues
+      -- prompts and menues
     , ((modm                  ,  xK_space                ), spawn("dmenu_run"))
     , ((modm .|. shiftMask    ,  xK_a                    ), bringMenu)
     , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
@@ -96,7 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask  ,  xK_t                    ), withFocused $ windows . W.sink)
 
       -- gaps and struts
-    , ((modm .|. controlMask  ,  xK_f                    ), sequence_ [sendMessage  ToggleStruts ,sendMessage ToggleGaps])
+   , ((modm .|. controlMask  ,  xK_f                    ), sequence_ [sendMessage  ToggleStruts ,toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
     , ((modm                  ,  xK_equal                ), incWindowSpacing 4)
     , ((modm                  ,  xK_minus                ), decWindowSpacing 4)
     , ((modm .|. shiftMask    ,  xK_equal                ), incScreenSpacing 4)
@@ -108,13 +117,17 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask  ,  xK_Print                ), spawn "~/scripts/sc -cs")
 
       -- volume
-    , ((0                     ,  xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
-    , ((0                     ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%-")
     , ((0                     ,  xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
+    , ((0                     ,  xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
+    , ((modm                  ,  xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 10%+")
+    , ((0                     ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%-")
+    , ((modm                  ,  xF86XK_AudioLowerVolume ), spawn "amixer sset Master 10%-")
 
       -- backlight 
     , ((0                     ,  xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc +5")    
+    , ((modm                  ,  xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc +10")    
     , ((0                     ,  xF86XK_MonBrightnessDown), spawn "xbacklight -dec +5")   
+    , ((modm                  ,  xF86XK_MonBrightnessDown), spawn "xbacklight -dec +10")   
     ]
     ++
       --change workspace
@@ -146,7 +159,8 @@ myLayout = avoidStruts( Tall 1 (3/100) (1/2) ||| Full ||| simpleTabbed)
 -- Window rules:
 
 myManageHook = composeAll
-    [ className  =? "Steam"       --> doFloat
+    [ manageDocks
+     ,className  =? "Steam"       --> doFloat
      ,className  =? "Pavucontrol" --> doFloat
      ,className  =? "vlc" --> doFloat
      ,className  =? "Picture in picture" --> doFloat
@@ -199,7 +213,7 @@ main = do
         workspaces         = myWorkspaces,
         focusedBorderColor = myFocusedBorderColor,
         keys               = myKeys,
-        layoutHook         = spacingRaw True (Border 0 4 4 4) True (Border 4 4 4 4) True $ gaps [(U,26), (D,6), (R,6), (L,6)] $ smartBorders $ myLayout,
+        layoutHook         = spacingRaw False (Border 0 6 0 6) True (Border 6 0 6 0) True $ smartBorders $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ _topXmobarPP _topXmobar,
