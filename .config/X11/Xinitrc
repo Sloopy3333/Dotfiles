@@ -1,5 +1,5 @@
 #!/bin/sh
-wm=qtile
+wm=xmonad
 userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.config/X11/Xmodmap
 xrdb -merge $userresources

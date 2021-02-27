@@ -2,4 +2,5 @@
 
 clock="$(cat /proc/cpuinfo | awk '/MHz/ {print $4;exit;}')"
 temp="$(sensors | awk '/Core 0/ {print substr($3,2)}')"
-printf "  %.0f MHz   %s" "$clock" "$temp"
+printf "   %.0f MHz   %s" "$clock" "$temp"
+
