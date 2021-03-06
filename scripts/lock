@@ -1,0 +1,2 @@
+#!/bin/sh
+slock -m "$(date +"%a %b %d %l:%M %p"| sed 's/  / /g')"

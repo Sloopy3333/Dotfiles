@@ -1,4 +1,0 @@
-#!/bin/sh
-
-backlight="$(xbacklight -get)"
-printf "%.0f" "$backlight"

@@ -92,15 +92,15 @@ c.colors.statusbar.insert.bg = mycolors["black"]
 c.colors.statusbar.insert.fg = mycolors["white"]
 c.colors.statusbar.normal.bg = mycolors["black"]
 c.colors.statusbar.normal.fg = mycolors["white"]
-
 c.colors.downloads.bar.bg = mycolors["blue"]
 c.colors.downloads.error.bg = mycolors["red"]
 c.colors.downloads.error.fg = mycolors["black"]
+c.statusbar.show = "never"
 
 c.colors.completion.scrollbar.fg = mycolors["black"]
 
-c.colors.keyhint.bg = mycolors["purple"]
-c.colors.keyhint.fg = mycolors["black"]
+c.colors.keyhint.bg = mycolors["black"]
+c.colors.keyhint.fg = mycolors["magenta"]
 
 c.aliases['ZZ'] = 'quit --save'
 # Bindings for normal mode

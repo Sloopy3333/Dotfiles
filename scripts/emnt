@@ -7,19 +7,12 @@
 
 # creates dir if doesnt exists 
 DIR=$HOME/external
-if [ ! -d $DIR ]
-    then
-	mkdir $HOME/external
-fi
+[ ! -d $DIR ] && mkdir $HOME/external
 
 mount () {
     DEV_LIST=$(simple-mtpfs -l)
 
-    if [ ! -n DEV_LIST ] 
-	then
-	    echo "no device found"
-	    exit
-    fi
+     [ ! -n DEV_LIST ] && echo "no device found" && exit
     DEV_SELECTED=$(echo "$DEV_LIST" | dmenu -p "selct device to mount")
     SELECTED_ID=$(echo $DEV_SELECTED |  sed 's/ //g'|cut -d':' -f1)
     SELECTED_NAME=$(echo $DEV_SELECTED |  sed 's/ //g'|cut -d':' -f2)

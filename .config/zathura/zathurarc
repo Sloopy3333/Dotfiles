@@ -28,8 +28,8 @@ set statusbar-fg                "#f8f8f2" # Foreground
 set highlight-color             "#ffb86c" # Orange
 set highlight-active-color      "#ff79c6" # Pink
 
-set default-bg                  "#282a36" # Background
-set default-fg                  "#f8f8f2" # Foreground
+set default-bg                  "#f8f8f2" # Background
+set default-fg                  "#282a36" # Foreground
 
 set render-loading              true
 set render-loading-fg           "#f8f8f2" # Background

@@ -1,3 +1,1 @@
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx "$HOME/.config/X11/Xinitrc"
-fi
+[[ ! $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx "$HOME/.config/X11/Xinitrc"

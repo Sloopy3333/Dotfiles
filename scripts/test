@@ -1,5 +1,0 @@
-#!/bin/sh
-if [ -z "${XDG_CONFIG_HOME}" ]; then
-    echo "yes"
-fi
-#echo $XDG_CONFIG_HOME

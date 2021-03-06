@@ -10,10 +10,11 @@ import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.WindowBringer
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
+import XMonad.Actions.Submap
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
+
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -27,16 +28,16 @@ myTerminalAlt :: String
 myTerminalAlt = "alacritty"
 
 myFilemanager :: String
-myFilemanager = "st -e vifm"
+myFilemanager = "st -e lf"
 
 myFilemanagerAlt :: String
 myFilemanagerAlt = "pcmanfm"
 
 myBrowser :: String
-myBrowser = "tabbed -c vimb -e"
+myBrowser = "qutebrowser"
 
 myBrowserAlt :: String
-myBrowserAlt = "librewolf"
+myBrowserAlt = "firefox"
 
 myMail :: String
 myMail = "st -e neomutt"
@@ -54,8 +55,6 @@ myBorderWidth   = 2
 
 myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
---myNormalBorderColor  = "dddddd"
-
 myFocusedBorderColor = "#ff6ac1"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,20 +69,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm.|. shiftMask     ,  xK_f                    ), spawn myFilemanagerAlt)
     , ((modm                  ,  xK_b                    ), spawn myBrowser)
     , ((modm .|. shiftMask    ,  xK_b                    ), spawn myBrowserAlt)
-    , ((modm                  ,  xK_m                    ), spawn myMusicplayer)
-    , ((modm                  ,  xK_e                    ), spawn myMail)
-
-      -- prompts and menues
+    , ((modm .|. shiftMask    ,  xK_m                    ), spawn myMusicplayer)
+    , ((modm                  ,  xK_m                    ), spawn myMail)
     , ((modm                  ,  xK_space                ), spawn("dmenu_run"))
-    , ((modm .|. shiftMask    ,  xK_a                    ), bringMenu)
-    , ((modm                  ,  xK_x                    ), spawn "~/.config/xmenu/xmenu.sh")
-    , ((modm .|. controlMask  ,  xK_p                    ), spawn "~/scripts/dpower")
-    , ((modm .|. shiftMask    ,  xK_p                    ), spawn "passmenu")
 
-       -- kill compile and exit
+       -- kill compile exit lock
     , ((modm                  ,  xK_q                    ), kill)
     , ((modm                  ,  xK_c                    ), spawn "xmonad --recompile; xmonad --restart")
     , ((modm .|. shiftMask    ,  xK_c                    ), io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask    ,  xK_x                    ), spawn "~/scripts/lock")
 
       -- layout change focus
     , ((modm                  ,  xK_Tab                  ), windows W.focusDown)
@@ -105,11 +99,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask  ,  xK_t                    ), withFocused $ windows . W.sink)
 
       -- gaps and struts
-   , ((modm .|. controlMask  ,  xK_f                    ), sequence_ [sendMessage  ToggleStruts ,toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
-    , ((modm                  ,  xK_equal                ), incWindowSpacing 4)
-    , ((modm                  ,  xK_minus                ), decWindowSpacing 4)
-    , ((modm .|. shiftMask    ,  xK_equal                ), incScreenSpacing 4)
-    , ((modm .|. shiftMask    ,  xK_minus                ), decScreenSpacing 4)
+    , ((modm .|. controlMask  ,  xK_f                    ), sequence_ [sendMessage  ToggleStruts ,toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
+    , ((modm                  ,  xK_equal                ), sequence_[incWindowSpacing 2, incScreenSpacing 2])
+    , ((modm                  ,  xK_minus                ), sequence_[decWindowSpacing 2, decScreenSpacing 2])
 
       -- screenshots
     , ((modm                  ,  xK_Print                ), spawn "~/scripts/sc")
@@ -137,9 +129,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ++
      --move windows to workspaces
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))                                                    
-        | (key, sc) <- zip [xK_w, xK_e, xK_i
-        ] [0..]
+        | (key, sc) <- zip [xK_w, xK_e, xK_i] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]  
+    ++
+    -- prompt submap
+     [((modm, xK_p), 	 submap . M.fromList $
+       [ ((0, xK_s),     spawn "~/scripts/dpower")
+       , ((0, xK_p),     spawn "~/scripts/passmenu")
+       , ((0, xK_m),     spawn "~/scripts/dman")
+       ])]
 -------------------------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
@@ -163,7 +161,7 @@ myManageHook = composeAll
      ,className  =? "Steam"       --> doFloat
      ,className  =? "Pavucontrol" --> doFloat
      ,className  =? "vlc" --> doFloat
-     ,className  =? "Picture in picture" --> doFloat
+     ,title  =? "Picture in Picture" --> doFloat
      ,className  =? "Freetube" --> doFloat
      ,className  =? "VirtualBox Manager" --> doFloat
      ,className =? "Steam"     --> doShift ( myWorkspaces !! 2 )

@@ -5,16 +5,10 @@
 #	xwallpaper
 
 # checks if directory exists 
-if [ ! -d /home/$USER/.config/walli ];
-then
-    mkdir /home/$USER/.config/walli
-fi
+[ ! -d /home/$USER/.config/walli ] && mkdir /home/$USER/.config/walli
 
 # checks if wallpaper file exists 
-if [ ! -f /home/$USER/.config/walli/wallpaper ];
-then
-    touch /home/$USER/.config/walli/wallpaper
-fi
+[ ! -f /home/$USER/.config/walli/wallpaper ] && touch /home/$USER/.config/walli/wallpaper
 
 # to add multiple directories add dir path as space seperated list eg WALL_DIR=("path1" "path2")
 WALL_DIR=~/hdd/walls
@@ -27,10 +21,7 @@ case $1 in
      # set new wallpaper 
     *)
 	SELECTED=$(devour sxiv -o -q -r -t $WALL_DIR)
-	if [ "$SELECTED" = "" ];
-	    then
-		exit
-	fi
+	[ "$SELECTED" = "" ] && exit
 	echo $SELECTED > ~/.config/walli/wallpaper
 	xwallpaper $OPT $SELECTED
 	;;

@@ -33,7 +33,6 @@ set lazyredraw                          "faster scrolling
 call plug#begin('$XDG_DATA_HOME/vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ap/vim-css-color'
-Plug 'vifm/vifm.vim'
 Plug 'valloric/youcompleteme'
 call plug#end()
 
@@ -43,15 +42,10 @@ hi Normal guibg=none
 hi Normal ctermbg=none
 
 "netrw
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
+"let g:loaded_netrw       = 1
+"let g:loaded_netrwPlugin = 1
 
 
-" vifm
-let g:vifm_replace_netrw = 1
-let g:vifm_replace_netrw_cmd = "Vifm"
-let g:vifm_embed_term = 1
-"let g:vifm_embed_split = 1
 
 
 

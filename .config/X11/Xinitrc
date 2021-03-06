@@ -4,14 +4,10 @@ userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.config/X11/Xmodmap
 xrdb -merge $userresources
 #xmodmap $usermodmap &
-#stalonetray -c ~/.config/stalonetrayrc/.stalonetrayrc &
-#pasystray &
-#nm-applet &
 #picom &
 #xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
-nitrogen --restore
 dunst &
 xsetroot -cursor_name left_ptr &
 [ $wm = "dwm" ] && dwmblocks &
