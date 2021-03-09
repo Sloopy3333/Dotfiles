@@ -106,6 +106,7 @@ fi
 	;;
     -s)
 	mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc -a $2
+	;;
     -t)
 	read -p "time to start sync after boot (default 2 min) :" afterboot
 	read -p "time interval for successive sync (default 15min) :" interval

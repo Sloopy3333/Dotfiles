@@ -1,0 +1,54 @@
+# set
+
+always-display-description no
+always-download "https://archlinux.org/feeds/news/"
+browser "devour firefox %u"
+confirm-mark-all-feeds-read yes
+download-full-page yes
+# key-bindings
+
+unbind-key ENTER
+unbind-key q
+unbind-key Q
+unbind-key r
+unbind-key R
+unbind-key A
+unbind-key C
+unbind-key n
+unbind-key p
+unbind-key ^R
+unbind-key ^K
+
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+bind-key ZZ hard-quit
+bind-key J next
+bind-key K prev
+bind-key L next-unread
+bind-key H prev-unread
+bind-key s reload
+bind-key S reload-all
+bind-key ^S reload-urls
+bind-key r mark-feed-read
+bind-key R mark-all-feeds-read
+bind-key ^R random-unread
+bind-key ^D pagedown
+bind-key ^U pageup
+
+# colors
+# element		#fg		#bg
+color background 	default 	default
+color listnormal 	default 	default
+color listnormal_unread default 	default
+color listfocus 	color16 	color10 
+color listfocus_unread 	color16 	color10 
+color info		color13		default bold
+color article		default		default
+
+# highlight
+
+highlight article "^Feed:.*|^Title:.*|^Author:.*|^Date:.*"  color10 default bold
+highlight article "^Link:.*"	    color45 default bold
+highlight article "https?://[^ ]+"  color45 default underline

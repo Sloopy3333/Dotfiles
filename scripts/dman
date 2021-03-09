@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/dash
 
 manual="$(man -k . | awk '{print $1}'| dmenu -p Man)"
 devour st -e man $manual

@@ -4,8 +4,6 @@ userresources=$HOME/.config/X11/Xresources
 usermodmap=$HOME/.config/X11/Xmodmap
 xrdb -merge $userresources
 #xmodmap $usermodmap &
-#picom &
-#xbacklight -set 5 &
 sudo $HOME/scripts/powertop_fix.sh &
 $HOME/scripts/walli -r &
 dunst &
